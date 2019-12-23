@@ -1,37 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using TraderForPoe.Classes;
+using TraderForPoe.ViewModel.Base;
 
 namespace TraderForPoe.ViewModel
 {
-    class StashGridViewModel : ViewModelBase
+    internal class StashGridViewModel : ViewModelBase
     {
-        private static StashGridViewModel instance;
+        private static StashGridViewModel _instance;
 
-        DispatcherTimer timerPoeLocation = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(500) };
+        private readonly DispatcherTimer _timerPoeLocation = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(500) };
 
         public StashGridViewModel()
         {
-            timerPoeLocation.Tick += TimerPoeLocation_Tick;
-            timerPoeLocation.Start();
+            _timerPoeLocation.Tick += TimerPoeLocation_Tick;
+            _timerPoeLocation.Start();
         }
 
         private void TimerPoeLocation_Tick(object sender, EventArgs e)
         {
-            WinAPI.GetClientRect(Poe.GetHandle(), out WinAPI.RECT clientRect);
-            WinAPI.GetWindowRect(Poe.GetHandle(), out WinAPI.RECT windowRect);
+            WinApi.GetClientRect(Poe.GetHandle(), out var clientRect);
+            WinApi.GetWindowRect(Poe.GetHandle(), out WinApi.Rect windowRect);
 
             double borderSize = (windowRect.Right - (windowRect.Left + clientRect.Right)) / 2;
-            double titleBarSize = (windowRect.Bottom - (windowRect.Top + clientRect.Bottom)) - borderSize;
+            var titleBarSize = (windowRect.Bottom - (windowRect.Top + clientRect.Bottom)) - borderSize;
 
-            double x = windowRect.Left + borderSize;
-            double y = windowRect.Top + titleBarSize;
+            var x = windowRect.Left + borderSize;
+            var y = windowRect.Top + titleBarSize;
             double h = clientRect.Bottom;
             double w = clientRect.Right;
             
@@ -128,28 +123,18 @@ namespace TraderForPoe.ViewModel
 
         }
 
-        public static StashGridViewModel Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new StashGridViewModel();
-                }
-                return instance;
-            }
-        }
+        public static StashGridViewModel Instance => _instance ?? (_instance = new StashGridViewModel());
 
-        private double windowLocationLeft;
+        private double _windowLocationLeft;
         public double WindowLocationLeft
         {
-            get { return windowLocationLeft; }
+            get => _windowLocationLeft;
             set
             {
-                if (windowLocationLeft != value)
+                if (_windowLocationLeft != value)
                 {
-                    windowLocationLeft = value;
-                    this.OnPropertyChanged();
+                    _windowLocationLeft = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -157,48 +142,48 @@ namespace TraderForPoe.ViewModel
 
 
 
-        private double windowLocationTop;
+        private double _windowLocationTop;
         public double WindowLocationTop
         {
-            get { return windowLocationTop; }
+            get => _windowLocationTop;
             set
             {
-                if (windowLocationTop != value)
+                if (_windowLocationTop != value)
                 {
-                    windowLocationTop = value;
-                    this.OnPropertyChanged();
+                    _windowLocationTop = value;
+                    OnPropertyChanged();
                 }
             }
         }
 
 
 
-        private double windowHeight;
+        private double _windowHeight;
         public double WindowHeight
         {
-            get { return windowHeight; }
+            get => _windowHeight;
             set
             {
-                if (windowHeight != value)
+                if (_windowHeight != value)
                 {
-                    windowHeight = value;
-                    this.OnPropertyChanged();
+                    _windowHeight = value;
+                    OnPropertyChanged();
                 }
             }
         }
 
 
 
-        private double windowWidth;
+        private double _windowWidth;
         public double WindowWidth
         {
-            get { return windowWidth; }
+            get => _windowWidth;
             set
             {
-                if (windowWidth != value)
+                if (_windowWidth != value)
                 {
-                    windowWidth = value;
-                    this.OnPropertyChanged();
+                    _windowWidth = value;
+                    OnPropertyChanged();
                 }
             }
         }

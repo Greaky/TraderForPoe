@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using static System.String;
 
 namespace TraderForPoe.Classes
 {
 
     public enum ItemType
     {
-        UNKNOWN, CHAOS, ALCHCHEMY, ALTERATION, ANCIENT, ANNULMENT, APPRENTICE_SEXTANT,
+        UNKNOWN, CHAOS, ALCHEMY, ALTERATION, ANCIENT, ANNULMENT, APPRENTICE_SEXTANT,
         ARMOUR_SCRAP, AUGMENTATION, BAUBLE, BESTIARY_ORB, BINDING_ORB, BLACKSMITH_WHETSTONE,
         BLESSING_CHAYULAH, BLESSING_ESH, BLESSING_TUL, BLESSING_UUL, BLESSING_XOPH, BLESSE,
         CHANCE, CHISEL, CHROM, DIVINE, ENGINEER, ETERNAL, EXALTED, FUSING, GEMCUTTERS, HARBINGER_ORB,
@@ -27,288 +24,235 @@ namespace TraderForPoe.Classes
     {
         public ItemBase(string itemArg, decimal amountArg = 1)
         {
-            this.itemAsString = itemArg;
-            this.amount = amountArg;
-            this.itemAsType = GetItemType(itemArg);
-            this.itemImage = GetItemImage(itemAsType);
+            ItemAsString = itemArg;
+            Amount = amountArg;
+            ItemAsType = GetItemType(itemArg);
+            Image = GetItemImage(ItemAsType);
         }
 
         private ItemType GetItemType(string s)
         {
-            if (!String.IsNullOrEmpty(s))
+            if (!IsNullOrEmpty(s))
             {
-                string strPrice = s.ToLower();
+                var strPrice = s.ToLower();
 
                 if (strPrice.Contains("chaos") && !strPrice.Contains("shard"))
                 {
                     return ItemType.CHAOS;
                 }
 
-                else if (strPrice.Contains("alch") && !strPrice.Contains("shard"))
+                if (strPrice.Contains("alch") && !strPrice.Contains("shard"))
                 {
-                    return ItemType.ALCHCHEMY;
+                    return ItemType.ALCHEMY;
                 }
-
-                else if (strPrice.Contains("alt") && !strPrice.Contains("ex"))
+                if (strPrice.Contains("alt") && !strPrice.Contains("ex"))
                 {
                     return ItemType.ALTERATION;
                 }
-
-                else if (strPrice.Contains("ancient"))
+                if (strPrice.Contains("ancient"))
                 {
                     return ItemType.ANCIENT;
                 }
-
-                else if (strPrice.Contains("annulment") && !strPrice.Contains("shard"))
+                if (strPrice.Contains("annulment") && !strPrice.Contains("shard"))
                 {
                     return ItemType.ANNULMENT;
                 }
-
-                else if (strPrice.Contains("apprentice") && strPrice.Contains("sextant"))
+                if (strPrice.Contains("apprentice") && strPrice.Contains("sextant"))
                 {
                     return ItemType.APPRENTICE_SEXTANT;
                 }
-
-                else if (strPrice.Contains("armour") || strPrice.Contains("scrap"))
+                if (strPrice.Contains("armour") || strPrice.Contains("scrap"))
                 {
                     return ItemType.ARMOUR_SCRAP;
                 }
-
-                else if (strPrice.Contains("aug"))
+                if (strPrice.Contains("aug"))
                 {
                     return ItemType.AUGMENTATION;
                 }
-
-                else if (strPrice.Contains("bauble"))
+                if (strPrice.Contains("bauble"))
                 {
                     return ItemType.BAUBLE;
                 }
-
-                else if (strPrice.Contains("bestiary") && strPrice.Contains("orb"))
+                if (strPrice.Contains("bestiary") && strPrice.Contains("orb"))
                 {
                     return ItemType.BESTIARY_ORB;
                 }
-
-                else if (strPrice.Contains("binding") && strPrice.Contains("orb"))
+                if (strPrice.Contains("binding") && strPrice.Contains("orb"))
                 {
                     return ItemType.BINDING_ORB;
                 }
-
-                else if (strPrice.Contains("whetstone") || strPrice.Contains("blacksmith"))
+                if (strPrice.Contains("whetstone") || strPrice.Contains("blacksmith"))
                 {
                     return ItemType.BLACKSMITH_WHETSTONE;
                 }
-
-                else if (strPrice.Contains("blessing") && strPrice.Contains("chayulah"))
+                if (strPrice.Contains("blessing") && strPrice.Contains("chayulah"))
                 {
                     return ItemType.BLESSING_CHAYULAH;
                 }
-
-                else if (strPrice.Contains("blessing") && strPrice.Contains("esh"))
+                if (strPrice.Contains("blessing") && strPrice.Contains("esh"))
                 {
                     return ItemType.BLESSING_ESH;
                 }
-
-                else if (strPrice.Contains("blessing") && strPrice.Contains("tul"))
+                if (strPrice.Contains("blessing") && strPrice.Contains("tul"))
                 {
                     return ItemType.BLESSING_TUL;
                 }
-
-                else if (strPrice.Contains("blessing") && strPrice.Contains("uul"))
+                if (strPrice.Contains("blessing") && strPrice.Contains("uul"))
                 {
                     return ItemType.BLESSING_UUL;
                 }
-
-                else if (strPrice.Contains("blessing") && strPrice.Contains("xoph"))
+                if (strPrice.Contains("blessing") && strPrice.Contains("xoph"))
                 {
                     return ItemType.BLESSING_XOPH;
                 }
-
-                else if (strPrice.Contains("blesse"))
+                if (strPrice.Contains("blesse"))
                 {
                     return ItemType.BLESSE;
                 }
-
-                else if (strPrice.Contains("chance"))
+                if (strPrice.Contains("chance"))
                 {
                     return ItemType.CHANCE;
                 }
-
-                else if (strPrice.Contains("chisel"))
+                if (strPrice.Contains("chisel"))
                 {
                     return ItemType.CHISEL;
                 }
-
-                else if (strPrice.Contains("chrom") || strPrice.Contains("chrome"))
+                if (strPrice.Contains("chrom") || strPrice.Contains("chrome"))
                 {
                     return ItemType.CHROM;
                 }
-
-                else if ((strPrice.Contains("divine") || strPrice.Contains("div")) && !strPrice.Contains("vessel"))
+                if ((strPrice.Contains("divine") || strPrice.Contains("div")) && !strPrice.Contains("vessel"))
                 {
                     return ItemType.DIVINE;
                 }
-
-                else if (strPrice.Contains("engineer") && strPrice.Contains("orb"))
+                if (strPrice.Contains("engineer") && strPrice.Contains("orb"))
                 {
                     return ItemType.ENGINEER;
                 }
-
-                else if (strPrice.Contains("ete"))
+                if (strPrice.Contains("ete"))
                 {
                     return ItemType.ETERNAL;
                 }
-
-                else if ((strPrice.Contains("ex") || strPrice.Contains("exa") || strPrice.Contains("exalted")) && !strPrice.Contains("shard") && !strPrice.Contains("sext"))
+                if ((strPrice.Contains("ex") || strPrice.Contains("exa") || strPrice.Contains("exalted")) && !strPrice.Contains("shard") && !strPrice.Contains("sext"))
                 {
                     return ItemType.EXALTED;
                 }
-
-                else if (strPrice.Contains("fuse") || strPrice.Contains("fus"))
+                if (strPrice.Contains("fuse") || strPrice.Contains("fus"))
                 {
                     return ItemType.FUSING;
                 }
-
-                else if (strPrice.Contains("gcp") || strPrice.Contains("gemc"))
+                if (strPrice.Contains("gcp") || strPrice.Contains("gemc"))
                 {
                     return ItemType.GEMCUTTERS;
                 }
-
-                else if (strPrice.Contains("harbinger") && strPrice.Contains("orb"))
+                if (strPrice.Contains("harbinger") && strPrice.Contains("orb"))
                 {
                     return ItemType.HARBINGER_ORB;
                 }
-
-                else if (strPrice.Contains("horizon") && strPrice.Contains("orb"))
+                if (strPrice.Contains("horizon") && strPrice.Contains("orb"))
                 {
                     return ItemType.HORIZON_ORB;
                 }
-
-                else if (strPrice.Contains("imprinted") && strPrice.Contains("bestiary"))
+                if (strPrice.Contains("imprinted") && strPrice.Contains("bestiary"))
                 {
                     return ItemType.IMPRINTED_BESTIARY;
                 }
-
-                else if (strPrice.Contains("jew"))
+                if (strPrice.Contains("jew"))
                 {
                     return ItemType.JEWELLER;
                 }
-
-                else if (strPrice.Contains("journeyman") && strPrice.Contains("sextant"))
+                if (strPrice.Contains("journeyman") && strPrice.Contains("sextant"))
                 {
                     return ItemType.JOURNEYMAN_SEXTANT;
                 }
-
-                else if (strPrice.Contains("master") && strPrice.Contains("sextant"))
+                if (strPrice.Contains("master") && strPrice.Contains("sextant"))
                 {
                     return ItemType.MASTER_SEXTANT;
                 }
-
-                else if (strPrice.Contains("mir") || strPrice.Contains("kal"))
+                if (strPrice.Contains("mir") || strPrice.Contains("kal"))
                 {
                     return ItemType.MIRROR;
                 }
-
-                else if (strPrice.Contains("coin"))
+                if (strPrice.Contains("coin"))
                 {
                     return ItemType.PERANDUS_COIN;
                 }
-
-                else if (strPrice.Contains("port"))
+                if (strPrice.Contains("port"))
                 {
                     return ItemType.PORTAL;
                 }
-
-                else if (strPrice.Contains("rega"))
+                if (strPrice.Contains("rega"))
                 {
                     return ItemType.REGAL;
                 }
-
-                else if (strPrice.Contains("regr"))
+                if (strPrice.Contains("regr"))
                 {
                     return ItemType.REGRET;
                 }
-
-                else if (strPrice.Contains("dawn"))
+                if (strPrice.Contains("dawn"))
                 {
                     return ItemType.SACRIFICE_DAWN;
                 }
-
-                else if (strPrice.Contains("dusk"))
+                if (strPrice.Contains("dusk"))
                 {
                     return ItemType.SACRIFICE_DUSK;
                 }
-
-                else if (strPrice.Contains("midnight"))
+                if (strPrice.Contains("midnight"))
                 {
                     return ItemType.SACRIFICE_MIDNIGHT;
                 }
-
-                else if (strPrice.Contains("noon"))
+                if (strPrice.Contains("noon"))
                 {
                     return ItemType.SACRIFICE_NOON;
                 }
-
-                else if (strPrice.Contains("scour"))
+                if (strPrice.Contains("scour"))
                 {
                     return ItemType.SCOUR;
                 }
-
-                else if (strPrice.Contains("silver"))
+                if (strPrice.Contains("silver"))
                 {
                     return ItemType.SILVER;
                 }
-
-                else if (strPrice.Contains("splinter") && strPrice.Contains("chayula"))
+                if (strPrice.Contains("splinter") && strPrice.Contains("chayula"))
                 {
                     return ItemType.SPLINTER_CHAYULA;
                 }
-
-                else if (strPrice.Contains("splinter") && strPrice.Contains("esh"))
+                if (strPrice.Contains("splinter") && strPrice.Contains("esh"))
                 {
                     return ItemType.SPLINTER_ESH;
                 }
-
-                else if (strPrice.Contains("splinter") && strPrice.Contains("tul"))
+                if (strPrice.Contains("splinter") && strPrice.Contains("tul"))
                 {
                     return ItemType.SPLINTER_TUL;
                 }
-
-                else if (strPrice.Contains("splinter") && strPrice.Contains("uul"))
+                if (strPrice.Contains("splinter") && strPrice.Contains("uul"))
                 {
                     return ItemType.SPLINTER_UUL;
                 }
-
-                else if (strPrice.Contains("splinter") && strPrice.Contains("xoph"))
+                if (strPrice.Contains("splinter") && strPrice.Contains("xoph"))
                 {
                     return ItemType.SPLINTER_XOPH;
                 }
-
-                else if (strPrice.Contains("tra"))
+                if (strPrice.Contains("tra"))
                 {
                     return ItemType.TRANSMUTE;
                 }
-
-                else if (strPrice.Contains("vaal"))
+                if (strPrice.Contains("vaal"))
                 {
                     return ItemType.VAAL;
                 }
-
-                else if (strPrice.Contains("wis"))
+                if (strPrice.Contains("wis"))
                 {
                     return ItemType.WISDOM;
                 }
-
-                else if (strPrice.Contains("divine") && strPrice.Contains("vessel"))
+                if (strPrice.Contains("divine") && strPrice.Contains("vessel"))
                 {
                     return ItemType.DIVINE_VESSEL;
                 }
-
-                else if (strPrice.Contains("offering") || strPrice.Contains("offer"))
+                if (strPrice.Contains("offering") || strPrice.Contains("offer"))
                 {
                     return ItemType.OFFERING_GODDESS;
                 }
-
             }
             return ItemType.UNKNOWN;
         }
@@ -319,7 +263,7 @@ namespace TraderForPoe.Classes
             {
                 case ItemType.CHAOS:
                     return new BitmapImage(new Uri("pack://application:,,,/TraderForPoe;component/Resources/Currency/curr_chaos.png"));
-                case ItemType.ALCHCHEMY:
+                case ItemType.ALCHEMY:
                     return new BitmapImage(new Uri("pack://application:,,,/TraderForPoe;component/Resources/Currency/curr_alch.png"));
                 case ItemType.ALTERATION:
                     return new BitmapImage(new Uri("pack://application:,,,/TraderForPoe;component/Resources/Currency/curr_alt.png"));
@@ -432,31 +376,12 @@ namespace TraderForPoe.Classes
             }
         }
 
-        private readonly string itemAsString = String.Empty;
-        public string ItemAsString
-        {
-            get { return itemAsString; }
-        }
+        public string ItemAsString { get; }
 
-        private decimal amount;
-        public decimal Amount
-        {
-            get { return amount; }
-        }
+        public decimal Amount { get; }
 
-        private readonly ItemType itemAsType = ItemType.UNKNOWN;
-        public ItemType ItemAsType
-        {
-            get { return itemAsType; }
-        }
+        public ItemType ItemAsType { get; } = ItemType.UNKNOWN;
 
-        private readonly BitmapImage itemImage = null;
-        public BitmapImage Image
-        {
-            get { return itemImage; }
-        }
-
-
-
+        public BitmapImage Image { get; }
     }
 }

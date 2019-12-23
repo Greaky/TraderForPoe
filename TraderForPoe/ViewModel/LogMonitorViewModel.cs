@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
 using TraderForPoe.Classes;
+using TraderForPoe.ViewModel.Base;
 
 namespace TraderForPoe.ViewModel
 {
@@ -10,8 +11,8 @@ namespace TraderForPoe.ViewModel
     {
         #region Fields
 
-        private string filter;
-        private ICollectionView linesView;
+        private string _filter;
+        private readonly ICollectionView _linesView;
 
         #endregion Fields
 
@@ -22,42 +23,37 @@ namespace TraderForPoe.ViewModel
             LogReader.OnLineAddition += LogReader_OnLineAddition;
 
             CmdStart = new RelayCommand(
-                () => LogReader.Start());
+                LogReader.Start);
 
             CmdStop = new RelayCommand(
-                () => LogReader.Stop());
+                LogReader.Stop);
 
             CmdClear = new RelayCommand(
                 () => Lines.Clear());
 
-            linesView = CollectionViewSource.GetDefaultView(Lines);
-            linesView.Filter = UserFilter;
+            _linesView = CollectionViewSource.GetDefaultView(Lines);
+            _linesView.Filter = UserFilter;
         }
 
         #endregion Contructors
         
         #region Properties
 
-        public RelayCommand CmdClear { get; private set; }
+        public RelayCommand CmdClear { get; }
 
-        public RelayCommand CmdStart { get; private set; }
+        public RelayCommand CmdStart { get; }
 
-        public RelayCommand CmdStop { get; private set; }
+        public RelayCommand CmdStop { get; }
 
         public string Filter
         {
-            get
-            {
-                return filter;
-            }
+            get => _filter;
             set
             {
-                if (value != filter)
-                {
-                    filter = value;
-                    linesView.Refresh();
-                    OnPropertyChanged();
-                }
+                if (value == _filter) return;
+                _filter = value;
+                _linesView.Refresh();
+                OnPropertyChanged();
             }
         }
 
@@ -74,10 +70,7 @@ namespace TraderForPoe.ViewModel
 
         private bool UserFilter(object item)
         {
-            if (String.IsNullOrEmpty(Filter))
-                return true;
-            else
-                return ((string)item).ToLower().Contains(Filter.ToLower());
+            return string.IsNullOrEmpty(Filter) || ((string)item).ToLower().Contains(Filter.ToLower());
         }
 
         #endregion Methods

@@ -1,5 +1,4 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification;
-using System;
 using System.Windows;
 using TraderForPoe.Classes;
 using TraderForPoe.Properties;

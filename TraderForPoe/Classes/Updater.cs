@@ -14,13 +14,13 @@ namespace TraderForPoe.Classes
         /// <returns>Returns true if update is available</returns>
         public static bool UpdateIsAvailable()
         {
-            WebClient webClient = new WebClient();
+            var webClient = new WebClient();
 
-            string[] updateString = webClient.DownloadString("https://raw.githubusercontent.com/labo89/TraderForPoe/master/update").Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            var updateString = webClient.DownloadString("https://raw.githubusercontent.com/labo89/TraderForPoe/master/update").Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
-            double thisVersion = Convert.ToDouble(Assembly.GetEntryAssembly().GetName().Version.ToString().Substring(0, 3), System.Globalization.CultureInfo.InvariantCulture);
+            var thisVersion = Convert.ToDouble(Assembly.GetEntryAssembly()?.GetName().Version.ToString().Substring(0, 3), System.Globalization.CultureInfo.InvariantCulture);
 
-            double onlineVersion = Convert.ToDouble(updateString[0], System.Globalization.CultureInfo.InvariantCulture);
+            var onlineVersion = Convert.ToDouble(updateString[0], System.Globalization.CultureInfo.InvariantCulture);
 
             if (onlineVersion > thisVersion)
             {
@@ -49,18 +49,18 @@ namespace TraderForPoe.Classes
 
         public static void StartUpdate()
         {
-            WebClient webClient = new WebClient();
+            var webClient = new WebClient();
 
-            string[] updateString = webClient.DownloadString("https://raw.githubusercontent.com/labo89/TraderForPoe/master/update").Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            var updateString = webClient.DownloadString("https://raw.githubusercontent.com/labo89/TraderForPoe/master/update").Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
-            string downloadLink = updateString[1];
+            var downloadLink = updateString[1];
 
-            string newExePath = Path.GetTempPath() + "TraderForPoe.exe";
+            var newExePath = Path.GetTempPath() + "TraderForPoe.exe";
 
-            using (WebClient wc = new WebClient())
+            using (var wc = new WebClient())
             {
                 wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
-                wc.DownloadFileAsync(new System.Uri(downloadLink), newExePath);
+                wc.DownloadFileAsync(new Uri(downloadLink), newExePath);
             }
         }
 
@@ -68,11 +68,16 @@ namespace TraderForPoe.Classes
         {
             File.Delete(Path.GetTempPath() + "TraderForPoe.bak");
 
-            File.Move(Assembly.GetEntryAssembly().Location, Path.GetTempPath() + "TraderForPoe.bak");
+            var sourceFileName = Assembly.GetEntryAssembly()?.Location;
+            if (sourceFileName != null)
+            {
+                File.Move(sourceFileName, Path.GetTempPath() + "TraderForPoe.bak");
 
-            File.Move(Path.GetTempPath() + "TraderForPoe.exe", AppDomain.CurrentDomain.BaseDirectory + "TraderForPoe.exe");
+                File.Move(Path.GetTempPath() + "TraderForPoe.exe",
+                    AppDomain.CurrentDomain.BaseDirectory + "TraderForPoe.exe");
 
-            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            }
 
             Application.Current.Shutdown();
         }

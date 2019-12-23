@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TraderForPoe.Classes
+﻿namespace TraderForPoe.Classes
 {
     public class Item : ItemBase
     {
@@ -15,24 +9,13 @@ namespace TraderForPoe.Classes
 
         }
 
-        private ItemBase price;
-
-        public ItemBase Price
-        {
-            get { return price; }
-            set { price = value; }
-        }
-
-        private decimal ratio;
+        public ItemBase Price { get; set; }
 
         public decimal Ratio
         {
             //TODO Implement ratio
-            get { return ratio; }
-            set { ratio = value; }
+            get;
+            set;
         }
-
-
-
     }
 }

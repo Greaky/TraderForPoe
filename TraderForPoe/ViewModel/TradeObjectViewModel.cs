@@ -1,20 +1,21 @@
 ﻿using TraderForPoe.Classes;
+using TraderForPoe.ViewModel.Base;
 
 namespace TraderForPoe.ViewModel
 {
     public class TradeObjectViewModel : ViewModelBase
     {
-        private readonly TradeObject tradeObject;
+        private readonly TradeObject _tradeObject;
 
-        private StashGridViewModel stashGridViewModel = StashGridViewModel.Instance;
+        private StashGridViewModel _stashGridViewModel = StashGridViewModel.Instance;
 
         public TradeObjectViewModel(TradeObject tradeObject)
         {
-            this.tradeObject = tradeObject;
+            _tradeObject = tradeObject;
         }
 
-        public string ItemName { get { return tradeObject.Item.ItemAsString; } }
+        public string ItemName => _tradeObject.Item.ItemAsString;
 
-        public decimal Amount { get { return tradeObject.Item.Amount; } }
+        public decimal Amount => _tradeObject.Item.Amount;
     }
 }

@@ -1,13 +1,7 @@
-﻿using Hardcodet.Wpf.TaskbarNotification;
-using System;
-using System.Text.RegularExpressions;
-using System.Windows;
+﻿using System.Text.RegularExpressions;
 using System.Windows.Input;
 using TraderForPoe.Classes;
-using TraderForPoe.Controls;
-using TraderForPoe.Properties;
 using TraderForPoe.ViewModel;
-using TraderForPoe.Windows;
 
 namespace TraderForPoe
 {
@@ -20,7 +14,7 @@ namespace TraderForPoe
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel();
         }
 
 
@@ -32,7 +26,7 @@ namespace TraderForPoe
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
+                DragMove();
         }
 
         private void NotActivatableWindow_MouseWheel(object sender, MouseWheelEventArgs e)

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
-using TraderForPoe.Properties;
 using TraderForPoe.ViewModel;
 
 namespace TraderForPoe.Windows

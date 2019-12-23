@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using TraderForPoe.Classes;
 using TraderForPoe.Properties;
+using TraderForPoe.ViewModel.Base;
 
 namespace TraderForPoe.ViewModel
 {
@@ -20,9 +21,9 @@ namespace TraderForPoe.ViewModel
 
             CmdSettings = new RelayCommand(() => WindowViewLoaderService.ShowSingle(typeof(UserSettingsViewModel)));
 
-            CmdRestart = new RelayCommand(() => RestartApp());
+            CmdRestart = new RelayCommand(RestartApp);
 
-            CmdUpdate = new RelayCommand(() => Updater.CheckForUpdate());
+            CmdUpdate = new RelayCommand(Updater.CheckForUpdate);
 
             CmdAbout = new RelayCommand(() => WindowViewLoaderService.ShowSingle(typeof(AboutViewModel)));
 
@@ -33,26 +34,24 @@ namespace TraderForPoe.ViewModel
 
         #region Properties
 
-        public RelayCommand CmdAbout { get; private set; }
-        public RelayCommand CmdHistory { get; private set; }
-        public RelayCommand CmdLog { get; private set; }
+        public RelayCommand CmdAbout { get; }
+        public RelayCommand CmdHistory { get; }
+        public RelayCommand CmdLog { get; }
         public RelayCommand CmdMonitor { get; private set; }
-        public RelayCommand CmdQuit { get; private set; }
-        public RelayCommand CmdRestart { get; private set; }
-        public RelayCommand CmdSettings { get; private set; }
-        public RelayCommand CmdUpdate { get; private set; }
+        public RelayCommand CmdQuit { get; }
+        public RelayCommand CmdRestart { get; }
+        public RelayCommand CmdSettings { get; }
+        public RelayCommand CmdUpdate { get; }
 
         public bool UseClipboardMonitor
         {
-            get { return Settings.Default.UseClipboardMonitor; }
+            get => Settings.Default.UseClipboardMonitor;
             set
             {
-                if (Settings.Default.UseClipboardMonitor != value)
-                {
-                    Settings.Default.UseClipboardMonitor = value;
-                    Settings.Default.Save();
-                    this.OnPropertyChanged();
-                }
+                if (Settings.Default.UseClipboardMonitor == value) return;
+                Settings.Default.UseClipboardMonitor = value;
+                Settings.Default.Save();
+                OnPropertyChanged();
             }
         }
 
@@ -63,7 +62,7 @@ namespace TraderForPoe.ViewModel
         private void RestartApp()
         {
             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-            System.Windows.Application.Current.Shutdown();
+            Application.Current.Shutdown();
         }
 
         #endregion Methods

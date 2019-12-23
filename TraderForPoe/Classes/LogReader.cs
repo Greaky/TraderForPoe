@@ -12,12 +12,12 @@ namespace TraderForPoe.Classes
         #region Fields
 
         public static ObservableCollection<string> Lines { get; } = new ObservableCollection<string>();
-        private static readonly string delimiter = "\n";
-        private static readonly string path = Settings.Default.PathToClientTxt;
-        private static readonly DispatcherTimer timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(200) };
-        private static string buffer;
-        private static bool monitoring;
-        private static long size = new FileInfo(path).Length;
+        private static readonly string Delimiter = "\n";
+        private static readonly string Path = Settings.Default.PathToClientTxt;
+        private static readonly DispatcherTimer Timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(200) };
+        private static string _buffer;
+        private static bool _monitoring;
+        private static long _size = new FileInfo(Path).Length;
 
         #endregion Fields
 
@@ -25,9 +25,9 @@ namespace TraderForPoe.Classes
 
         static LogReader()
         {
-            path = Settings.Default.PathToClientTxt;
-            timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(200) };
-            timer.Tick += Check;
+            Path = Settings.Default.PathToClientTxt;
+            Timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(200) };
+            Timer.Tick += Check;
             Start();
         }
 
@@ -43,53 +43,53 @@ namespace TraderForPoe.Classes
 
         public static void Start()
         {
-            if (timer.IsEnabled)
+            if (Timer.IsEnabled)
             {
                 return;
             }
 
-            timer.Start();
+            Timer.Start();
         }
 
         public static void Stop()
         {
-            timer.Stop();
+            Timer.Stop();
         }
 
         private static void Check(object sender, EventArgs e)
         {
             if (!StartMonitoring()) return;
 
-            var newSize = new FileInfo(path).Length;
+            var newSize = new FileInfo(Path).Length;
 
-            if (size >= newSize) return;
+            if (_size >= newSize) return;
 
-            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (var stream = File.Open(Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             using (var sr = new StreamReader(stream, Encoding.UTF8))
             {
-                sr.BaseStream.Seek(size, SeekOrigin.Begin);
+                sr.BaseStream.Seek(_size, SeekOrigin.Begin);
 
-                var data = buffer + sr.ReadToEnd();
+                var data = _buffer + sr.ReadToEnd();
 
-                if (!data.EndsWith(delimiter))
+                if (!data.EndsWith(Delimiter))
                 {
-                    if (data.IndexOf(delimiter, StringComparison.Ordinal) == -1)
+                    if (data.IndexOf(Delimiter, StringComparison.Ordinal) == -1)
                     {
-                        buffer += data;
+                        _buffer += data;
 
                         data = string.Empty;
                     }
                     else
                     {
-                        var pos = data.LastIndexOf(delimiter, StringComparison.Ordinal) + delimiter.Length;
+                        var pos = data.LastIndexOf(Delimiter, StringComparison.Ordinal) + Delimiter.Length;
 
-                        buffer = data.Substring(pos);
+                        _buffer = data.Substring(pos);
 
                         data = data.Substring(0, pos);
                     }
                 }
 
-                var lines = data.Split(new[] { delimiter }, StringSplitOptions.RemoveEmptyEntries);
+                var lines = data.Split(new[] { Delimiter }, StringSplitOptions.RemoveEmptyEntries);
 
                 foreach (var line in lines)
                 {
@@ -102,17 +102,17 @@ namespace TraderForPoe.Classes
                 }
             }
 
-            size = newSize;
+            _size = newSize;
 
-            lock (timer) monitoring = false;
+            lock (Timer) _monitoring = false;
         }
 
         private static bool StartMonitoring()
         {
-            lock (timer)
+            lock (Timer)
             {
-                if (monitoring) return true;
-                monitoring = true;
+                if (_monitoring) return true;
+                _monitoring = true;
                 return false;
             }
         }

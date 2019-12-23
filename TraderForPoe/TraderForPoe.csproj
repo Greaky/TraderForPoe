@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TraderForPoe</RootNamespace>
     <AssemblyName>TraderForPoe</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -106,9 +106,6 @@
     <Compile Include="Classes\TradeObject.cs" />
     <Compile Include="Classes\Updater.cs" />
     <Compile Include="Classes\WindowViewLoaderService.cs" />
-    <Compile Include="Controls\CustMenuItem.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\CustomTabItem.xaml.cs">
       <DependentUpon>CustomTabItem.xaml</DependentUpon>
     </Compile>
@@ -228,6 +225,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Diagrams\ClassDiagram1.cd" />
     <None Include="Unclassified\packages.config" />
     <None Include="Properties\Settings.settings">

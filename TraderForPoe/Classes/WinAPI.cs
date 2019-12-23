@@ -8,31 +8,31 @@ using System.Windows.Interop;
 
 namespace TraderForPoe.Classes
 {
-    public class WinAPI
+    public class WinApi
     {
-        public static long SWEH_CHILDID_SELF = 0;
+        public static long SwehChildidSelf = 0;
 
         // Needed to prevent window getting focus
-        private const int GWL_EXSTYLE = -20;
+        private const int GwlExstyle = -20;
 
-        private const int LSFW_LOCK = 1;
+        private const int LsfwLock = 1;
 
-        private const int WS_EX_NOACTIVATE = 134217728;
+        private const int WsExNoactivate = 134217728;
 
-        private static readonly SWEH_dwFlags WinEventHookInternalFlags = SWEH_dwFlags.WINEVENT_OUTOFCONTEXT |
-                                                                SWEH_dwFlags.WINEVENT_SKIPOWNPROCESS |
-                                                                SWEH_dwFlags.WINEVENT_SKIPOWNTHREAD;
+        private static readonly SwehDwFlags WinEventHookInternalFlags = SwehDwFlags.WINEVENT_OUTOFCONTEXT |
+                                                                SwehDwFlags.WINEVENT_SKIPOWNPROCESS |
+                                                                SwehDwFlags.WINEVENT_SKIPOWNTHREAD;
 
         public delegate void WinEventDelegate(IntPtr hWinEventHook,
-                                              SWEH_Events eventType,
+                                              SwehEvents eventType,
                                               IntPtr hwnd,
-                                              SWEH_ObjectId idObject,
+                                              SwehObjectId idObject,
                                               long idChild,
                                               uint dwEventThread,
                                               uint dwmsEventTime);
 
         //SetWinEventHook() flags
-        public enum SWEH_dwFlags : uint
+        public enum SwehDwFlags : uint
         {
             WINEVENT_OUTOFCONTEXT = 0x0000,     // Events are ASYNC
             WINEVENT_SKIPOWNTHREAD = 0x0001,    // Don't call back for events on installer's thread
@@ -41,7 +41,7 @@ namespace TraderForPoe.Classes
         }
 
         //SetWinEventHook() events
-        public enum SWEH_Events : uint
+        public enum SwehEvents : uint
         {
             EVENT_MIN = 0x00000001,
             EVENT_MAX = 0x7FFFFFFF,
@@ -113,7 +113,7 @@ namespace TraderForPoe.Classes
         }
 
         //SetWinEventHook() Object Ids
-        public enum SWEH_ObjectId : long
+        public enum SwehObjectId : long
         {
             OBJID_WINDOW = 0x00000000,
             OBJID_SYSMENU = 0xFFFFFFFF,
@@ -153,15 +153,15 @@ namespace TraderForPoe.Classes
 
         public static void SetNoActiveWindow(Window windowArg)
         {
-            WindowInteropHelper helper = new WindowInteropHelper(windowArg);
-            SetWindowLong(helper.Handle, GWL_EXSTYLE, WS_EX_NOACTIVATE);
-            LockSetForegroundWindow(LSFW_LOCK);
+            var helper = new WindowInteropHelper(windowArg);
+            SetWindowLong(helper.Handle, GwlExstyle, WsExNoactivate);
+            LockSetForegroundWindow(LsfwLock);
         }
 
         [DllImport("user32")]
         public static extern IntPtr SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
-        public static IntPtr WinEventHookOne(SWEH_Events _event, WinEventDelegate _delegate, uint idProcess, uint idThread)
+        public static IntPtr WinEventHookOne(SwehEvents _event, WinEventDelegate _delegate, uint idProcess, uint idThread)
         {
             new UIPermission(UIPermissionWindow.AllWindows).Demand();
             return UnsafeNativeMethods.SetWinEventHook(_event, _event,
@@ -170,13 +170,13 @@ namespace TraderForPoe.Classes
                                                        WinEventHookInternalFlags);
         }
 
-        public static IntPtr WinEventHookRange(SWEH_Events _eventFrom,
-                                                       SWEH_Events _eventTo,
+        public static IntPtr WinEventHookRange(SwehEvents eventFrom,
+                                                       SwehEvents eventTo,
                                                        WinEventDelegate _delegate,
                                                        uint idProcess, uint idThread)
         {
             new UIPermission(UIPermissionWindow.AllWindows).Demand();
-            return UnsafeNativeMethods.SetWinEventHook(_eventFrom, _eventTo,
+            return UnsafeNativeMethods.SetWinEventHook(eventFrom, eventTo,
                                                        IntPtr.Zero, _delegate,
                                                        idProcess, idThread,
                                                        WinEventHookInternalFlags);
@@ -200,14 +200,14 @@ namespace TraderForPoe.Classes
 
         // Used to get the client area of POE and the height and widht
         [DllImport("user32.dll")]
-        public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+        public static extern bool GetClientRect(IntPtr hWnd, out Rect lpRect);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+        public static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
+        public struct Rect
         {
             public int Left;        // x position of upper-left corner
             public int Top;         // y position of upper-left corner
@@ -247,9 +247,9 @@ namespace TraderForPoe.Classes
         public static extern uint GetWindowThreadProcessId(IntPtr hWnd, IntPtr voidProcessId);
 
         [DllImport("user32.dll", SetLastError = false)]
-        public static extern IntPtr SetWinEventHook(WinAPI.SWEH_Events eventMin, WinAPI.SWEH_Events eventMax,
-                                                    IntPtr hmodWinEventProc, WinAPI.WinEventDelegate lpfnWinEventProc,
-                                                    uint idProcess, uint idThread, WinAPI.SWEH_dwFlags dwFlags);
+        public static extern IntPtr SetWinEventHook(WinApi.SwehEvents eventMin, WinApi.SwehEvents eventMax,
+                                                    IntPtr hmodWinEventProc, WinApi.WinEventDelegate lpfnWinEventProc,
+                                                    uint idProcess, uint idThread, WinApi.SwehDwFlags dwFlags);
 
         [DllImport("user32.dll", SetLastError = false)]
         public static extern bool UnhookWinEvent(IntPtr hWinEventHook);

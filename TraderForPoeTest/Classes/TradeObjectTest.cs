@@ -1,10 +1,10 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TraderForPoe.Classes;
-using TraderForPoe;
 using System.Windows;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TraderForPoe;
+using TraderForPoe.Classes;
 
-namespace TraderForPoeTest
+namespace TraderForPoeTest.Classes
 {
     [TestClass]
     public class TradeObjectTest
@@ -26,32 +26,32 @@ namespace TraderForPoeTest
         [TestMethod]
         public void CheckIfWhisperIsTradeWhisperPoeTradeAllTest()
         {
-            string whisper = "@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed for 1 jewellers in Bestiary (stash tab \"~b/o 0 alt\"; position: left 23, top 8)";
-            bool actual = TradeObject.IsLogTradeWhisper(whisper);
+            var whisper = "@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed for 1 jewellers in Bestiary (stash tab \"~b/o 0 alt\"; position: left 23, top 8)";
+            var actual = TradeObject.IsLogTradeWhisper(whisper);
             Assert.IsTrue(actual);
         }
 
         [TestMethod]
         public void CheckIfWhisperIsTradeWhisperPoeTradeNoStashTest()
         {
-            string whisper = "@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed for 1 jewellers in Bestiary";
-            bool actual = TradeObject.IsLogTradeWhisper(whisper);
+            var whisper = "@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed for 1 jewellers in Bestiary";
+            var actual = TradeObject.IsLogTradeWhisper(whisper);
             Assert.IsTrue(actual);
         }
 
         [TestMethod]
         public void CheckIfWhisperIsTradeWhisperPoeTradeNoPriceTest()
         {
-            string whisper = "@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed in Bestiary (stash tab \"~b / o 0 alt\"; position: left 23, top 8)";
-            bool actual = TradeObject.IsLogTradeWhisper(whisper);
+            var whisper = "@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed in Bestiary (stash tab \"~b / o 0 alt\"; position: left 23, top 8)";
+            var actual = TradeObject.IsLogTradeWhisper(whisper);
             Assert.IsTrue(actual);
         }
 
         [TestMethod]
         public void CheckIfWhisperIsTradeWhisperPoeTradeBuyCurrencyTest()
         {
-            string whisper = "@To Labooooooo: Hi, I'd like to buy your 260 chaos for my 2 exalted in Bestiary.";
-            bool actual = TradeObject.IsLogTradeWhisper(whisper);
+            var whisper = "@To Labooooooo: Hi, I'd like to buy your 260 chaos for my 2 exalted in Bestiary.";
+            var actual = TradeObject.IsLogTradeWhisper(whisper);
             Assert.IsTrue(actual);
         }
 
@@ -61,24 +61,24 @@ namespace TraderForPoeTest
         [TestMethod]
         public void CheckIfWhisperIsTradeWhisperPoeAppAllTest()
         {
-            string whisper = "@To Labooooooo: wtb Cybil's Paw Thresher Claw listed for 1 Orb of Chance in bestiary (stash \"BIG\"; left 5, top 3)";
-            bool actual = TradeObject.IsLogTradeWhisper(whisper);
+            var whisper = "@To Labooooooo: wtb Cybil's Paw Thresher Claw listed for 1 Orb of Chance in bestiary (stash \"BIG\"; left 5, top 3)";
+            var actual = TradeObject.IsLogTradeWhisper(whisper);
             Assert.IsTrue(actual);
         }
 
         [TestMethod]
         public void CheckIfWhisperIsTradeWhisperPoeAppNoPriceTest()
         {
-            string whisper = "@To Labooooooo: wtb Cybil's Paw Thresher Claw in bestiary (stash \"BIG\"; left 5, top 3)";
-            bool actual = TradeObject.IsLogTradeWhisper(whisper);
+            var whisper = "@To Labooooooo: wtb Cybil's Paw Thresher Claw in bestiary (stash \"BIG\"; left 5, top 3)";
+            var actual = TradeObject.IsLogTradeWhisper(whisper);
             Assert.IsTrue(actual);
         }
 
         [TestMethod]
         public void CheckIfWhisperIsTradeWhisperPoeAppBuyCurrencyTest()
         {
-            string whisper = "@To Labooooooo: I'd like to buy your 260 Chaos Orb for my 2 Exalted Orb in bestiary.";
-            bool actual = TradeObject.IsLogTradeWhisper(whisper);
+            var whisper = "@To Labooooooo: I'd like to buy your 260 Chaos Orb for my 2 Exalted Orb in bestiary.";
+            var actual = TradeObject.IsLogTradeWhisper(whisper);
             Assert.IsTrue(actual);
         }
 
@@ -88,7 +88,7 @@ namespace TraderForPoeTest
         [TestMethod]
         public void ParseWhisperPoeTradeRegexBuy()
         {
-            TradeObject to = new TradeObject("@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed for 1.5 jewellers in Bestiary (stash tab \"~b / o 0 alt\"; position: left 23, top 8) canyou");
+            var to = new TradeObject("@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed for 1.5 jewellers in Bestiary (stash tab \"~b / o 0 alt\"; position: left 23, top 8) canyou");
             Assert.AreEqual(TradeTypeEnum.BUY, to.TradeType);
             Assert.AreEqual("Labooooooo", to.Customer);
             Assert.AreEqual(1, to.Item.Amount);
@@ -106,7 +106,7 @@ namespace TraderForPoeTest
         [TestMethod]
         public void ParseWhisperPoeTradeUnpricedRegexBuy()
         {
-            TradeObject to = new TradeObject("@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed in Bestiary (stash tab \"~b / o 0 alt\"; position: left 23, top 8) canyou");
+            var to = new TradeObject("@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed in Bestiary (stash tab \"~b / o 0 alt\"; position: left 23, top 8) canyou");
             Assert.AreEqual(TradeTypeEnum.BUY, to.TradeType);
             Assert.AreEqual("Labooooooo", to.Customer);
             Assert.AreEqual(1, to.Item.Amount);
@@ -122,7 +122,7 @@ namespace TraderForPoeTest
         [TestMethod]
         public void ParseWhisperPoeTradeNoLocationRegexBuy()
         {
-            TradeObject to = new TradeObject("@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed for 1.5 jewellers in Bestiary canyou");
+            var to = new TradeObject("@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed for 1.5 jewellers in Bestiary canyou");
             Assert.AreEqual(TradeTypeEnum.BUY, to.TradeType);
             Assert.AreEqual("Labooooooo", to.Customer);
             Assert.AreEqual(1, to.Item.Amount);
@@ -138,7 +138,7 @@ namespace TraderForPoeTest
         [TestMethod]
         public void ParseWhisperPoeTradeCurrencyRegexBuy()
         {
-            TradeObject to = new TradeObject("@To Labooooooo: Hi, I'd like to buy your 260.9 chaos for my 2.5 exalted in Bestiary. canyou");
+            var to = new TradeObject("@To Labooooooo: Hi, I'd like to buy your 260.9 chaos for my 2.5 exalted in Bestiary. canyou");
             Assert.AreEqual(TradeTypeEnum.BUY, to.TradeType);
             Assert.AreEqual("Labooooooo", to.Customer);
             Assert.AreEqual(Convert.ToDecimal(260.9), to.Item.Amount);
@@ -154,7 +154,7 @@ namespace TraderForPoeTest
         [TestMethod]
         public void ParseWhisperPoeAppRegExBuy()
         {
-            TradeObject to = new TradeObject("@To Labooooooo: wtb Cybil's Paw Thresher Claw listed for 1.5 Orb of Chance in bestiary (stash \"BIG\"; left 5, top 3) canyou");
+            var to = new TradeObject("@To Labooooooo: wtb Cybil's Paw Thresher Claw listed for 1.5 Orb of Chance in bestiary (stash \"BIG\"; left 5, top 3) canyou");
             Assert.AreEqual(TradeTypeEnum.BUY, to.TradeType);
             Assert.AreEqual("Labooooooo", to.Customer);
             Assert.AreEqual(1, to.Item.Amount);
@@ -172,7 +172,7 @@ namespace TraderForPoeTest
         [TestMethod]
         public void ParseWhisperPoeAppUnpricedRegexBuy()
         {
-            TradeObject to = new TradeObject("@To Labooooooo: wtb Cybil's Paw Thresher Claw in bestiary (stash \"BIG\"; left 5, top 3) canyou");
+            var to = new TradeObject("@To Labooooooo: wtb Cybil's Paw Thresher Claw in bestiary (stash \"BIG\"; left 5, top 3) canyou");
             Assert.AreEqual(TradeTypeEnum.BUY, to.TradeType);
             Assert.AreEqual("Labooooooo", to.Customer);
             Assert.AreEqual(1, to.Item.Amount);
@@ -188,7 +188,7 @@ namespace TraderForPoeTest
         [TestMethod]
         public void ParseWhisperPoeAppCurrencyRegexBuy()
         {
-            TradeObject to = new TradeObject("@To Labooooooo: I'd like to buy your 260.4 Chaos Orb for my 2 Exalted Orb in bestiary. canyou");
+            var to = new TradeObject("@To Labooooooo: I'd like to buy your 260.4 Chaos Orb for my 2 Exalted Orb in bestiary. canyou");
             Assert.AreEqual(TradeTypeEnum.BUY, to.TradeType);
             Assert.AreEqual("Labooooooo", to.Customer);
             Assert.AreEqual(Convert.ToDecimal(260.4), to.Item.Amount);

@@ -55,7 +55,7 @@ namespace TraderForPoe.Windows
 
         // Needed to determine if poe window location changed
         private IntPtr hWinEventHook;
-        protected WinAPI.WinEventDelegate WinEventDelegate;
+        protected WinApi.WinEventDelegate WinEventDelegate;
         uint poeProcessId;
 
         public StashGridHighlight()
@@ -73,15 +73,15 @@ namespace TraderForPoe.Windows
 
             UpdateLocationAndSize();
 
-            WinEventDelegate = new WinAPI.WinEventDelegate(WinEventCallback);
+            WinEventDelegate = new WinApi.WinEventDelegate(WinEventCallback);
 
             try
             {
                 if (poeHandle != IntPtr.Zero)
                 {
-                    uint TargetThreadId = WinAPI.GetWindowThread(poeHandle);
+                    uint TargetThreadId = WinApi.GetWindowThread(poeHandle);
                     UnsafeNativeMethods.GetWindowThreadProcessId(poeHandle, out poeProcessId);
-                    hWinEventHook = WinAPI.WinEventHookOne(WinAPI.SWEH_Events.EVENT_OBJECT_LOCATIONCHANGE,
+                    hWinEventHook = WinApi.WinEventHookOne(WinApi.SwehEvents.EVENT_OBJECT_LOCATIONCHANGE,
                                                          WinEventDelegate,
                                                          poeProcessId,
                                                          TargetThreadId);
@@ -95,9 +95,9 @@ namespace TraderForPoe.Windows
             }
         }
 
-        protected void WinEventCallback(IntPtr hWinEventHook, WinAPI.SWEH_Events eventType, IntPtr hWnd, WinAPI.SWEH_ObjectId idObject, long idChild, uint dwEventThread, uint dwmsEventTime)
+        protected void WinEventCallback(IntPtr hWinEventHook, WinApi.SwehEvents eventType, IntPtr hWnd, WinApi.SwehObjectId idObject, long idChild, uint dwEventThread, uint dwmsEventTime)
         {
-            if (hWnd == poeHandle && eventType == WinAPI.SWEH_Events.EVENT_OBJECT_LOCATIONCHANGE && idObject == (WinAPI.SWEH_ObjectId)WinAPI.SWEH_CHILDID_SELF)
+            if (hWnd == poeHandle && eventType == WinApi.SwehEvents.EVENT_OBJECT_LOCATIONCHANGE && idObject == (WinApi.SwehObjectId)WinApi.SwehChildidSelf)
             {
                 // Occurs when POE window is moved or size changed
                 UpdateLocationAndSize();
@@ -118,102 +118,102 @@ namespace TraderForPoe.Windows
             double h = clientRect.Bottom;
             double w = clientRect.Right;
 
-            row_1.Height = new GridLength(h * 0.02);
-            row_2.Height = new GridLength(h * 0.035);
-            row_3.Height = GridLength.Auto;
+            Row1.Height = new GridLength(h * 0.02);
+            Row2.Height = new GridLength(h * 0.035);
+            Row3.Height = GridLength.Auto;
 
             if ((w / h) < 1.35)
             {
-                this.Top = y + (h * 0.094);
+                Top = y + (h * 0.094);
 
-                this.Left = x + (w * 0.011);
+                Left = x + (w * 0.011);
 
-                this.Height = (h * 0.585) + row_1.Height.Value + row_2.Height.Value;
+                Height = (h * 0.585) + Row1.Height.Value + Row2.Height.Value;
 
-                this.Width = (h * 0.585);
+                Width = (h * 0.585);
             }
             else if ((w / h) < 1.9)
             {
-                this.Top = y + (h * 0.094);
+                Top = y + (h * 0.094);
 
-                this.Left = x + (w * 0.0088);
+                Left = x + (w * 0.0088);
 
-                this.Height = (h * 0.585) + row_1.Height.Value + row_2.Height.Value;
+                Height = (h * 0.585) + Row1.Height.Value + Row2.Height.Value;
 
-                this.Width = (h * 0.585);
+                Width = (h * 0.585);
             }
             else if ((w / h) < 1.99)
             {
-                this.Top = y + (h * 0.097);
+                Top = y + (h * 0.097);
 
-                this.Left = x + (w * 0.008);
+                Left = x + (w * 0.008);
 
-                this.Height = (h * 0.585) + row_1.Height.Value + row_2.Height.Value;
+                Height = (h * 0.585) + Row1.Height.Value + Row2.Height.Value;
 
-                this.Width = (h * 0.585);
+                Width = (h * 0.585);
             }
 
             else if ((w / h) < 2.3)
             {
 
-                this.Top = y + (h * 0.097);
+                Top = y + (h * 0.097);
 
-                this.Left = x + (w * 0.007);
+                Left = x + (w * 0.007);
 
-                this.Height = (h * 0.585) + row_1.Height.Value + row_2.Height.Value;
+                Height = (h * 0.585) + Row1.Height.Value + Row2.Height.Value;
 
-                this.Width = (h * 0.585);
+                Width = (h * 0.585);
             }
 
             else if ((w / h) < 2.58)
             {
-                this.Top = y + (h * 0.096);
+                Top = y + (h * 0.096);
 
-                this.Left = x + (w * 0.006);
+                Left = x + (w * 0.006);
 
-                this.Height = (h * 0.585) + row_1.Height.Value + row_2.Height.Value;
+                Height = (h * 0.585) + Row1.Height.Value + Row2.Height.Value;
 
-                this.Width = (h * 0.585);
+                Width = (h * 0.585);
 
             }
 
             else if ((w / h) < 2.8)
             {
-                this.Top = y + (h * 0.0959);
+                Top = y + (h * 0.0959);
 
-                this.Left = x + (w * 0.0055);
+                Left = x + (w * 0.0055);
 
-                this.Height = (h * 0.585) + row_1.Height.Value + row_2.Height.Value;
+                Height = (h * 0.585) + Row1.Height.Value + Row2.Height.Value;
 
-                this.Width = (h * 0.585);
+                Width = (h * 0.585);
 
             }
 
             else if ((w / h) < 3.1)
             {
-                this.Top = y + (h * 0.0955);
+                Top = y + (h * 0.0955);
 
-                this.Left = x + (w * 0.005);
+                Left = x + (w * 0.005);
 
-                this.Height = (h * 0.585) + row_1.Height.Value + row_2.Height.Value;
+                Height = (h * 0.585) + Row1.Height.Value + Row2.Height.Value;
 
-                this.Width = (h * 0.585);
+                Width = (h * 0.585);
             }
 
             else
             {
-                this.Top = y + (h * 0.094);
+                Top = y + (h * 0.094);
 
-                this.Left = x + (w * 0.004);
+                Left = x + (w * 0.004);
 
-                this.Height = (h * 0.585) + row_1.Height.Value + row_2.Height.Value;
+                Height = (h * 0.585) + Row1.Height.Value + Row2.Height.Value;
 
-                this.Width = (h * 0.585);
+                Width = (h * 0.585);
             }
 
-            front_canvas.Width = this.Width;
+            FrontCanvas.Width = Width;
 
-            front_canvas.Height = this.Height;
+            FrontCanvas.Height = Height;
         }
 
         public void AddButton(TradeObject tItemArgs)
@@ -226,14 +226,14 @@ namespace TraderForPoe.Windows
 
                 sCtrl.MouseEnter += MouseEnterDrawRectangle;
 
-                spnl_Buttons.Children.Add(sCtrl);
+                SpnlButtons.Children.Add(sCtrl);
             }
 
         }
 
         private bool ContainsItem(TradeObject tItemArgs)
         {
-            foreach (StashControl item in spnl_Buttons.Children)
+            foreach (StashControl item in SpnlButtons.Children)
             {
                 if (item.GetTItem.Item.ItemAsString == tItemArgs.Item.ItemAsString && item.GetTItem.Customer == tItemArgs.Customer && item.GetTItem.Item.Price.ItemAsString == tItemArgs.Item.Price.ItemAsString && item.GetTItem.Position == tItemArgs.Position)
                 {
@@ -259,13 +259,13 @@ namespace TraderForPoe.Windows
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            front_canvas.Children.Clear();
+            FrontCanvas.Children.Clear();
         }
 
         private void MouseEnterDrawRectangle(object sender, System.Windows.Input.MouseEventArgs e)
         {
             // Clear canvas before drawing new rectangle
-            front_canvas.Children.Clear();
+            FrontCanvas.Children.Clear();
 
             // Start timer to clear canvas after some time
             StartDispatcherTimer();
@@ -281,7 +281,7 @@ namespace TraderForPoe.Windows
             int nbrRectStash = 12;
 
             // Set rectangle size by dividing canvas by number of columns
-            double rectDimensionX = ((front_canvas.Width) / 12);
+            double rectDimensionX = ((FrontCanvas.Width) / 12);
 
             // Check if stash is quad. If true divide rectangle size and multiply number of columns by 2
             if ((x > 12 && x < 25) || (y > 12 && y < 25))
@@ -320,7 +320,7 @@ namespace TraderForPoe.Windows
                     {
                         if (iY == y)
                         {
-                            front_canvas.Children.Add(rectangleHighlight);
+                            FrontCanvas.Children.Add(rectangleHighlight);
                             Canvas.SetLeft(rectangleHighlight, (iX - 1) * rectDimensionX);
                             Canvas.SetTop(rectangleHighlight, (iY - 1) * rectDimensionX);
                         }
@@ -333,16 +333,16 @@ namespace TraderForPoe.Windows
 
         public void ClearCanvas()
         {
-            this.front_canvas.Children.Clear();
+            FrontCanvas.Children.Clear();
         }
 
         internal void RemoveStashControl(TradeObject tItemArgs)
         {
-            foreach (StashControl item in spnl_Buttons.Children)
+            foreach (StashControl item in SpnlButtons.Children)
             {
                 if (item.GetTItem.Item == tItemArgs.Item && item.GetTItem.Customer == tItemArgs.Customer && item.GetTItem.Item.Price.ItemAsString == tItemArgs.Item.Price.ItemAsString)
                 {
-                    spnl_Buttons.Children.Remove(item);
+                    SpnlButtons.Children.Remove(item);
                     break; //important step
                 }
             }
@@ -351,7 +351,7 @@ namespace TraderForPoe.Windows
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Unhook event when closing
-            WinAPI.WinEventUnhook(hWinEventHook);
+            WinApi.WinEventUnhook(hWinEventHook);
         }
     }
 }

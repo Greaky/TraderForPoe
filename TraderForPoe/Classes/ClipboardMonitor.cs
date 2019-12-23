@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace TraderForPoe
+namespace TraderForPoe.Classes
 {
     public class ClipboardTextEventArgs : EventArgs
     {
@@ -30,49 +30,49 @@ namespace TraderForPoe
             /// <summary>
             /// Sent when the contents of the clipboard have changed.
             /// </summary>
-            public const int WM_CLIPBOARDUPDATE = 0x031D;
+            public const int WmClipboardupdate = 0x031D;
 
             /// <summary>
             /// To find message-only windows, specify HWND_MESSAGE in the hwndParent parameter of the FindWindowEx function.
             /// </summary>
-            public static IntPtr HWND_MESSAGE = new IntPtr(-3);
+            public static IntPtr HwndMessage = new IntPtr(-3);
         }
 
-        private HwndSource hwndSource = new HwndSource(0, 0, 0, 0, 0, 0, 0, null, NativeMethods.HWND_MESSAGE);
+        private HwndSource _hwndSource = new HwndSource(0, 0, 0, 0, 0, 0, 0, null, NativeMethods.HwndMessage);
 
         public ClipboardMonitor()
         {
-            hwndSource.AddHook(WndProc);
-            NativeMethods.AddClipboardFormatListener(hwndSource.Handle);
+            _hwndSource.AddHook(WndProc);
+            NativeMethods.AddClipboardFormatListener(_hwndSource.Handle);
         }
 
         public void Dispose()
         {
-            NativeMethods.RemoveClipboardFormatListener(hwndSource.Handle);
-            hwndSource.RemoveHook(WndProc);
-            hwndSource.Dispose();
+            NativeMethods.RemoveClipboardFormatListener(_hwndSource.Handle);
+            _hwndSource.RemoveHook(WndProc);
+            _hwndSource.Dispose();
         }
 
         public void Stop()
         {
-            hwndSource.RemoveHook(WndProc);
-            NativeMethods.RemoveClipboardFormatListener(hwndSource.Handle);
+            _hwndSource.RemoveHook(WndProc);
+            NativeMethods.RemoveClipboardFormatListener(_hwndSource.Handle);
         }
 
         public void Start()
         {
-            hwndSource.AddHook(WndProc);
-            NativeMethods.AddClipboardFormatListener(hwndSource.Handle);
+            _hwndSource.AddHook(WndProc);
+            NativeMethods.AddClipboardFormatListener(_hwndSource.Handle);
         }
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            if (msg == NativeMethods.WM_CLIPBOARDUPDATE)
+            if (msg == NativeMethods.WmClipboardupdate)
             {
                 if (Clipboard.ContainsText())
                 {
 
-                    for (int i = 0; i < 10; i++)
+                    for (var i = 0; i < 10; i++)
                     {
                         try
                         {

@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Interop;
 
 namespace TraderForPoe.Classes
 {
     static class WindowViewLoaderService
     {
-        private static Dictionary<Type, Type> viewDictionary = new Dictionary<Type, Type>();
+        private static Dictionary<Type, Type> _viewDictionary = new Dictionary<Type, Type>();
 
         public static void Register(Type viewmodel, Type view)
         {
-            viewDictionary.Add(viewmodel, view);
+            _viewDictionary.Add(viewmodel, view);
         }
 
         public static void Show(Type viewmodel)
         {
             try
             {
-                Window tmpWindows = (Window)Activator.CreateInstance(viewDictionary[viewmodel]);
+                var tmpWindows = (Window)Activator.CreateInstance(_viewDictionary[viewmodel]);
                 tmpWindows.Show();
                 tmpWindows.Activate();
             }
@@ -38,14 +33,14 @@ namespace TraderForPoe.Classes
             {
                 foreach (Window item in Application.Current.Windows)
                 {
-                    if (item.GetType() == viewDictionary[viewmodel])
+                    if (item.GetType() == _viewDictionary[viewmodel])
                     {
                         item.WindowState = WindowState.Normal;
                         item.Activate();
                         return;
                     }
                 }
-                Window tmpWindow = (Window)Activator.CreateInstance(viewDictionary[viewmodel]);
+                var tmpWindow = (Window)Activator.CreateInstance(_viewDictionary[viewmodel]);
                 tmpWindow.Show();
                 tmpWindow.Activate();
             }

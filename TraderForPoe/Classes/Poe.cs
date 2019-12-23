@@ -38,14 +38,7 @@ namespace TraderForPoe.Classes
         /// <returns>True if PoE is running</returns>
         public static bool IsRunning()
         {
-            if (GetHandle() == IntPtr.Zero)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return GetHandle() != IntPtr.Zero;
         }
 
         /// <summary>
@@ -54,14 +47,7 @@ namespace TraderForPoe.Classes
         /// <returns>True if PoE is running</returns>
         public static bool IsForegroundWindow()
         {
-            if (GetForegroundWindow() == GetHandle())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return GetForegroundWindow() == GetHandle();
         }
 
 
@@ -80,11 +66,12 @@ namespace TraderForPoe.Classes
         /// Send a string to the chat window of poe.
         /// </summary>
         /// <param name="arg">Chat message to send</param>
+        /// <param name="send"></param>
         public static void SendCommand(string arg, bool send = true)
         {
             if (IsRunning())
             {
-                InputSimulator iSim = new InputSimulator();
+                var iSim = new InputSimulator();
 
                 //Make POE the foreground application and send input
                 SetForegroundWindow(GetHandle());

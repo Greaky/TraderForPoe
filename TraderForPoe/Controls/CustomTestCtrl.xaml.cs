@@ -125,7 +125,7 @@ namespace TraderForPoe.Controls
         {
             if (tItem.TradeType == TradeTypeEnum.BUY)
             {
-                txt_Item.Foreground = System.Windows.Media.Brushes.GreenYellow;
+                txt_Item.Foreground = Brushes.GreenYellow;
                 btn_InviteCustomer.Visibility = Visibility.Collapsed;
                 btn_StartTrade.Visibility = Visibility.Collapsed;
                 btn_SearchItem.Visibility = Visibility.Collapsed;
@@ -135,7 +135,7 @@ namespace TraderForPoe.Controls
             }
             else if (tItem.TradeType == TradeTypeEnum.SELL)
             {
-                txt_Item.Foreground = System.Windows.Media.Brushes.OrangeRed;
+                txt_Item.Foreground = Brushes.OrangeRed;
                 btn_VisitCustomerHideout.Visibility = Visibility.Collapsed;
                 btn_VisitOwnHideout.Visibility = Visibility.Collapsed;
                 btn_SendWhisperAgain.Visibility = Visibility.Collapsed;
@@ -191,7 +191,7 @@ namespace TraderForPoe.Controls
                 Duration = new Duration(TimeSpan.FromMilliseconds(180))
             };
 
-            this.BeginAnimation(Window.OpacityProperty, dAnim);
+            BeginAnimation(OpacityProperty, dAnim);
         }
 
         private void SendInputToPoe(string input)
@@ -233,15 +233,15 @@ namespace TraderForPoe.Controls
 
         private void CollapseExpandItem()
         {
-            if (this.grd_SecondRow.Visibility == Visibility.Visible)
+            if (grd_SecondRow.Visibility == Visibility.Visible)
             {
-                this.grd_SecondRow.Visibility = Visibility.Hidden;
-                this.grd_SecondRow.Visibility = Visibility.Collapsed;
+                grd_SecondRow.Visibility = Visibility.Hidden;
+                grd_SecondRow.Visibility = Visibility.Collapsed;
                 btn_CollExp.Text = "⏷";
             }
             else
             {
-                this.grd_SecondRow.Visibility = Visibility.Visible;
+                grd_SecondRow.Visibility = Visibility.Visible;
                 btn_CollExp.Text = "⏶";
             }
         }
@@ -331,7 +331,7 @@ namespace TraderForPoe.Controls
         {
             ((StackPanel)Parent).Children.Remove(this);
             stashGridHighlight.RemoveStashControl(tItem);
-            CustomTestCtrl.RemoveTICfromList(this);
+            RemoveTICfromList(this);
             //TradeItem.RemoveItemFromList(tItem);
             stashGridHighlight.ClearCanvas();
         }
@@ -363,7 +363,7 @@ namespace TraderForPoe.Controls
 
         private void ClickToWikiLeague(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://pathofexile.gamepedia.com/" + tItem.League);
+            Process.Start("https://pathofexile.gamepedia.com/" + tItem.League);
         }
 
         private void ClickVisitHideout(object sender, RoutedEventArgs e)
@@ -385,17 +385,17 @@ namespace TraderForPoe.Controls
             MessageBoxResult dialogResult = MessageBox.Show("Is this a quad stash?", "Quad stash?", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (dialogResult == MessageBoxResult.Yes)
             {
-                if (!Settings.Default.QuadStash.Contains(tItem.Stash.ToString()))
+                if (!Settings.Default.QuadStash.Contains(tItem.Stash))
                 {
-                    Settings.Default.QuadStash.Add(tItem.Stash.ToString());
+                    Settings.Default.QuadStash.Add(tItem.Stash);
                     Settings.Default.Save();
                 }
             }
             if (dialogResult == MessageBoxResult.No)
             {
-                if (Settings.Default.QuadStash.Contains(tItem.Stash.ToString()))
+                if (Settings.Default.QuadStash.Contains(tItem.Stash))
                 {
-                    Settings.Default.QuadStash.Remove(tItem.Stash.ToString());
+                    Settings.Default.QuadStash.Remove(tItem.Stash);
                     Settings.Default.Save();
                 }
             }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using TraderForPoe.Properties;
+using TraderForPoe.ViewModel.Base;
 
 namespace TraderForPoe.ViewModel
 {
@@ -22,273 +23,273 @@ namespace TraderForPoe.ViewModel
 
         public bool CheckForUpdatesOnStart
         {
-            get { return Settings.Default.CheckForUpdatesOnStart; }
+            get => Settings.Default.CheckForUpdatesOnStart;
             set
             {
                 if (Settings.Default.CheckForUpdatesOnStart != value)
                 {
                     Settings.Default.CheckForUpdatesOnStart = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public bool CloseItemAfterCustomWhisper1
         {
-            get { return Settings.Default.CloseItemAfterCustomWhisper1; }
+            get => Settings.Default.CloseItemAfterCustomWhisper1;
             set
             {
                 if (Settings.Default.CloseItemAfterCustomWhisper1 != value)
                 {
                     Settings.Default.CloseItemAfterCustomWhisper1 = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public bool CloseItemAfterCustomWhisper2
         {
-            get { return Settings.Default.CloseItemAfterCustomWhisper2; }
+            get => Settings.Default.CloseItemAfterCustomWhisper2;
             set
             {
                 if (Settings.Default.CloseItemAfterCustomWhisper2 != value)
                 {
                     Settings.Default.CloseItemAfterCustomWhisper2 = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public bool CloseItemAfterCustomWhisper3
         {
-            get { return Settings.Default.CloseItemAfterCustomWhisper3; }
+            get => Settings.Default.CloseItemAfterCustomWhisper3;
             set
             {
                 if (Settings.Default.CloseItemAfterCustomWhisper3 != value)
                 {
                     Settings.Default.CloseItemAfterCustomWhisper3 = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public bool CloseItemAfterCustomWhisper4
         {
-            get { return Settings.Default.CloseItemAfterCustomWhisper4; }
+            get => Settings.Default.CloseItemAfterCustomWhisper4;
             set
             {
                 if (Settings.Default.CloseItemAfterCustomWhisper4 != value)
                 {
                     Settings.Default.CloseItemAfterCustomWhisper4 = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public bool CloseItemAfterImBusyWhisper
         {
-            get { return Settings.Default.CloseItemAfterImBusyWhisper; }
+            get => Settings.Default.CloseItemAfterImBusyWhisper;
             set
             {
                 if (Settings.Default.CloseItemAfterImBusyWhisper != value)
                 {
                     Settings.Default.CloseItemAfterImBusyWhisper = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public bool CloseItemAfterThankYouWhisper
         {
-            get { return Settings.Default.CloseItemAfterThankYouWhisper; }
+            get => Settings.Default.CloseItemAfterThankYouWhisper;
             set
             {
                 if (Settings.Default.CloseItemAfterThankYouWhisper != value)
                 {
                     Settings.Default.CloseItemAfterThankYouWhisper = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public bool CloseItemAfterTrade
         {
-            get { return Settings.Default.CloseItemAfterTrade; }
+            get => Settings.Default.CloseItemAfterTrade;
             set
             {
                 if (Settings.Default.CloseItemAfterTrade != value)
                 {
                     Settings.Default.CloseItemAfterTrade = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
-        public RelayCommand CmdAddToQuadStashList { get; private set; }
+        public RelayCommand CmdAddToQuadStashList { get; }
 
-        public RelayCommand CmdDeleteQuadStash { get; private set; }
+        public RelayCommand CmdDeleteQuadStash { get; }
 
-        public RelayCommand CmdQuit { get; private set; }
+        public RelayCommand CmdQuit { get; }
 
-        public RelayCommand CmdRestart { get; private set; }
+        public RelayCommand CmdRestart { get; }
 
         public bool CollapsedItems
         {
-            get { return Settings.Default.CollapsedItems; }
+            get => Settings.Default.CollapsedItems;
             set
             {
                 if (Settings.Default.CollapsedItems != value)
                 {
                     Settings.Default.CollapsedItems = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public float ControlOpacity
         {
-            get { return Settings.Default.ControlOpacity; }
+            get => Settings.Default.ControlOpacity;
             set { Settings.Default.ControlOpacity = value; OnPropertyChanged(); }
         }
 
         public string CustomWhisper1
         {
-            get { return Settings.Default.CustomWhisper1; }
+            get => Settings.Default.CustomWhisper1;
             set
             {
                 if (Settings.Default.CustomWhisper1 != value)
                 {
                     Settings.Default.CustomWhisper1 = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string CustomWhisper2
         {
-            get { return Settings.Default.CustomWhisper2; }
+            get => Settings.Default.CustomWhisper2;
             set
             {
                 if (Settings.Default.CustomWhisper2 != value)
                 {
                     Settings.Default.CustomWhisper2 = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string CustomWhisper3
         {
-            get { return Settings.Default.CustomWhisper3; }
+            get => Settings.Default.CustomWhisper3;
             set
             {
                 if (Settings.Default.CustomWhisper3 != value)
                 {
                     Settings.Default.CustomWhisper3 = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string CustomWhisper4
         {
-            get { return Settings.Default.CustomWhisper4; }
+            get => Settings.Default.CustomWhisper4;
             set
             {
                 if (Settings.Default.CustomWhisper4 != value)
                 {
                     Settings.Default.CustomWhisper4 = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public bool HideIfPoeNotForeGround
         {
-            get { return Settings.Default.HideIfPoeNotForeGround; }
+            get => Settings.Default.HideIfPoeNotForeGround;
             set
             {
                 if (Settings.Default.HideIfPoeNotForeGround != value)
                 {
                     Settings.Default.HideIfPoeNotForeGround = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string ImBusyWhisper
         {
-            get { return Settings.Default.ImBusyWhisper; }
+            get => Settings.Default.ImBusyWhisper;
             set
             {
                 if (Settings.Default.ImBusyWhisper != value)
                 {
                     Settings.Default.ImBusyWhisper = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string Path
         {
-            get { return Settings.Default.PathToClientTxt; }
+            get => Settings.Default.PathToClientTxt;
             set
             {
                 if (Settings.Default.PathToClientTxt != value)
                 {
                     Settings.Default.PathToClientTxt = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string PlayerName
         {
-            get { return Settings.Default.PlayerName; }
+            get => Settings.Default.PlayerName;
             set
             {
                 if (Settings.Default.PlayerName != value)
                 {
                     Settings.Default.PlayerName = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public bool PlayNotificationSound
         {
-            get { return Settings.Default.PlayNotificationSound; }
+            get => Settings.Default.PlayNotificationSound;
             set
             {
                 if (Settings.Default.PlayNotificationSound != value)
                 {
                     Settings.Default.PlayNotificationSound = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
 
         public ObservableCollection<string> QuadStashList
         {
-            get { return Settings.Default.QuadStash; }
+            get => Settings.Default.QuadStash;
             set { Settings.Default.QuadStash = value; OnPropertyChanged(); }
         }
 
@@ -298,14 +299,14 @@ namespace TraderForPoe.ViewModel
 
         public string ThankYouWhisper
         {
-            get { return Settings.Default.ThankYouWhisper; }
+            get => Settings.Default.ThankYouWhisper;
             set
             {
                 if (Settings.Default.ThankYouWhisper != value)
                 {
                     Settings.Default.ThankYouWhisper = value;
                     Settings.Default.Save();
-                    this.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }

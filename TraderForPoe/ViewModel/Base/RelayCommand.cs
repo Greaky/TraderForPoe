@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Windows.Input;
 
-/// <summary>
-/// Many thanks to Artentus for providing this useful class
-/// https://www.vb-paradise.de/index.php/Thread/108687-Grundlagen-Commands/
-/// </summary>
-namespace TraderForPoe.ViewModel
+namespace TraderForPoe.ViewModel.Base
 {
     public class RelayCommand : ICommand
     {
-        private readonly Func<bool> canExecuteEvaluator;
+        private readonly Func<bool> _canExecuteEvaluator;
 
-        private readonly Action methodToExecute;
+        private readonly Action _methodToExecute;
 
         public RelayCommand(Action methodToExecute, Func<bool> canExecuteEvaluator)
         {
-            this.methodToExecute = methodToExecute;
-            this.canExecuteEvaluator = canExecuteEvaluator;
+            _methodToExecute = methodToExecute;
+            _canExecuteEvaluator = canExecuteEvaluator;
         }
 
         public RelayCommand(Action methodToExecute) : this(methodToExecute, null)
@@ -25,26 +21,24 @@ namespace TraderForPoe.ViewModel
 
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         public bool CanExecute(object parameter)
         {
-            if (this.canExecuteEvaluator == null)
+            if (_canExecuteEvaluator == null)
             {
                 return true;
             }
-            else
-            {
-                bool result = this.canExecuteEvaluator.Invoke();
-                return result;
-            }
+
+            var result = _canExecuteEvaluator.Invoke();
+            return result;
         }
 
         public void Execute(object parameter)
         {
-            this.methodToExecute.Invoke();
+            _methodToExecute.Invoke();
         }
     }
 }

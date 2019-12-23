@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -20,7 +18,7 @@ namespace TraderForPoe.Classes
         /// </summary>
         public TradeObject(string whisper)
         {
-            this.Whisper = whisper;
+            Whisper = whisper;
             ParseWhisper(whisper);
             TradeObjectList.Add(this);
         }
@@ -46,171 +44,171 @@ namespace TraderForPoe.Classes
 
         private void ParseWhisper(string whisper)
         {
-            Regex poeTradeRegex = new Regex("@(?<messageType>.*) (?<customer>.*): Hi, I would like to buy your (?<item>.*) listed for (?<amountPrice>[0-9]*[.]?[0-9]+) (?<itemPrice>.*) in (?<league>.*) [(]stash tab \"(?<stashName>.*)[\"]; position: left (?<stashPositionX>[0-9]*), top (?<stashPositionY>[0-9]*)[)](?<additionalText>.*)");
-            Regex poeTradeUnpricedRegex = new Regex("@(?<messageType>.*) (?<customer>.*): Hi, I would like to buy your (?<item>.*) listed in (?<league>.*) [(]stash tab \"(?<stashName>.*)[\"]; position: left (?<stashPositionX>[0-9]*), top (?<stashPositionY>[0-9]*)[)](?<additionalText>.*)");
-            Regex poeTradeNoLocationRegex = new Regex("@(?<messageType>.*) (?<customer>.*): Hi, I would like to buy your (?<item>.*) listed for (?<amountPrice>[0-9]*[.]?[0-9]+) (?<itemPrice>.*) in (?<league>[^\\s]+)(?<additionalText>.*)");
-            Regex poeTradeCurrencyRegex = new Regex("@(?<messageType>.*) (?<customer>.*): Hi, I'd like to buy your (?<amountItem>[0-9]*[.]?[0-9]+) (?<item>.*) for my (?<amountPrice>[0-9]*[.]?[0-9]+) (?<itemPrice>.*) in (?<league>.*)[.](?<additionalText>.*)");
+            var poeTradeRegex = new Regex("@(?<messageType>.*) (?<customer>.*): Hi, I would like to buy your (?<item>.*) listed for (?<amountPrice>[0-9]*[.]?[0-9]+) (?<itemPrice>.*) in (?<league>.*) [(]stash tab \"(?<stashName>.*)[\"]; position: left (?<stashPositionX>[0-9]*), top (?<stashPositionY>[0-9]*)[)](?<additionalText>.*)");
+            var poeTradeUnpricedRegex = new Regex("@(?<messageType>.*) (?<customer>.*): Hi, I would like to buy your (?<item>.*) listed in (?<league>.*) [(]stash tab \"(?<stashName>.*)[\"]; position: left (?<stashPositionX>[0-9]*), top (?<stashPositionY>[0-9]*)[)](?<additionalText>.*)");
+            var poeTradeNoLocationRegex = new Regex("@(?<messageType>.*) (?<customer>.*): Hi, I would like to buy your (?<item>.*) listed for (?<amountPrice>[0-9]*[.]?[0-9]+) (?<itemPrice>.*) in (?<league>[^\\s]+)(?<additionalText>.*)");
+            var poeTradeCurrencyRegex = new Regex("@(?<messageType>.*) (?<customer>.*): Hi, I'd like to buy your (?<amountItem>[0-9]*[.]?[0-9]+) (?<item>.*) for my (?<amountPrice>[0-9]*[.]?[0-9]+) (?<itemPrice>.*) in (?<league>.*)[.](?<additionalText>.*)");
 
-            Regex poeAppRegEx = new Regex("@(?<messageType>.*) (?<customer>.*): wtb (?<item>.*) listed for (?<amountPrice>[0-9]*[.]?[0-9]+) (?<itemPrice>.*) in (?<league>.*) [(]stash \"(?<stashName>.*)[\"]; left (?<stashPositionX>[0-9]*), top (?<stashPositionY>[0-9]*)[)](?<additionalText>.*)");
-            Regex poeAppUnpricedRegex = new Regex("@(?<messageType>.*) (?<customer>.*): wtb (?<item>.*) in (?<league>.*) [(]stash \"(?<stashName>.*)[\"]; left (?<stashPositionX>[0-9]*), top (?<stashPositionY>[0-9]*)[)](?<additionalText>.*)");
-            Regex poeAppCurrencyRegex = new Regex("@(?<messageType>.*) (?<customer>.*): I'd like to buy your (?<amountItem>[0-9]*[.]?[0-9]+) (?<item>.*) for my (?<amountPrice>[0-9]*[.]?[0-9]+) (?<itemPrice>.*) in (?<league>.*)[.](?<additionalText>.*)");
+            var poeAppRegEx = new Regex("@(?<messageType>.*) (?<customer>.*): wtb (?<item>.*) listed for (?<amountPrice>[0-9]*[.]?[0-9]+) (?<itemPrice>.*) in (?<league>.*) [(]stash \"(?<stashName>.*)[\"]; left (?<stashPositionX>[0-9]*), top (?<stashPositionY>[0-9]*)[)](?<additionalText>.*)");
+            var poeAppUnpricedRegex = new Regex("@(?<messageType>.*) (?<customer>.*): wtb (?<item>.*) in (?<league>.*) [(]stash \"(?<stashName>.*)[\"]; left (?<stashPositionX>[0-9]*), top (?<stashPositionY>[0-9]*)[)](?<additionalText>.*)");
+            var poeAppCurrencyRegex = new Regex("@(?<messageType>.*) (?<customer>.*): I'd like to buy your (?<amountItem>[0-9]*[.]?[0-9]+) (?<item>.*) for my (?<amountPrice>[0-9]*[.]?[0-9]+) (?<itemPrice>.*) in (?<league>.*)[.](?<additionalText>.*)");
 
             if (poeTradeRegex.IsMatch(whisper))
             {
-                MatchCollection matches = Regex.Matches(whisper, poeTradeRegex.ToString());
+                var matches = Regex.Matches(whisper, poeTradeRegex.ToString());
 
                 foreach (Match match in matches)
                 {
-                    this.TradeType = GetTradeType(match.Groups["messageType"].Value);
+                    TradeType = GetTradeType(match.Groups["messageType"].Value);
 
-                    this.Customer = match.Groups["customer"].Value;
+                    Customer = match.Groups["customer"].Value;
 
-                    this.Item = new Item(match.Groups["item"].Value, 1)
+                    Item = new Item(match.Groups["item"].Value, 1)
                     {
                         // Set price
                         Price = new ItemBase(match.Groups["itemPrice"].Value, decimal.Parse(match.Groups["amountPrice"].Value, NumberStyles.Any, CultureInfo.InvariantCulture))
                     };
 
-                    this.League = match.Groups["league"].Value;
+                    League = match.Groups["league"].Value;
 
-                    this.Stash = match.Groups["stashName"].Value;
+                    Stash = match.Groups["stashName"].Value;
 
-                    this.Position = new Point(Convert.ToInt16(match.Groups["stashPositionX"].Value), Convert.ToInt16(match.Groups["stashPositionY"].Value));
+                    Position = new Point(Convert.ToInt16(match.Groups["stashPositionX"].Value), Convert.ToInt16(match.Groups["stashPositionY"].Value));
 
-                    this.AdditionalText = match.Groups["additionalText"].Value.Trim();
+                    AdditionalText = match.Groups["additionalText"].Value.Trim();
                 }
             }
             else if (poeTradeUnpricedRegex.IsMatch(whisper) && !whisper.Contains("listed for"))
             {
-                MatchCollection matches = Regex.Matches(whisper, poeTradeUnpricedRegex.ToString());
+                var matches = Regex.Matches(whisper, poeTradeUnpricedRegex.ToString());
 
                 foreach (Match match in matches)
                 {
-                    this.TradeType = GetTradeType(match.Groups["messageType"].Value);
+                    TradeType = GetTradeType(match.Groups["messageType"].Value);
 
-                    this.Customer = match.Groups["customer"].Value;
+                    Customer = match.Groups["customer"].Value;
 
-                    this.Item = new Item(match.Groups["item"].Value, 1);
+                    Item = new Item(match.Groups["item"].Value, 1);
 
-                    this.League = match.Groups["league"].Value;
+                    League = match.Groups["league"].Value;
 
-                    this.Stash = match.Groups["stashName"].Value;
+                    Stash = match.Groups["stashName"].Value;
 
-                    this.Position = new Point(Convert.ToInt16(match.Groups["stashPositionX"].Value), Convert.ToInt16(match.Groups["stashPositionY"].Value));
+                    Position = new Point(Convert.ToInt16(match.Groups["stashPositionX"].Value), Convert.ToInt16(match.Groups["stashPositionY"].Value));
 
-                    this.AdditionalText = match.Groups["additionalText"].Value.Trim();
+                    AdditionalText = match.Groups["additionalText"].Value.Trim();
                 }
             }
             else if (poeTradeNoLocationRegex.IsMatch(whisper))
             {
-                MatchCollection matches = Regex.Matches(whisper, poeTradeNoLocationRegex.ToString());
+                var matches = Regex.Matches(whisper, poeTradeNoLocationRegex.ToString());
 
                 foreach (Match match in matches)
                 {
-                    this.TradeType = GetTradeType(match.Groups["messageType"].Value);
+                    TradeType = GetTradeType(match.Groups["messageType"].Value);
 
-                    this.Customer = match.Groups["customer"].Value;
+                    Customer = match.Groups["customer"].Value;
 
-                    this.Item = new Item(match.Groups["item"].Value, 1)
+                    Item = new Item(match.Groups["item"].Value, 1)
                     {
                         // Set price
                         Price = new ItemBase(match.Groups["itemPrice"].Value, decimal.Parse(match.Groups["amountPrice"].Value, NumberStyles.Any, CultureInfo.InvariantCulture))
                     };
 
-                    this.League = match.Groups["league"].Value;
+                    League = match.Groups["league"].Value;
 
-                    this.AdditionalText = match.Groups["additionalText"].Value.Trim();
+                    AdditionalText = match.Groups["additionalText"].Value.Trim();
                 }
 
             }
             else if (poeTradeCurrencyRegex.IsMatch(whisper))
             {
-                MatchCollection matches = Regex.Matches(whisper, poeTradeCurrencyRegex.ToString());
+                var matches = Regex.Matches(whisper, poeTradeCurrencyRegex.ToString());
 
                 foreach (Match match in matches)
                 {
-                    this.TradeType = GetTradeType(match.Groups["messageType"].Value);
+                    TradeType = GetTradeType(match.Groups["messageType"].Value);
 
-                    this.Customer = match.Groups["customer"].Value;
+                    Customer = match.Groups["customer"].Value;
 
-                    this.Item = new Item(match.Groups["item"].Value, decimal.Parse(match.Groups["amountItem"].Value, NumberStyles.Any, CultureInfo.InvariantCulture))
+                    Item = new Item(match.Groups["item"].Value, decimal.Parse(match.Groups["amountItem"].Value, NumberStyles.Any, CultureInfo.InvariantCulture))
                     {
                         // Set price
                         Price = new ItemBase(match.Groups["itemPrice"].Value, decimal.Parse(match.Groups["amountPrice"].Value, NumberStyles.Any, CultureInfo.InvariantCulture))
                     };
 
-                    this.League = match.Groups["league"].Value;
+                    League = match.Groups["league"].Value;
 
-                    this.AdditionalText = match.Groups["additionalText"].Value.Trim();
+                    AdditionalText = match.Groups["additionalText"].Value.Trim();
                 }
 
 
             }
             else if (poeAppRegEx.IsMatch(whisper))
             {
-                MatchCollection matches = Regex.Matches(whisper, poeAppRegEx.ToString());
+                var matches = Regex.Matches(whisper, poeAppRegEx.ToString());
 
                 foreach (Match match in matches)
                 {
-                    this.TradeType = GetTradeType(match.Groups["messageType"].Value);
+                    TradeType = GetTradeType(match.Groups["messageType"].Value);
 
-                    this.Customer = match.Groups["customer"].Value;
+                    Customer = match.Groups["customer"].Value;
 
-                    this.Item = new Item(match.Groups["item"].Value, 1)
+                    Item = new Item(match.Groups["item"].Value, 1)
                     {
                         // Set price
                         Price = new ItemBase(match.Groups["itemPrice"].Value, decimal.Parse(match.Groups["amountPrice"].Value, NumberStyles.Any, CultureInfo.InvariantCulture))
                     };
 
-                    this.League = match.Groups["league"].Value;
+                    League = match.Groups["league"].Value;
 
-                    this.Stash = match.Groups["stashName"].Value;
+                    Stash = match.Groups["stashName"].Value;
 
-                    this.Position = new Point(Convert.ToInt16(match.Groups["stashPositionX"].Value), Convert.ToInt16(match.Groups["stashPositionY"].Value));
+                    Position = new Point(Convert.ToInt16(match.Groups["stashPositionX"].Value), Convert.ToInt16(match.Groups["stashPositionY"].Value));
 
-                    this.AdditionalText = match.Groups["additionalText"].Value.Trim();
+                    AdditionalText = match.Groups["additionalText"].Value.Trim();
                 }
             }
             else if (!whisper.Contains("listed for") && poeAppUnpricedRegex.IsMatch(whisper))
             {
-                MatchCollection matches = Regex.Matches(whisper, poeAppUnpricedRegex.ToString());
+                var matches = Regex.Matches(whisper, poeAppUnpricedRegex.ToString());
 
                 foreach (Match match in matches)
                 {
-                    this.TradeType = GetTradeType(match.Groups["messageType"].Value);
+                    TradeType = GetTradeType(match.Groups["messageType"].Value);
 
-                    this.Customer = match.Groups["customer"].Value;
+                    Customer = match.Groups["customer"].Value;
 
-                    this.Item = new Item(match.Groups["item"].Value, 1);
+                    Item = new Item(match.Groups["item"].Value, 1);
 
-                    this.League = match.Groups["league"].Value;
+                    League = match.Groups["league"].Value;
 
-                    this.Stash = match.Groups["stashName"].Value;
+                    Stash = match.Groups["stashName"].Value;
 
-                    this.Position = new Point(Convert.ToInt16(match.Groups["stashPositionX"].Value), Convert.ToInt16(match.Groups["stashPositionY"].Value));
+                    Position = new Point(Convert.ToInt16(match.Groups["stashPositionX"].Value), Convert.ToInt16(match.Groups["stashPositionY"].Value));
 
-                    this.AdditionalText = match.Groups["additionalText"].Value.Trim();
+                    AdditionalText = match.Groups["additionalText"].Value.Trim();
                 }
             }
             else if (!whisper.Contains("Hi, ") && poeAppCurrencyRegex.IsMatch(whisper))
             {
-                MatchCollection matches = Regex.Matches(whisper, poeAppCurrencyRegex.ToString());
+                var matches = Regex.Matches(whisper, poeAppCurrencyRegex.ToString());
 
                 foreach (Match match in matches)
                 {
-                    this.TradeType = GetTradeType(match.Groups["messageType"].Value);
+                    TradeType = GetTradeType(match.Groups["messageType"].Value);
 
-                    this.Customer = match.Groups["customer"].Value;
+                    Customer = match.Groups["customer"].Value;
 
-                    this.Item = new Item(match.Groups["item"].Value, decimal.Parse(match.Groups["amountItem"].Value, NumberStyles.Any, CultureInfo.InvariantCulture))
+                    Item = new Item(match.Groups["item"].Value, decimal.Parse(match.Groups["amountItem"].Value, NumberStyles.Any, CultureInfo.InvariantCulture))
                     {
                         // Set price
                         Price = new ItemBase(match.Groups["itemPrice"].Value, decimal.Parse(match.Groups["amountPrice"].Value, NumberStyles.Any, CultureInfo.InvariantCulture))
                     };
 
-                    this.League = match.Groups["league"].Value;
+                    League = match.Groups["league"].Value;
 
-                    this.AdditionalText = match.Groups["additionalText"].Value.Trim();
+                    AdditionalText = match.Groups["additionalText"].Value.Trim();
                 }
 
 
@@ -287,7 +285,7 @@ namespace TraderForPoe.Classes
 
         public static void RemoveItemFromList(TradeObject arg)
         {
-            for (int i = 0; i < TradeObjectList.Count; i++)
+            for (var i = 0; i < TradeObjectList.Count; i++)
             {
                 if (TradeObjectList[i].Item == arg.Item &&
                     TradeObjectList[i].Customer == arg.Customer &&

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TraderForPoe.ViewModel.Base;
 
 namespace TraderForPoe.ViewModel
 {
-    class AboutViewModel : ViewModelBase
+    internal class AboutViewModel : ViewModelBase
     {
         public AboutViewModel()
         {

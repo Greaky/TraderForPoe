@@ -8,10 +8,10 @@ using WindowsInput.Native;
 using TraderForPoe.Windows;
 using TraderForPoe.Properties;
 using System.Media;
-using System.ComponentModel;
 using System.Windows.Threading;
 using System.Diagnostics;
 using System.Windows.Media;
+using TraderForPoe.Classes;
 
 namespace TraderForPoe
 {
@@ -89,7 +89,7 @@ namespace TraderForPoe
         private void Timer_Tick(object sender, EventArgs e)
         {
             TimeSpan ts = stopwatch.Elapsed;
-            string currentTime = String.Format("{0:00}:{1:00}", (int)ts.TotalMinutes, ts.Seconds);
+            string currentTime = $"{(int) ts.TotalMinutes:00}:{ts.Seconds:00}";
             txt_Time.Text = currentTime;
         }
 
@@ -109,33 +109,33 @@ namespace TraderForPoe
 
         private void LoadSettings()
         {
-            if (Settings.Default.CollapsedItems == true)
+            if (Settings.Default.CollapsedItems)
             {
                 CollapseExpandItem();
             }
 
-            if (Settings.Default.PlayNotificationSound)
-            {
-                SoundPlayer player = new SoundPlayer(Properties.Resources.notification);
-                player.Play();
-            }
+            if (!Settings.Default.PlayNotificationSound) return;
+
+            var player = new SoundPlayer(Properties.Resources.notification);
+            player.Play();
+            player.Dispose();
         }
 
         private void SetupControls(TradeItemOld tItemArg)
         {
-            if (!String.IsNullOrEmpty(tItem.Item.ToString()))
+            if (!String.IsNullOrEmpty(tItem.Item))
             {
-                btn_Item.ToolTip = tItem.Item.ToString();
+                btn_Item.ToolTip = tItem.Item;
             }
 
             if (!String.IsNullOrEmpty(tItem.Price))
             {
-                btn_Price.ToolTip = tItem.Price.ToString();
+                btn_Price.ToolTip = tItem.Price;
             }
 
             if (tItem.TradeType == TradeItemOld.TradeTypes.BUY)
             {
-                txt_Item.Foreground = System.Windows.Media.Brushes.GreenYellow;
+                txt_Item.Foreground = Brushes.GreenYellow;
                 btn_InviteCustomer.Visibility = Visibility.Collapsed;
                 btn_StartTrade.Visibility = Visibility.Collapsed;
                 btn_SearchItem.Visibility = Visibility.Collapsed;
@@ -146,7 +146,7 @@ namespace TraderForPoe
 
             else if (tItem.TradeType == TradeItemOld.TradeTypes.SELL)
             {
-                txt_Item.Foreground = System.Windows.Media.Brushes.OrangeRed;
+                txt_Item.Foreground = Brushes.OrangeRed;
                 btn_VisitCustomerHideout.Visibility = Visibility.Collapsed;
                 btn_VisitOwnHideout.Visibility = Visibility.Collapsed;
                 btn_SendWhisperAgain.Visibility = Visibility.Collapsed;
@@ -275,7 +275,7 @@ namespace TraderForPoe
                 Duration = new Duration(TimeSpan.FromMilliseconds(180))
             };
 
-            this.BeginAnimation(Window.OpacityProperty, dAnim);
+            BeginAnimation(OpacityProperty, dAnim);
         }
 
         private void SendInputToPoe(string input)
@@ -291,7 +291,7 @@ namespace TraderForPoe
                 return;
             }
 
-            InputSimulator iSim = new InputSimulator();
+            var iSim = new InputSimulator();
 
             // Need to press ALT because the SetForegroundWindow sometimes does not work
             iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
@@ -318,15 +318,15 @@ namespace TraderForPoe
 
         private void CollapseExpandItem()
         {
-            if (this.grd_SecondRow.Visibility == Visibility.Visible)
+            if (grd_SecondRow.Visibility == Visibility.Visible)
             {
-                this.grd_SecondRow.Visibility = Visibility.Hidden;
-                this.grd_SecondRow.Visibility = Visibility.Collapsed;
+                grd_SecondRow.Visibility = Visibility.Hidden;
+                grd_SecondRow.Visibility = Visibility.Collapsed;
                 btn_CollExp.Text = "⏷";
             }
             else
             {
-                this.grd_SecondRow.Visibility = Visibility.Visible;
+                grd_SecondRow.Visibility = Visibility.Visible;
                 btn_CollExp.Text = "⏶";
             }
         }
@@ -416,7 +416,7 @@ namespace TraderForPoe
         {
             ((StackPanel)Parent).Children.Remove(this);
             //stashGridHighlight.RemoveStashControl(tItem);
-            TradeItemControl.RemoveTICfromList(this);
+            RemoveTICfromList(this);
             //TradeItem.RemoveItemFromList(tItem);
             stashGridHighlight.ClearCanvas();
         }
@@ -449,7 +449,7 @@ namespace TraderForPoe
 
         private void ClickToWikiLeague(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://pathofexile.gamepedia.com/" + tItem.League);
+            Process.Start("https://pathofexile.gamepedia.com/" + tItem.League);
         }
 
         private void ClickVisitHideout(object sender, RoutedEventArgs e)
@@ -471,18 +471,18 @@ namespace TraderForPoe
             MessageBoxResult dialogResult = MessageBox.Show("Is this a quad stash?", "Quad stash?", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (dialogResult == MessageBoxResult.Yes)
             {
-                if (!Settings.Default.QuadStash.Contains(tItem.Stash.ToString()))
+                if (!Settings.Default.QuadStash.Contains(tItem.Stash))
                 {
-                    Settings.Default.QuadStash.Add(tItem.Stash.ToString());
+                    Settings.Default.QuadStash.Add(tItem.Stash);
                     Settings.Default.Save();
                 }
 
             }
             if (dialogResult == MessageBoxResult.No)
             {
-                if (Settings.Default.QuadStash.Contains(tItem.Stash.ToString()))
+                if (Settings.Default.QuadStash.Contains(tItem.Stash))
                 {
-                    Settings.Default.QuadStash.Remove(tItem.Stash.ToString());
+                    Settings.Default.QuadStash.Remove(tItem.Stash);
                     Settings.Default.Save();
                 }
 

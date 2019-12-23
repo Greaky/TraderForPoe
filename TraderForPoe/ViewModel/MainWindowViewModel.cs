@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using TraderForPoe.Classes;
 using TraderForPoe.Properties;
-using TraderForPoe.Windows;
+using TraderForPoe.ViewModel.Base;
 
 namespace TraderForPoe.ViewModel
 {
@@ -10,8 +9,8 @@ namespace TraderForPoe.ViewModel
     {
         #region Fields
 
-        private ClipboardMonitor clipboardMonitor = new ClipboardMonitor();
-        private StashGridViewModel stashGridViewModel = StashGridViewModel.Instance;
+        private readonly ClipboardMonitor _clipboardMonitor = new ClipboardMonitor();
+        private StashGridViewModel _stashGridViewModel = StashGridViewModel.Instance;
 
         #endregion Fields
 
@@ -28,10 +27,7 @@ namespace TraderForPoe.ViewModel
 
         public ObservableCollection<TradeObjectViewModel> TradeObjects { get; set; } = new ObservableCollection<TradeObjectViewModel>();
 
-        public float ControlOpacity
-        {
-            get { return Settings.Default.ControlOpacity; }
-        }
+        public float ControlOpacity => Settings.Default.ControlOpacity;
 
         #endregion Properties
 
@@ -39,7 +35,7 @@ namespace TraderForPoe.ViewModel
 
         private void ClipMonitor_OnChange(object sender, ClipboardTextEventArgs e)
         {
-            if (Settings.Default.UseClipboardMonitor == true)
+            if (Settings.Default.UseClipboardMonitor)
             {
                 if (TradeObject.IsTradeWhisper(e.Line))
                 {
@@ -61,7 +57,7 @@ namespace TraderForPoe.ViewModel
 
         private void SubscribeToEvents()
         {
-            clipboardMonitor.OnChange += ClipMonitor_OnChange;
+            _clipboardMonitor.OnChange += ClipMonitor_OnChange;
             LogReader.OnLineAddition += LogReader_OnLineAddition;
         }
 
