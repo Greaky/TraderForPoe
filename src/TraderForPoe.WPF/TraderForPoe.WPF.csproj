@@ -1,0 +1,180 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>TraderForPoe.WPF.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <StartupObject>TraderForPoe.App</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\application.ico" />
+    <None Remove="Resources\arrowBuy.png" />
+    <None Remove="Resources\arrowSell.png" />
+    <None Remove="Resources\click.wav" />
+    <None Remove="Resources\Currency\curr_alch.png" />
+    <None Remove="Resources\Currency\curr_alt.png" />
+    <None Remove="Resources\Currency\curr_ancient.png" />
+    <None Remove="Resources\Currency\curr_annul.png" />
+    <None Remove="Resources\Currency\curr_appr_carto_sextant.png" />
+    <None Remove="Resources\Currency\curr_armour_scrap.png" />
+    <None Remove="Resources\Currency\curr_aug.png" />
+    <None Remove="Resources\Currency\curr_bauble.png" />
+    <None Remove="Resources\Currency\curr_bestiary_orb.png" />
+    <None Remove="Resources\Currency\curr_binding.png" />
+    <None Remove="Resources\Currency\curr_black_whetstone.png" />
+    <None Remove="Resources\Currency\curr_blessed.png" />
+    <None Remove="Resources\Currency\curr_bless_chayula.png" />
+    <None Remove="Resources\Currency\curr_bless_esh.png" />
+    <None Remove="Resources\Currency\curr_bless_tul.png" />
+    <None Remove="Resources\Currency\curr_bless_uul.png" />
+    <None Remove="Resources\Currency\curr_bless_xoph.png" />
+    <None Remove="Resources\Currency\curr_chance.png" />
+    <None Remove="Resources\Currency\curr_chaos.png" />
+    <None Remove="Resources\Currency\curr_chisel.png" />
+    <None Remove="Resources\Currency\curr_chrom.png" />
+    <None Remove="Resources\Currency\curr_divine.png" />
+    <None Remove="Resources\Currency\curr_divine_vessel.png" />
+    <None Remove="Resources\Currency\curr_engineer.png" />
+    <None Remove="Resources\Currency\curr_eternal.png" />
+    <None Remove="Resources\Currency\curr_ex.png" />
+    <None Remove="Resources\Currency\curr_fuse.png" />
+    <None Remove="Resources\Currency\curr_gcp.png" />
+    <None Remove="Resources\Currency\curr_harbinger.png" />
+    <None Remove="Resources\Currency\curr_horizon.png" />
+    <None Remove="Resources\Currency\curr_impr_bestiary.png" />
+    <None Remove="Resources\Currency\curr_jew.png" />
+    <None Remove="Resources\Currency\curr_journ_carto_sextant.png" />
+    <None Remove="Resources\Currency\curr_master_carto_sextant.png" />
+    <None Remove="Resources\Currency\curr_mirror.png" />
+    <None Remove="Resources\Currency\curr_offering_to_the_goddess.png" />
+    <None Remove="Resources\Currency\curr_perandus_coin.png" />
+    <None Remove="Resources\Currency\curr_port.png" />
+    <None Remove="Resources\Currency\curr_regal.png" />
+    <None Remove="Resources\Currency\curr_regret.png" />
+    <None Remove="Resources\Currency\curr_sacrifice_dawn.png" />
+    <None Remove="Resources\Currency\curr_sacrifice_dusk.png" />
+    <None Remove="Resources\Currency\curr_sacrifice_midnight.png" />
+    <None Remove="Resources\Currency\curr_sacrifice_noon.png" />
+    <None Remove="Resources\Currency\curr_scour.png" />
+    <None Remove="Resources\Currency\curr_silver.png" />
+    <None Remove="Resources\Currency\curr_splinter_chayula.png" />
+    <None Remove="Resources\Currency\curr_splinter_esh.png" />
+    <None Remove="Resources\Currency\curr_splinter_tul.png" />
+    <None Remove="Resources\Currency\curr_splinter_uul.png" />
+    <None Remove="Resources\Currency\curr_splinter_xoph.png" />
+    <None Remove="Resources\Currency\curr_tra.png" />
+    <None Remove="Resources\Currency\curr_vaal.png" />
+    <None Remove="Resources\Currency\curr_wis.png" />
+    <None Remove="Resources\Images\account-minus.png" />
+    <None Remove="Resources\notification.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GregsStack.InputSimulatorStandard" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NotifyIconWpf\NotifyIconWpf.csproj" />
+    <ProjectReference Include="..\TraderForPoe.Business\TraderForPoe.Business.csproj" />
+    <ProjectReference Include="..\TraderForPoe.Core\TraderForPoe.Core.csproj" />
+    <ProjectReference Include="..\TraderForPoe.Input\TraderForPoe.Input.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\application.ico" />
+    <Resource Include="Resources\arrowBuy.png" />
+    <Resource Include="Resources\arrowSell.png" />
+    <Resource Include="Resources\click.wav" />
+    <Resource Include="Resources\Currency\curr_alch.png" />
+    <Resource Include="Resources\Currency\curr_alt.png" />
+    <Resource Include="Resources\Currency\curr_ancient.png" />
+    <Resource Include="Resources\Currency\curr_annul.png" />
+    <Resource Include="Resources\Currency\curr_appr_carto_sextant.png" />
+    <Resource Include="Resources\Currency\curr_armour_scrap.png" />
+    <Resource Include="Resources\Currency\curr_aug.png" />
+    <Resource Include="Resources\Currency\curr_bauble.png" />
+    <Resource Include="Resources\Currency\curr_bestiary_orb.png" />
+    <Resource Include="Resources\Currency\curr_binding.png" />
+    <Resource Include="Resources\Currency\curr_black_whetstone.png" />
+    <Resource Include="Resources\Currency\curr_blessed.png" />
+    <Resource Include="Resources\Currency\curr_bless_chayula.png" />
+    <Resource Include="Resources\Currency\curr_bless_esh.png" />
+    <Resource Include="Resources\Currency\curr_bless_tul.png" />
+    <Resource Include="Resources\Currency\curr_bless_uul.png" />
+    <Resource Include="Resources\Currency\curr_bless_xoph.png" />
+    <Resource Include="Resources\Currency\curr_chance.png" />
+    <Resource Include="Resources\Currency\curr_chaos.png" />
+    <Resource Include="Resources\Currency\curr_chisel.png" />
+    <Resource Include="Resources\Currency\curr_chrom.png" />
+    <Resource Include="Resources\Currency\curr_divine.png" />
+    <Resource Include="Resources\Currency\curr_divine_vessel.png" />
+    <Resource Include="Resources\Currency\curr_engineer.png" />
+    <Resource Include="Resources\Currency\curr_eternal.png" />
+    <Resource Include="Resources\Currency\curr_ex.png" />
+    <Resource Include="Resources\Currency\curr_fuse.png" />
+    <Resource Include="Resources\Currency\curr_gcp.png" />
+    <Resource Include="Resources\Currency\curr_harbinger.png" />
+    <Resource Include="Resources\Currency\curr_horizon.png" />
+    <Resource Include="Resources\Currency\curr_impr_bestiary.png" />
+    <Resource Include="Resources\Currency\curr_jew.png" />
+    <Resource Include="Resources\Currency\curr_journ_carto_sextant.png" />
+    <Resource Include="Resources\Currency\curr_master_carto_sextant.png" />
+    <Resource Include="Resources\Currency\curr_mirror.png" />
+    <Resource Include="Resources\Currency\curr_offering_to_the_goddess.png" />
+    <Resource Include="Resources\Currency\curr_perandus_coin.png" />
+    <Resource Include="Resources\Currency\curr_port.png" />
+    <Resource Include="Resources\Currency\curr_regal.png" />
+    <Resource Include="Resources\Currency\curr_regret.png" />
+    <Resource Include="Resources\Currency\curr_sacrifice_dawn.png" />
+    <Resource Include="Resources\Currency\curr_sacrifice_dusk.png" />
+    <Resource Include="Resources\Currency\curr_sacrifice_midnight.png" />
+    <Resource Include="Resources\Currency\curr_sacrifice_noon.png" />
+    <Resource Include="Resources\Currency\curr_scour.png" />
+    <Resource Include="Resources\Currency\curr_silver.png" />
+    <Resource Include="Resources\Currency\curr_splinter_chayula.png" />
+    <Resource Include="Resources\Currency\curr_splinter_esh.png" />
+    <Resource Include="Resources\Currency\curr_splinter_tul.png" />
+    <Resource Include="Resources\Currency\curr_splinter_uul.png" />
+    <Resource Include="Resources\Currency\curr_splinter_xoph.png" />
+    <Resource Include="Resources\Currency\curr_tra.png" />
+    <Resource Include="Resources\Currency\curr_vaal.png" />
+    <Resource Include="Resources\Currency\curr_wis.png" />
+    <Resource Include="Resources\Images\account-minus.png" />
+    <Resource Include="Resources\notification.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
