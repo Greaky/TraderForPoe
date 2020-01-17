@@ -327,18 +327,18 @@
     <Resource Include="Resources\application.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NotifyIconWpf\NotifyIconWpf.csproj">
-      <Project>{7ac63864-7638-41c4-969c-d3197ef2bed9}</Project>
-      <Name>NotifyIconWpf</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\click.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NotifyIconWpf\NotifyIconWpf.csproj">
+      <Project>{7ac63864-7638-41c4-969c-d3197ef2bed9}</Project>
+      <Name>NotifyIconWpf</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

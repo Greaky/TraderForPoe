@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>notifyIconWpf.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
