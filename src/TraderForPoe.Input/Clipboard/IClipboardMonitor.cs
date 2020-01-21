@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace TraderForPoe.Input
+namespace TraderForPoe.Input.Clipboard
 {
     public interface IClipboardMonitor
     {

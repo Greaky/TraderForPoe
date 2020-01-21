@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.IO;
 using TraderForPoe.WPF.Properties;
 
-namespace TraderForPoe.Classes
+namespace TraderForPoe.WPF.Classes
 {
     static class LogFileCheck
     {

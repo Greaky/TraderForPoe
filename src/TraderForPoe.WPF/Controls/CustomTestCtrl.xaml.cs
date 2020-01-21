@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Media;
@@ -8,13 +8,13 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
-using TraderForPoe.Classes;
-using TraderForPoe.WPF.Properties;
-using TraderForPoe.Windows;
 using GregsStack.InputSimulatorStandard;
 using GregsStack.InputSimulatorStandard.Native;
+using TraderForPoe.WPF.Classes;
+using TraderForPoe.WPF.Properties;
+using TraderForPoe.WPF.Windows;
 
-namespace TraderForPoe.Controls
+namespace TraderForPoe.WPF.Controls
 {
     /// <summary>
     /// Interaktionslogik für CustomTestCtrl.xaml

@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TraderForPoe.ViewModel.Base
+namespace TraderForPoe.WPF.ViewModel.Base
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

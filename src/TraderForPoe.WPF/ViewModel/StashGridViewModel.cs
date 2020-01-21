@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Windows.Threading;
-using TraderForPoe.Classes;
-using TraderForPoe.ViewModel.Base;
+using TraderForPoe.WPF.Classes;
+using TraderForPoe.WPF.ViewModel.Base;
 
-namespace TraderForPoe.ViewModel
+namespace TraderForPoe.WPF.ViewModel
 {
     internal class StashGridViewModel : ViewModelBase
     {

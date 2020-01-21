@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -6,7 +6,7 @@ using System.Security.Permissions;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace TraderForPoe.Classes
+namespace TraderForPoe.WPF.Classes
 {
     public class WinApi
     {
@@ -237,7 +237,7 @@ namespace TraderForPoe.Classes
         private static extern IntPtr GetForegroundWindow();
     }
 
-    [SuppressUnmanagedCodeSecurityAttribute]
+    [SuppressUnmanagedCodeSecurity]
     internal static class UnsafeNativeMethods
     {
         [DllImport("user32.dll", SetLastError = true)]

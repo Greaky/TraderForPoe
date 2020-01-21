@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace TraderForPoe.Input
+namespace TraderForPoe.Input.Clipboard
 {
     public class ClipboardTextEventArgs : EventArgs
     {

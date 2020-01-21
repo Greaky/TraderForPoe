@@ -3,10 +3,10 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
-using TraderForPoe.Classes;
-using TraderForPoe.ViewModel.Base;
+using TraderForPoe.WPF.Classes;
+using TraderForPoe.WPF.ViewModel.Base;
 
-namespace TraderForPoe.ViewModel
+namespace TraderForPoe.WPF.ViewModel
 {
     public class TradeHistoryViewModel : ViewModelBase
     {

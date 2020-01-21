@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Windows.Input;
 
-namespace TraderForPoe.ViewModel.Base
+namespace TraderForPoe.WPF.ViewModel.Base
 {
     public class RelayCommand : ICommand
     {

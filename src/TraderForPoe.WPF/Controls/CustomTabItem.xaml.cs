@@ -1,6 +1,6 @@
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
 
-namespace TraderForPoe.Controls
+namespace TraderForPoe.WPF.Controls
 {
     /// <summary>
     /// Interaktionslogik für CustomTabItem.xaml

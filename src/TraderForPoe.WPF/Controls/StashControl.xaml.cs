@@ -1,7 +1,7 @@
-﻿using System.Windows.Controls;
-using TraderForPoe.Classes;
+using System.Windows.Controls;
+using TraderForPoe.WPF.Classes;
 
-namespace TraderForPoe.Controls
+namespace TraderForPoe.WPF.Controls
 {
     /// <summary>
     /// Interaktionslogik für StashControl.xaml

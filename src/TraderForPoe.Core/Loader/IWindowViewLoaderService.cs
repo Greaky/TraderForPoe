@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace TraderForPoe.Core
+namespace TraderForPoe.Core.Loader
 {
     public interface IWindowViewLoaderService
     {

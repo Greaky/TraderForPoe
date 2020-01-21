@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,11 +6,11 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using TraderForPoe.Classes;
-using TraderForPoe.Controls;
+using TraderForPoe.WPF.Classes;
+using TraderForPoe.WPF.Controls;
 using TraderForPoe.WPF.Properties;
 
-namespace TraderForPoe.Windows
+namespace TraderForPoe.WPF.Windows
 {
     /// <summary>
     /// Interaktionslogik für StashGridHighlight.xaml

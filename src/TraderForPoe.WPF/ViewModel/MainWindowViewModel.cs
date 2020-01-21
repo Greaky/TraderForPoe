@@ -1,10 +1,10 @@
 using System.Collections.ObjectModel;
-using TraderForPoe.Classes;
+using TraderForPoe.Input.Clipboard;
+using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.Properties;
-using TraderForPoe.ViewModel.Base;
-using TraderForPoe.Input;
+using TraderForPoe.WPF.ViewModel.Base;
 
-namespace TraderForPoe.ViewModel
+namespace TraderForPoe.WPF.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {

@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Windows;
 
-namespace TraderForPoe.Classes
+namespace TraderForPoe.WPF.Classes
 {
     internal static class Updater
     {

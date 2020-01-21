@@ -1,14 +1,13 @@
+using System.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
-using TraderForPoe.Classes;
-using TraderForPoe.Core;
-using TraderForPoe.ViewModel;
-using TraderForPoe.Windows;
+using TraderForPoe.Core.Loader;
+using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.Properties;
-using TraderForPoe.WPF.Startup;
+using TraderForPoe.WPF.ViewModel;
+using TraderForPoe.WPF.Windows;
 
-namespace TraderForPoe
+namespace TraderForPoe.WPF
 {
     /// <summary>
     /// Interaktionslogik für "App.xaml"

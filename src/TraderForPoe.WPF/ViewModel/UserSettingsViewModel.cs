@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Windows;
 using TraderForPoe.WPF.Properties;
-using TraderForPoe.ViewModel.Base;
+using TraderForPoe.WPF.ViewModel.Base;
 
-namespace TraderForPoe.ViewModel
+namespace TraderForPoe.WPF.ViewModel
 {
     public class UserSettingsViewModel : ViewModelBase
     {

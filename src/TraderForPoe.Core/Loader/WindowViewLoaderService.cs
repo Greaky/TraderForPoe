@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace TraderForPoe.Core
+namespace TraderForPoe.Core.Loader
 {
     public class WindowViewLoaderService : IWindowViewLoaderService
     {

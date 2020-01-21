@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace TraderForPoe.Classes
+namespace TraderForPoe.WPF.Classes
 {
     public class NotActivatableWindow : Window
     {

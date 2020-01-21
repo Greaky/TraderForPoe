@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.DependencyInjection;
-using TraderForPoe.Core;
+using TraderForPoe.Core.Loader;
 
-namespace TraderForPoe.Input.Extensions
+namespace TraderForPoe.Core.Extensions
 {
     public static class ServiceCollectionExtensions
     {

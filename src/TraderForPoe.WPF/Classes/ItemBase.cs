@@ -2,7 +2,7 @@ using System;
 using System.Windows.Media.Imaging;
 using static System.String;
 
-namespace TraderForPoe.Classes
+namespace TraderForPoe.WPF.Classes
 {
 
     public enum ItemType

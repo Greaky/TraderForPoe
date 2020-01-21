@@ -1,8 +1,8 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Windows;
-using TraderForPoe.ViewModel;
+using TraderForPoe.WPF.ViewModel;
 
-namespace TraderForPoe.Windows
+namespace TraderForPoe.WPF.Windows
 {
     /// <summary>
     /// Interaktionslogik für About.xaml

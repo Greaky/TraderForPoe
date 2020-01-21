@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace TraderForPoe.Input
+namespace TraderForPoe.Input.Clipboard
 {
     public sealed class ClipboardMonitor : IDisposable, IClipboardMonitor
     {
@@ -65,14 +65,14 @@ namespace TraderForPoe.Input
         {
             if (msg == NativeMethods.WmClipboardupdate)
             {
-                if (Clipboard.ContainsText())
+                if (System.Windows.Clipboard.ContainsText())
                 {
 
                     for (var i = 0; i < 10; i++)
                     {
                         try
                         {
-                            OnChange?.Invoke(this, new ClipboardTextEventArgs { Line = Clipboard.GetText(TextDataFormat.UnicodeText) });
+                            OnChange?.Invoke(this, new ClipboardTextEventArgs { Line = System.Windows.Clipboard.GetText(TextDataFormat.UnicodeText) });
                             break;
                         }
                         catch (COMException ex)

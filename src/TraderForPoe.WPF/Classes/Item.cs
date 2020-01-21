@@ -1,4 +1,4 @@
-namespace TraderForPoe.Classes
+namespace TraderForPoe.WPF.Classes
 {
     public class Item : ItemBase
     {

@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows;
 
-namespace TraderForPoe.Classes
+namespace TraderForPoe.WPF.Classes
 {
     public enum TradeTypeEnum { BUY, SELL };
 

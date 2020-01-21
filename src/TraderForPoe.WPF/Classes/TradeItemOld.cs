@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace TraderForPoe.Classes
+namespace TraderForPoe.WPF.Classes
 {
 
     public class TradeItemOld

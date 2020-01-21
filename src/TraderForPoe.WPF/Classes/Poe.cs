@@ -1,10 +1,10 @@
-﻿using GregsStack.InputSimulatorStandard;
-using GregsStack.InputSimulatorStandard.Native;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
+using GregsStack.InputSimulatorStandard;
+using GregsStack.InputSimulatorStandard.Native;
 
-namespace TraderForPoe.Classes
+namespace TraderForPoe.WPF.Classes
 {
     internal static class Poe
     {

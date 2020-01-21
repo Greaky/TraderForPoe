@@ -1,11 +1,11 @@
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
-using TraderForPoe.Classes;
-using TraderForPoe.ViewModel;
+using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.Properties;
+using TraderForPoe.WPF.ViewModel;
 
-namespace TraderForPoe
+namespace TraderForPoe.WPF.Windows
 {
     public partial class MainWindow : NotActivatableWindow
     {

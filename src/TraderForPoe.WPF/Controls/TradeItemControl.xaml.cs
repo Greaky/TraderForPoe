@@ -1,19 +1,19 @@
-﻿using System;
+using System;
+using System.Diagnostics;
+using System.Media;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Animation;
-using System.Runtime.InteropServices;
-using TraderForPoe.Windows;
-using TraderForPoe.WPF.Properties;
-using System.Media;
-using System.Windows.Threading;
-using System.Diagnostics;
 using System.Windows.Media;
-using TraderForPoe.Classes;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
 using GregsStack.InputSimulatorStandard;
 using GregsStack.InputSimulatorStandard.Native;
+using TraderForPoe.WPF.Classes;
+using TraderForPoe.WPF.Properties;
+using TraderForPoe.WPF.Windows;
 
-namespace TraderForPoe
+namespace TraderForPoe.WPF.Controls
 {
     /// <summary>
     /// Interaktionslogik für TradeItemPopup.xaml

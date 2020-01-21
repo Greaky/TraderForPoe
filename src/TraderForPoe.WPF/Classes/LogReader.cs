@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Threading;
 using TraderForPoe.WPF.Properties;
 
-namespace TraderForPoe.Classes
+namespace TraderForPoe.WPF.Classes
 {
     public static class LogReader
     {

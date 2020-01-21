@@ -1,10 +1,8 @@
 using System.Windows;
-using TraderForPoe.Classes;
-using TraderForPoe.WPF;
-using TraderForPoe.ViewModel.Base;
 using TraderForPoe.WPF.Properties;
+using TraderForPoe.WPF.ViewModel.Base;
 
-namespace TraderForPoe.ViewModel
+namespace TraderForPoe.WPF.ViewModel
 {
     public class NotifyIconViewModel : ViewModelBase
     {
