@@ -12,9 +12,9 @@ namespace TraderForPoe.WPF
     /// <summary>
     /// Interaktionslogik für "App.xaml"
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
-        private TaskbarIcon notifyIcon;
+        private TaskbarIcon _notifyIcon;
         private ServiceProvider serviceProvider;
         public App()
         {
@@ -29,8 +29,10 @@ namespace TraderForPoe.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            //notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
+            // _notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
             FindResource("NotifyIcon");
+            Application.Current.FindResource("NotifyIcon");
+            //_notifyIcon = new TaskbarIcon();
         }
 
         private void CheckForLogFile()

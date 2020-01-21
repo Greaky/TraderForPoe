@@ -1,4 +1,6 @@
 using System.Windows;
+using TraderForPoe.Core.Loader;
+using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.Properties;
 using TraderForPoe.WPF.ViewModel.Base;
 
@@ -12,21 +14,26 @@ namespace TraderForPoe.WPF.ViewModel
 
         #region Constructor
 
-        public NotifyIconViewModel()
+        public NotifyIconViewModel(IWindowViewLoaderService loaderService)
         {
-/*            CmdHistory = new RelayCommand(() => WindowViewLoaderService.ShowSingle(typeof(TradeHistoryViewModel)));
+            CmdHistory = new RelayCommand(() => loaderService.ShowSingle(typeof(TradeHistoryViewModel)));
 
-            CmdLog = new RelayCommand(() => WindowViewLoaderService.Show(typeof(LogMonitorViewModel)));
+            CmdLog = new RelayCommand(() => loaderService.Show(typeof(LogMonitorViewModel)));
 
-            CmdSettings = new RelayCommand(() => WindowViewLoaderService.ShowSingle(typeof(UserSettingsViewModel)));
+            CmdSettings = new RelayCommand(() => loaderService.ShowSingle(typeof(UserSettingsViewModel)));
 
             CmdRestart = new RelayCommand(RestartApp);
 
             CmdUpdate = new RelayCommand(Updater.CheckForUpdate);
 
-            CmdAbout = new RelayCommand(() => WindowViewLoaderService.ShowSingle(typeof(AboutViewModel)));*/
+            CmdAbout = new RelayCommand(() => loaderService.ShowSingle(typeof(AboutViewModel)));
 
             CmdQuit = new RelayCommand(() => Application.Current.Shutdown());
+        }
+
+        public NotifyIconViewModel()
+        {
+            //throw new System.NotImplementedException();
         }
 
         #endregion Constructor

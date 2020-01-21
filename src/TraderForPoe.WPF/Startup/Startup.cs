@@ -14,6 +14,7 @@ namespace TraderForPoe.WPF.Startup
                 RegisterServices();
 
             services.AddTransient<ViewModel.MainWindowViewModel>();
+            services.AddTransient<ViewModel.NotifyIconViewModel>();
 
 
             return services.BuildServiceProvider();
