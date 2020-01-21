@@ -135,9 +135,6 @@ namespace TraderForPoe.WPF.Classes
         [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
-        [DllImport("user32.dll")]
-        public static extern int GetWindowRect(IntPtr hwnd, out Rectangle rect);
-
         public static uint GetWindowThread(IntPtr hWnd)
         {
             new UIPermission(UIPermissionWindow.AllWindows).Demand();

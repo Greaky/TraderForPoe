@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,36 +23,9 @@ namespace TraderForPoe.WPF.Windows
         const int WS_EX_NOACTIVATE = 134217728;
         const int LSFW_LOCK = 1;
 
-        [DllImport("user32")]
-        public static extern bool LockSetForegroundWindow(uint UINT);
-
-        [DllImport("user32")]
-        public static extern IntPtr SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
-
-        // Get a handle to an application window.
-        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-        // Used to get the client area of POE and the height and widht
-        [DllImport("user32.dll")]
-        static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
-        {
-            public int Left;        // x position of upper-left corner
-            public int Top;         // y position of upper-left corner
-            public int Right;       // x position of lower-right corner
-            public int Bottom;      // y position of lower-right corner
-        }
-
         DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
-        IntPtr poeHandle = FindWindow("POEWindowClass", "Path of Exile");
+        IntPtr poeHandle = WinApi.FindWindow("POEWindowClass", "Path of Exile");
 
         // Needed to determine if poe window location changed
         private IntPtr hWinEventHook;
@@ -79,7 +53,7 @@ namespace TraderForPoe.WPF.Windows
             {
                 if (poeHandle != IntPtr.Zero)
                 {
-                    uint TargetThreadId = WinApi.GetWindowThread(poeHandle);
+                    var TargetThreadId = WinApi.GetWindowThread(poeHandle);
                     UnsafeNativeMethods.GetWindowThreadProcessId(poeHandle, out poeProcessId);
                     hWinEventHook = WinApi.WinEventHookOne(WinApi.SwehEvents.EVENT_OBJECT_LOCATIONCHANGE,
                                                          WinEventDelegate,
@@ -107,14 +81,14 @@ namespace TraderForPoe.WPF.Windows
         private void UpdateLocationAndSize()
         {
 
-            GetClientRect(poeHandle, out RECT clientRect);
-            GetWindowRect(poeHandle, out RECT windowRect);
+            WinApi.GetClientRect(poeHandle, out var clientRect);
+            WinApi.GetWindowRect(poeHandle, out var windowRect);
 
             double borderSize = (windowRect.Right - (windowRect.Left + clientRect.Right)) / 2;
-            double titleBarSize = (windowRect.Bottom - (windowRect.Top + clientRect.Bottom)) - borderSize;
+            var titleBarSize = (windowRect.Bottom - (windowRect.Top + clientRect.Bottom)) - borderSize;
 
-            double x = windowRect.Left + borderSize;
-            double y = windowRect.Top + titleBarSize;
+            var x = windowRect.Left + borderSize;
+            var y = windowRect.Top + titleBarSize;
             double h = clientRect.Bottom;
             double w = clientRect.Right;
 
@@ -222,7 +196,7 @@ namespace TraderForPoe.WPF.Windows
 
             if (ContainsItem(tItemArgs) == false && !String.IsNullOrEmpty(tItemArgs.Stash))
             {
-                StashControl sCtrl = new StashControl(tItemArgs);
+                var sCtrl = new StashControl(tItemArgs);
 
                 sCtrl.MouseEnter += MouseEnterDrawRectangle;
 
@@ -233,21 +207,18 @@ namespace TraderForPoe.WPF.Windows
 
         private bool ContainsItem(TradeObject tItemArgs)
         {
-            foreach (StashControl item in SpnlButtons.Children)
-            {
-                if (item.GetTItem.Item.ItemAsString == tItemArgs.Item.ItemAsString && item.GetTItem.Customer == tItemArgs.Customer && item.GetTItem.Item.Price.ItemAsString == tItemArgs.Item.Price.ItemAsString && item.GetTItem.Position == tItemArgs.Position)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return SpnlButtons.Children.Cast<StashControl>()
+                .Any(item => item.GetTItem.Item.ItemAsString == tItemArgs.Item.ItemAsString
+                             && item.GetTItem.Customer == tItemArgs.Customer
+                             && item.GetTItem.Item.Price.ItemAsString == tItemArgs.Item.Price.ItemAsString
+                             && item.GetTItem.Position == tItemArgs.Position);
         }
 
         private void SetNoActiveWindow()
         {
-            WindowInteropHelper helper = new WindowInteropHelper(this);
-            SetWindowLong(helper.Handle, GWL_EXSTYLE, WS_EX_NOACTIVATE);
-            LockSetForegroundWindow(LSFW_LOCK);
+            var helper = new WindowInteropHelper(this);
+            WinApi.SetWindowLong(helper.Handle, GWL_EXSTYLE, WS_EX_NOACTIVATE);
+            WinApi.LockSetForegroundWindow(LSFW_LOCK);
         }
 
         private void StartDispatcherTimer()
@@ -271,17 +242,17 @@ namespace TraderForPoe.WPF.Windows
             StartDispatcherTimer();
 
             // Cast sender as StashControl
-            StashControl stashControl = (StashControl)sender;
+            var stashControl = (StashControl)sender;
 
-            double x = stashControl.GetTItem.Position.X;
+            var x = stashControl.GetTItem.Position.X;
 
-            double y = stashControl.GetTItem.Position.Y;
+            var y = stashControl.GetTItem.Position.Y;
 
             // Nomber of stash columns
-            int nbrRectStash = 12;
+            var nbrRectStash = 12;
 
             // Set rectangle size by dividing canvas by number of columns
-            double rectDimensionX = ((FrontCanvas.Width) / 12);
+            var rectDimensionX = ((FrontCanvas.Width) / 12);
 
             // Check if stash is quad. If true divide rectangle size and multiply number of columns by 2
             if ((x > 12 && x < 25) || (y > 12 && y < 25))
@@ -302,10 +273,10 @@ namespace TraderForPoe.WPF.Windows
             }
 
 
-            for (int iX = 1; iX <= nbrRectStash; iX++)
+            for (var iX = 1; iX <= nbrRectStash; iX++)
             {
                 // Create the rectangle
-                Rectangle rectangleHighlight = new Rectangle()
+                var rectangleHighlight = new Rectangle()
                 {
                     Width = rectDimensionX,
                     Height = rectDimensionX,
@@ -316,7 +287,7 @@ namespace TraderForPoe.WPF.Windows
                 if (iX == x)
                 {
 
-                    for (int iY = 1; iY <= nbrRectStash; iY++)
+                    for (var iY = 1; iY <= nbrRectStash; iY++)
                     {
                         if (iY == y)
                         {
