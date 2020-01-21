@@ -6,13 +6,13 @@ namespace TraderForPoe.Core.Loader
 {
     public class WindowViewLoaderService : IWindowViewLoaderService
     {
-        private Dictionary<Type, Type> _viewDictionary = new Dictionary<Type, Type>();
+        private readonly Dictionary<Type, Type> _viewDictionary = new Dictionary<Type, Type>();
 
-        private readonly IServiceProvider serviceProvider;
+        private readonly IServiceProvider _serviceProvider;
 
-        public WindowViewLoaderService(IServiceProvider ServiceProvider)
+        public WindowViewLoaderService(IServiceProvider serviceProvider)
         {
-            serviceProvider = ServiceProvider;
+            _serviceProvider = serviceProvider;
         }
 
         public void Register(Type viewmodel, Type view)
@@ -24,7 +24,7 @@ namespace TraderForPoe.Core.Loader
         {
             try
             {
-                var tmpWindows = (Window) serviceProvider.GetService(_viewDictionary[viewmodel]);
+                var tmpWindows = (Window) _serviceProvider.GetService(_viewDictionary[viewmodel]);
                 tmpWindows.Show();
                 tmpWindows.Activate();
             }
@@ -40,14 +40,12 @@ namespace TraderForPoe.Core.Loader
              {
                  foreach (Window item in Application.Current.Windows)
                  {
-                     if (item.GetType() == _viewDictionary[viewmodel])
-                     {
-                         item.WindowState = WindowState.Normal;
-                         item.Activate();
-                         return;
-                     }
+                     if (item.GetType() != _viewDictionary[viewmodel]) continue;
+                     item.WindowState = WindowState.Normal;
+                     item.Activate();
+                     return;
                  }
-                Show(viewmodel);
+                 Show(viewmodel);
              }
              catch (Exception e)
              {

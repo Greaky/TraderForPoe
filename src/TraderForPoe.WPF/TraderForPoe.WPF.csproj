@@ -7,7 +7,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>TraderForPoe.WPF.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <StartupObject>TraderForPoe.App</StartupObject>
+    <StartupObject>TraderForPoe.WPF.App</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
