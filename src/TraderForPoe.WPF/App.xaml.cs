@@ -29,10 +29,9 @@ namespace TraderForPoe.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            // _notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
-            FindResource("NotifyIcon");
-            Application.Current.FindResource("NotifyIcon");
-            //_notifyIcon = new TaskbarIcon();
+
+            var resourceLocator = serviceProvider.GetService<IResourceLocator>();
+            _notifyIcon= (TaskbarIcon) resourceLocator.GetResource("NotifyIcon");
         }
 
         private void CheckForLogFile()

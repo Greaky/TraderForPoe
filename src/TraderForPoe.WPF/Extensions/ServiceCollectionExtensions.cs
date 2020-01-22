@@ -9,14 +9,14 @@ namespace TraderForPoe.WPF.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection RegisterServices(
+        public static IServiceCollection AddViewModels(
             this IServiceCollection services)
         {
-
-            services.AddClipboardMonitor()
-                .AddWindowViewService();
+            services.AddTransient<ViewModel.MainWindowViewModel>();
+            services.AddTransient<ViewModel.NotifyIconViewModel>();
 
             return services;
         }
+
     }
 }

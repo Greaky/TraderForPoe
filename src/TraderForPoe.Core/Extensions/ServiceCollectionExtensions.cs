@@ -1,3 +1,4 @@
+using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using TraderForPoe.Core.Loader;
 
@@ -9,9 +10,19 @@ namespace TraderForPoe.Core.Extensions
             this IServiceCollection services)
         {
             services.AddTransient<IWindowViewLoaderService, WindowViewLoaderService>();
-
+            services.AddSingleton<IResourceLocator, ResourceLocator>();
 
             return services;
         }
+
+        public static IServiceCollection AddResourceLocator(
+            this IServiceCollection services, Application application)
+        {
+            services.AddSingleton<IResourceLocator>(x => new ResourceLocator(application));
+
+            return services;
+        }
+
+
     }
 }
