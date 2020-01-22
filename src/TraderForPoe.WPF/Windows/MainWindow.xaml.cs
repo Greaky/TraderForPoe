@@ -21,7 +21,6 @@ namespace TraderForPoe.WPF.Windows
             InitializeComponent();
 
             var mainWindowViewModel = ServiceProvider.GetService<MainWindowViewModel>();
-
             DataContext = mainWindowViewModel;
         }
 

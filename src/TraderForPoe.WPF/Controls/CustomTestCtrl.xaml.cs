@@ -8,8 +8,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
-using GregsStack.InputSimulatorStandard;
-using GregsStack.InputSimulatorStandard.Native;
+//using GregsStack.InputSimulatorStandard;
+//using GregsStack.InputSimulatorStandard.Native;
 using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.Properties;
 using TraderForPoe.WPF.Windows;
@@ -207,23 +207,23 @@ namespace TraderForPoe.WPF.Controls
                 return;
             }
 
-            InputSimulator iSim = new InputSimulator();
+            //InputSimulator iSim = new InputSimulator();
 
             // Need to press ALT because the SetForegroundWindow sometimes does not work
-            iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
+            //iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
 
             // Make POE the foreground application and send input
             SetForegroundWindow(poeHandle);
 
-            iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+            //iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
 
             // Send the input
-            iSim.Keyboard.TextEntry(input);
+            //iSim.Keyboard.TextEntry(input);
 
             // Send RETURN
-            iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+            //iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
 
-            iSim = null;
+            //iSim = null;
         }
 
         private void ClickToCollapseExpandItem(object sender, RoutedEventArgs e)
@@ -257,19 +257,19 @@ namespace TraderForPoe.WPF.Controls
                 MessageBox.Show("Path of Exile is not running.");
                 return;
             }
-            InputSimulator iSim = new InputSimulator();
+          //  InputSimulator iSim = new InputSimulator();
 
             // Need to press ALT because the SetForegroundWindow sometimes does not work
-            iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
+            //iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
 
             // Make POE the foreground application and send input
             SetForegroundWindow(poeHandle);
 
-            iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+            //iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
 
-            iSim.Keyboard.TextEntry("@" + tItem.Customer + " ");
+            //iSim.Keyboard.TextEntry("@" + tItem.Customer + " ");
 
-            iSim = null;
+            //iSim = null;
         }
 
         private void ClickInviteCustomer(object sender, RoutedEventArgs e)
@@ -298,21 +298,21 @@ namespace TraderForPoe.WPF.Controls
                 return;
             }
 
-            InputSimulator iSim = new InputSimulator();
+            //InputSimulator iSim = new InputSimulator();
 
             // Need to press ALT because the SetForegroundWindow sometimes does not work
-            iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
+            //iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
 
             // Make POE the foreground application and send input
             SetForegroundWindow(poeHandle);
 
-            iSim.Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_F);
+            //iSim.Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_F);
 
-            iSim.Keyboard.Sleep(500);
+            //iSim.Keyboard.Sleep(500);
 
-            iSim.Keyboard.TextEntry(tItem.Item.ItemAsString);
+            //iSim.Keyboard.TextEntry(tItem.Item.ItemAsString);
 
-            iSim = null;
+            //iSim = null;
         }
 
         private void ClickSendWhisperAgain(object sender, RoutedEventArgs e)

@@ -1,8 +1,8 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
-using GregsStack.InputSimulatorStandard;
-using GregsStack.InputSimulatorStandard.Native;
+//using GregsStack.InputSimulatorStandard;
+//using GregsStack.InputSimulatorStandard.Native;
 
 namespace TraderForPoe.WPF.Classes
 {
@@ -71,7 +71,7 @@ namespace TraderForPoe.WPF.Classes
         {
             if (IsRunning())
             {
-                var iSim = new InputSimulator();
+               // var iSim = new InputSimulator();
 
                 //Make POE the foreground application and send input
                 SetForegroundWindow(GetHandle());
@@ -79,18 +79,18 @@ namespace TraderForPoe.WPF.Classes
                 Thread.Sleep(200);
 
                 // Need to press ALT because the SetForegroundWindow sometimes does not work
-                iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
+                //iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
 
                 // Open chat
-                iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+               // iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
 
                 // Send the input
-                iSim.Keyboard.TextEntry(arg);
+                //iSim.Keyboard.TextEntry(arg);
 
                 if (send)
                 {
                     // Send RETURN
-                    iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+                   // iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
                 }
             }
             else
