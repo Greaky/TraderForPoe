@@ -1,6 +1,7 @@
 <Application x:Class="TraderForPoe.WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:extensions="clr-namespace:TraderForPoe.WPF.Extensions"
              ShutdownMode="OnExplicitShutdown"
              >
 
@@ -8,8 +9,9 @@
         <!-- merge NotifyIcon and related stuff into the application --> 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Dictionaries/NotifyIconResources.xaml" />
+                <ResourceDictionary Source="/Dictionaries/NotifyIconResources.xaml"  />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+
     </Application.Resources>
 </Application>

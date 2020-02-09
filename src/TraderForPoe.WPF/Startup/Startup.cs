@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TraderForPoe.Core.Extensions;
 using TraderForPoe.Input.Extensions;
 using TraderForPoe.WPF.Extensions;
+using TraderForPoe.WPF.Properties;
 
 namespace TraderForPoe.WPF.Startup
 {
@@ -16,6 +17,7 @@ namespace TraderForPoe.WPF.Startup
             var services = new ServiceCollection()
                 .AddViewModels()
                 .AddResourceLocator(Application.Current)
+                .AddLogReader(Settings.Default.PathToClientTxt)
                 .AddClipboardMonitor()
                 .AddWindowViewService();
             return services.BuildServiceProvider();

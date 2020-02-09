@@ -24,7 +24,8 @@ namespace TraderForPoe.Core.Loader
         {
             try
             {
-                var tmpWindows = (Window) _serviceProvider.GetService(_viewDictionary[viewmodel]);
+                var windowType = _viewDictionary[viewmodel];
+                var tmpWindows = (Window) _serviceProvider.GetService(windowType);
                 tmpWindows.Show();
                 tmpWindows.Activate();
             }

@@ -1,12 +1,13 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
+using TraderForPoe.Core.Reader;
 using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.ViewModel.Base;
 
 namespace TraderForPoe.WPF.ViewModel
 {
-    public class LogMonitorViewModel : ViewModelBase
+    public class LogMonitorViewModel : ViewModelBase, ILogMonitorViewModel
     {
         #region Fields
 
@@ -17,15 +18,15 @@ namespace TraderForPoe.WPF.ViewModel
 
         #region Contructors
 
-        public LogMonitorViewModel()
+        public LogMonitorViewModel(ILogReader logReader)
         {
-            LogReader.OnLineAddition += LogReader_OnLineAddition;
+            logReader.OnLineAddition += LogReader_OnLineAddition;
 
             CmdStart = new RelayCommand(
-                LogReader.Start);
+                logReader.Start);
 
             CmdStop = new RelayCommand(
-                LogReader.Stop);
+                logReader.Stop);
 
             CmdClear = new RelayCommand(
                 () => Lines.Clear());

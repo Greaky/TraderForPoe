@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,21 +8,19 @@ using TraderForPoe.WPF.ViewModel;
 
 namespace TraderForPoe.WPF.Windows
 {
-    public partial class MainWindow : NotActivatableWindow
+    public partial class MainWindow
     {
         private Regex customerJoinedRegEx = new Regex(".* : (.*) has joined the area");
 
         private Regex customerLeftRegEx = new Regex(".* : (.*) has left the area");
 
-        public static ServiceProvider ServiceProvider;
 
 
-        public MainWindow()
+        public MainWindow(IMainWindowViewModel mainWindowViewModel)
         {
             InitializeComponent();
-
-            var mainWindowViewModel = ServiceProvider.GetService<MainWindowViewModel>();
             DataContext = mainWindowViewModel;
+
         }
 
 

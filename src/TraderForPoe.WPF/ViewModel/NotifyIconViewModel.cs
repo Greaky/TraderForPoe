@@ -31,11 +31,6 @@ namespace TraderForPoe.WPF.ViewModel
             CmdQuit = new RelayCommand(() => Application.Current.Shutdown());
         }
 
-        public NotifyIconViewModel()
-        {
-            //throw new System.NotImplementedException();
-        }
-
         #endregion Constructor
 
         #region Properties

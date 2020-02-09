@@ -63,7 +63,7 @@ namespace TraderForPoe.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Projects\\Perso\\Github\\TraderForPoe\\fakeClient.txt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\tmp\\fakeClient.txt")]
         public string PathToClientTxt {
             get {
                 return ((string)(this["PathToClientTxt"]));

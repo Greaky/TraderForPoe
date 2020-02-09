@@ -27,11 +27,6 @@
                     MenuActivation="LeftOrRightClick"
                     DoubleClickCommand="{Binding CmdSettings}"
                     ContextMenu="{StaticResource SysTrayMenu}">
-
-        <!-- self-assign a data context (could also be done programmatically) -->
-        <tb:TaskbarIcon.DataContext>
-            <viewModel:NotifyIconViewModel />
-        </tb:TaskbarIcon.DataContext>
     </tb:TaskbarIcon>
 
     <PopupAnimation x:Key="{x:Static SystemParameters.MenuPopupAnimationKey}">None</PopupAnimation>

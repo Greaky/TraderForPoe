@@ -8,10 +8,10 @@ namespace TraderForPoe.WPF.Windows
     /// </summary>
     public partial class LogMonitor : Window
     {
-        public LogMonitor()
+        public LogMonitor(ILogMonitorViewModel logMonitorViewModel)
         {
             InitializeComponent();
-            DataContext = new LogMonitorViewModel();
+            DataContext = logMonitorViewModel;
         }
     }
 }

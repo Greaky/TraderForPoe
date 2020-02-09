@@ -4,8 +4,10 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using TraderForPoe.Core.Extensions;
 using TraderForPoe.Core.Loader;
+using TraderForPoe.Core.Reader;
 using TraderForPoe.Input.Extensions;
 using TraderForPoe.WPF.ViewModel;
+using TraderForPoe.WPF.Windows;
 
 namespace TraderForPoe.WPF.Extensions
 {
@@ -14,8 +16,14 @@ namespace TraderForPoe.WPF.Extensions
         public static IServiceCollection AddViewModels(
             this IServiceCollection services)
         {
-            services.AddTransient<ViewModel.MainWindowViewModel>();
+            services.AddTransient<IMainWindowViewModel, MainWindowViewModel>();
+            services.AddTransient<MainWindow>();
+
             services.AddTransient<NotifyIconViewModel>();
+
+            services.AddTransient<ILogMonitorViewModel, LogMonitorViewModel>();
+            //services.AddTransient<ILogMonitorViewModel, LogMonitor>();
+            services.AddTransient<LogMonitor>();
 
             return services;
         }

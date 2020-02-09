@@ -241,7 +241,7 @@ namespace TraderForPoe.WPF.Classes
 
         public static bool IsLogTradeWhisper(string arg)
         {
-            if ((arg.Contains("@From") || arg.Contains("@To") && (arg.Contains("d like to buy your ") || arg.Contains(": wtb "))))
+            if ((arg.Contains("@From") || arg.Contains("@To") && (arg.Contains("like to buy your ") || arg.Contains(": wtb "))))
             {
                 return true;
             }
@@ -253,7 +253,7 @@ namespace TraderForPoe.WPF.Classes
 
         public static bool IsTradeWhisper(string arg)
         {
-            if (arg.StartsWith("@") && (arg.Contains("d like to buy your ") || arg.Contains(" wtb ")))
+            if (arg.StartsWith("@") && (arg.Contains("like to buy your ") || arg.Contains(" wtb ")))
             {
                 return true;
             }

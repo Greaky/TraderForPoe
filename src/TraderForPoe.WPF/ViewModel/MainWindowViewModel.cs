@@ -1,4 +1,6 @@
 using System.Collections.ObjectModel;
+using TraderForPoe.Core.Loader;
+using TraderForPoe.Core.Reader;
 using TraderForPoe.Input.Clipboard;
 using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.Properties;
@@ -6,20 +8,25 @@ using TraderForPoe.WPF.ViewModel.Base;
 
 namespace TraderForPoe.WPF.ViewModel
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
     {
         #region Fields
 
         private readonly IClipboardMonitor _clipboardMonitor;
+        private readonly ILogReader _logReader;
+        private readonly IWindowViewLoaderService _viewLoaderService;
+
         private StashGridViewModel _stashGridViewModel = StashGridViewModel.Instance;
 
         #endregion Fields
 
         #region Constructors
 
-        public MainWindowViewModel(IClipboardMonitor clipboardMonitor)
+        public MainWindowViewModel(IClipboardMonitor clipboardMonitor, ILogReader logReader, IWindowViewLoaderService viewLoaderService)
         {
             _clipboardMonitor = clipboardMonitor;
+            _logReader = logReader;
+            _viewLoaderService = viewLoaderService;
             SubscribeToEvents();
             SetUpStashGrid();
         }
@@ -37,35 +44,31 @@ namespace TraderForPoe.WPF.ViewModel
 
         private void ClipMonitor_OnChange(object sender, ClipboardTextEventArgs e)
         {
-            if (Settings.Default.UseClipboardMonitor)
+            if (!Settings.Default.UseClipboardMonitor) return;
+            if (TradeObject.IsTradeWhisper(e.Line))
             {
-                if (TradeObject.IsTradeWhisper(e.Line))
-                {
-                    Poe.SendCommand(e.Line);
-                }
+                Poe.SendCommand(e.Line);
             }
         }
 
         private void LogReader_OnLineAddition(object sender, LogReaderLineEventArgs e)
         {
             //TODO Implementieren
-            if (TradeObject.IsLogTradeWhisper(e.Line))
-            {
-                var to = new TradeObject(e.Line);
-                var tovm = new TradeObjectViewModel(to);
-                TradeObjects.Add(tovm);
-            }
+            if (!TradeObject.IsLogTradeWhisper(e.Line)) return;
+            var to = new TradeObject(e.Line);
+            var tovm = new TradeObjectViewModel(to);
+            TradeObjects.Add(tovm);
         }
 
         private void SubscribeToEvents()
         {
             _clipboardMonitor.OnChange += ClipMonitor_OnChange;
-            LogReader.OnLineAddition += LogReader_OnLineAddition;
+            _logReader.OnLineAddition += LogReader_OnLineAddition;
         }
 
         private void SetUpStashGrid()
         {
-           // WindowViewLoaderService.Show(typeof(StashGridViewModel));
+            _viewLoaderService.Show(typeof(StashGridViewModel));
         }
 
         #endregion Methods

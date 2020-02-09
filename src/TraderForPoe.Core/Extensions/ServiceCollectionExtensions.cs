@@ -1,6 +1,8 @@
+using System;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using TraderForPoe.Core.Loader;
+using TraderForPoe.Core.Reader;
 
 namespace TraderForPoe.Core.Extensions
 {
@@ -9,7 +11,7 @@ namespace TraderForPoe.Core.Extensions
         public static IServiceCollection AddWindowViewService(
             this IServiceCollection services)
         {
-            services.AddTransient<IWindowViewLoaderService, WindowViewLoaderService>();
+            services.AddSingleton<IWindowViewLoaderService, WindowViewLoaderService>();
             services.AddSingleton<IResourceLocator, ResourceLocator>();
 
             return services;
@@ -23,6 +25,12 @@ namespace TraderForPoe.Core.Extensions
             return services;
         }
 
+        public static IServiceCollection AddLogReader(
+            this IServiceCollection services, string path)
+        {
+            services.AddSingleton<ILogReader>(x => new LogReader(path));
 
+            return services;
+        }
     }
 }

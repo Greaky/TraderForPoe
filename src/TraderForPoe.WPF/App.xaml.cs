@@ -15,10 +15,10 @@ namespace TraderForPoe.WPF
     public partial class App
     {
         private TaskbarIcon _notifyIcon;
-        private ServiceProvider serviceProvider;
+        private readonly ServiceProvider _serviceProvider;
         public App()
         {
-            serviceProvider = WPF.Startup.Startup.InitializeServices();
+            _serviceProvider = WPF.Startup.Startup.InitializeServices();
 
             CheckForSettingsUpgrade();
             RegisterViewModel();
@@ -30,8 +30,11 @@ namespace TraderForPoe.WPF
         {
             base.OnStartup(e);
 
-            var resourceLocator = serviceProvider.GetService<IResourceLocator>();
-            _notifyIcon= (TaskbarIcon) resourceLocator.GetResource("NotifyIcon");
+            var resourceLocator = _serviceProvider.GetService<IResourceLocator>();
+            var model = _serviceProvider.GetService<NotifyIconViewModel>();
+
+            _notifyIcon = (TaskbarIcon) resourceLocator.GetResource("NotifyIcon");
+            _notifyIcon.DataContext = model;
         }
 
         private void CheckForLogFile()
@@ -53,13 +56,13 @@ namespace TraderForPoe.WPF
 
         private void OpenMainWindow()
         {
-            var windowViewLoaderService = serviceProvider.GetService<IWindowViewLoaderService>();
+            var windowViewLoaderService = _serviceProvider.GetService<IWindowViewLoaderService>();
             windowViewLoaderService.Show(typeof(MainWindowViewModel));
         }
 
         private void RegisterViewModel()
         {
-            var windowViewLoaderService = serviceProvider.GetService<IWindowViewLoaderService>();
+            var windowViewLoaderService = _serviceProvider.GetService<IWindowViewLoaderService>();
 
             windowViewLoaderService.Register(typeof(AboutViewModel), typeof(About));
             windowViewLoaderService.Register(typeof(LogMonitorViewModel), typeof(LogMonitor));

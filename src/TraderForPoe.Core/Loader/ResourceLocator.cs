@@ -8,7 +8,7 @@ namespace TraderForPoe.Core.Loader
     public class ResourceLocator : IResourceLocator
     {
 
-        private Application _application;
+        private readonly Application _application;
 
         public ResourceLocator() : this(Application.Current)
         {

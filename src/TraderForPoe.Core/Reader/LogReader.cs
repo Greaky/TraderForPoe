@@ -3,31 +3,31 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Windows.Threading;
-using TraderForPoe.WPF.Properties;
 
-namespace TraderForPoe.WPF.Classes
+namespace TraderForPoe.Core.Reader
 {
-    public static class LogReader
+    public class LogReader : ILogReader
     {
         #region Fields
 
-        public static ObservableCollection<string> Lines { get; } = new ObservableCollection<string>();
-        private static readonly string Delimiter = "\n";
-        private static readonly string Path = Settings.Default.PathToClientTxt;
-        private static readonly DispatcherTimer Timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(200) };
-        private static string _buffer;
-        private static bool _monitoring;
-        private static long _size = new FileInfo(Path).Length;
+        public ObservableCollection<string> Lines { get; } = new ObservableCollection<string>();
+        private const string Delimiter = "\n";
+        private readonly string _path;
+        private readonly DispatcherTimer _timer;
+        private  string _buffer;
+        private  bool _monitoring;
+        private long _size;
 
         #endregion Fields
 
         #region MyRegion
 
-        static LogReader()
+        public LogReader(string path)
         {
-            Path = Settings.Default.PathToClientTxt;
-            Timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(200) };
-            Timer.Tick += Check;
+            _path = path;
+            _size = new FileInfo(_path).Length;
+            _timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(200) };
+            _timer.Tick += Check;
             Start();
         }
 
@@ -35,36 +35,36 @@ namespace TraderForPoe.WPF.Classes
 
         #region Events
 
-        public static event EventHandler<LogReaderLineEventArgs> OnLineAddition;
+        public event EventHandler<LogReaderLineEventArgs> OnLineAddition;
 
         #endregion Events
 
         #region Methods
 
-        public static void Start()
+        public void Start()
         {
-            if (Timer.IsEnabled)
+            if (_timer.IsEnabled)
             {
                 return;
             }
 
-            Timer.Start();
+            _timer.Start();
         }
 
-        public static void Stop()
+        public void Stop()
         {
-            Timer.Stop();
+            _timer.Stop();
         }
 
-        private static void Check(object sender, EventArgs e)
+        private void Check(object sender, EventArgs e)
         {
             if (!StartMonitoring()) return;
 
-            var newSize = new FileInfo(Path).Length;
+            var newSize = new FileInfo(_path).Length;
 
             if (_size >= newSize) return;
 
-            using (var stream = File.Open(Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (var stream = File.Open(_path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             using (var sr = new StreamReader(stream, Encoding.UTF8))
             {
                 sr.BaseStream.Seek(_size, SeekOrigin.Begin);
@@ -104,12 +104,12 @@ namespace TraderForPoe.WPF.Classes
 
             _size = newSize;
 
-            lock (Timer) _monitoring = false;
+            lock (_timer) _monitoring = false;
         }
 
-        private static bool StartMonitoring()
+        private bool StartMonitoring()
         {
-            lock (Timer)
+            lock (_timer)
             {
                 if (_monitoring) return true;
                 _monitoring = true;
