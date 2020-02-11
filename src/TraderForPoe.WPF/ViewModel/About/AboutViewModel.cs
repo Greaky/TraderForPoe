@@ -1,6 +1,6 @@
 using TraderForPoe.WPF.ViewModel.Base;
 
-namespace TraderForPoe.WPF.ViewModel
+namespace TraderForPoe.WPF.ViewModel.About
 {
     public class AboutViewModel : ViewModelBase, IAboutViewModel
     {

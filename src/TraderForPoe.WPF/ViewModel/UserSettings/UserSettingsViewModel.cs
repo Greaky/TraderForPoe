@@ -4,7 +4,7 @@ using TraderForPoe.Core.Loader;
 using TraderForPoe.WPF.Properties;
 using TraderForPoe.WPF.ViewModel.Base;
 
-namespace TraderForPoe.WPF.ViewModel
+namespace TraderForPoe.WPF.ViewModel.UserSettings
 {
     public class UserSettingsViewModel : ViewModelBase , IUserSettingsViewModel
     {

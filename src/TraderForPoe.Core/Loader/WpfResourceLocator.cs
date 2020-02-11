@@ -12,12 +12,7 @@ namespace TraderForPoe.Core.Loader
 
         public WpfResourceLocator(Application application)
         {
-            if (application is null)
-            {
-                throw new ArgumentNullException(nameof(application));
-            }
-
-            _application = application;
+            _application = application ?? throw new ArgumentNullException(nameof(application));
         }
 
         public object GetResource(string key)

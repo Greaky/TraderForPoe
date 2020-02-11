@@ -116,9 +116,4 @@ namespace TraderForPoe.Core.Reader
     }
 
     #endregion Methods
-
-    public class LogReaderLineEventArgs : EventArgs
-    {
-        public string Line { get; set; }
-    }
 }

@@ -14,18 +14,8 @@ namespace TraderForPoe.Core.Loader
 
         public WindowViewLoaderService(IServiceProvider serviceProvider, IWpfResourceLocator wpfResourceLocator)
         {
-            if (serviceProvider is null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
-
-            if (wpfResourceLocator is null)
-            {
-                throw new ArgumentNullException(nameof(wpfResourceLocator));
-            }
-
-            _serviceProvider = serviceProvider;
-            _wpfResourceLocator = wpfResourceLocator;
+            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+            _wpfResourceLocator = wpfResourceLocator ?? throw new ArgumentNullException(nameof(wpfResourceLocator));
         }
 
         public void Register(Type viewmodel, Type view)

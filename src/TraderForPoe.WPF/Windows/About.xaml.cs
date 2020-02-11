@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Windows;
 using TraderForPoe.WPF.ViewModel;
+using TraderForPoe.WPF.ViewModel.About;
 
 namespace TraderForPoe.WPF.Windows
 {

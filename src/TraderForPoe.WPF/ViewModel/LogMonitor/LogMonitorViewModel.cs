@@ -2,10 +2,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
 using TraderForPoe.Core.Reader;
-using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.ViewModel.Base;
 
-namespace TraderForPoe.WPF.ViewModel
+namespace TraderForPoe.WPF.ViewModel.LogMonitor
 {
     public class LogMonitorViewModel : ViewModelBase, ILogMonitorViewModel
     {

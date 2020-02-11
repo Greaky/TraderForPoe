@@ -1,6 +1,7 @@
 using System.Windows;
 using Microsoft.Win32;
 using TraderForPoe.WPF.ViewModel;
+using TraderForPoe.WPF.ViewModel.UserSettings;
 
 namespace TraderForPoe.WPF.Windows
 {
@@ -24,12 +25,11 @@ namespace TraderForPoe.WPF.Windows
                 Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*"
             };
 
-            if (openFileDialog.ShowDialog() == true)
-            {
-                txt_PathToClientTxt.Text = openFileDialog.FileName;
-                txt_PathToClientTxt.Focus();
-                txt_PathToClientTxt.CaretIndex = txt_PathToClientTxt.Text.Length;
-            }
+            if (openFileDialog.ShowDialog() != true) return;
+
+            txt_PathToClientTxt.Text = openFileDialog.FileName;
+            txt_PathToClientTxt.Focus();
+            txt_PathToClientTxt.CaretIndex = txt_PathToClientTxt.Text.Length;
         }
 
     }

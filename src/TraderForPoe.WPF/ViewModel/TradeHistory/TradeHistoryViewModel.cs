@@ -5,9 +5,8 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.ViewModel.Base;
-using TraderForPoe.WPF.ViewModel.TradeHistory;
 
-namespace TraderForPoe.WPF.ViewModel
+namespace TraderForPoe.WPF.ViewModel.TradeHistory
 {
     public class TradeHistoryViewModel : ViewModelBase,  ITradeHistoryViewModel
     {

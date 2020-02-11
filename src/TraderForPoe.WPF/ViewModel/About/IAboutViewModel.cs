@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TraderForPoe.WPF.ViewModel
+namespace TraderForPoe.WPF.ViewModel.About
 {
    public interface IAboutViewModel
     {

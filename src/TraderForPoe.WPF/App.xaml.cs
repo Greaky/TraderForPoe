@@ -5,8 +5,16 @@ using TraderForPoe.Core.Loader;
 using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.Properties;
 using TraderForPoe.WPF.ViewModel;
+using TraderForPoe.WPF.ViewModel.About;
+using TraderForPoe.WPF.ViewModel.LogMonitor;
+using TraderForPoe.WPF.ViewModel.MainWindow;
+using TraderForPoe.WPF.ViewModel.NotifyIcon;
 using TraderForPoe.WPF.ViewModel.TradeHistory;
+using TraderForPoe.WPF.ViewModel.UserSettings;
 using TraderForPoe.WPF.Windows;
+using TraderForPoe.WPF.Windows.LogMonitor;
+using TraderForPoe.WPF.Windows.MainWindow;
+using TraderForPoe.WPF.Windows.TradeHistory;
 
 namespace TraderForPoe.WPF
 {

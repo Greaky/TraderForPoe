@@ -4,7 +4,7 @@ using TraderForPoe.WPF.Properties;
 
 namespace TraderForPoe.WPF.Classes
 {
-    static class LogFileCheck
+    internal static class LogFileCheck
     {
         public static void CheckForClientTxt()
         {

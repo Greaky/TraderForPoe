@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Media;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -7,8 +8,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
-//using GregsStack.InputSimulatorStandard;
-//using GregsStack.InputSimulatorStandard.Native;
+using GregsStack.InputSimulatorStandard;
+using GregsStack.InputSimulatorStandard.Native;
 using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.Properties;
 using TraderForPoe.WPF.Windows;
@@ -21,7 +22,7 @@ namespace TraderForPoe.WPF.Controls
     public partial class TradeItemControl : UserControl
     {
 
-        private static int intNumberItems = 0;
+        private static int _intNumberItems = 0;
 
         public static event EventHandler MoreThanThreeItems;
 
@@ -36,21 +37,21 @@ namespace TraderForPoe.WPF.Controls
         [DllImport("USER32.DLL")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        private static StashGridHighlight stashGridHighlight;
+        private static StashGridHighlight _stashGridHighlight;
 
-        public TradeItemOld tItem;
+        public TradeItemOld TItem;
 
-        Stopwatch stopwatch = new Stopwatch();
+        readonly Stopwatch _stopwatch = new Stopwatch();
 
         //-----------------------------------------------------------------------------------------
 
         public TradeItemControl(TradeItemOld tItemArg)
         {
-            tItem = tItemArg;
+            TItem = tItemArg;
 
-            intNumberItems++;
+            _intNumberItems++;
 
-            if (intNumberItems > 3)
+            if (_intNumberItems > 3)
             {
                 OnMoreThanThreeItems();
             }
@@ -60,7 +61,7 @@ namespace TraderForPoe.WPF.Controls
 
             LoadSettings();
 
-            SetupControls(tItem);
+            SetupControls(TItem);
 
             StartAnimatioin();
 
@@ -75,36 +76,36 @@ namespace TraderForPoe.WPF.Controls
         private void StartTime()
         {
 
-            DispatcherTimer dispatcherTimer = new DispatcherTimer()
+            var dispatcherTimer = new DispatcherTimer()
             {
                 Interval = TimeSpan.FromMilliseconds(200)
             };
 
             dispatcherTimer.Tick += Timer_Tick;
 
-            stopwatch.Start();
+            _stopwatch.Start();
             dispatcherTimer.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            TimeSpan ts = stopwatch.Elapsed;
-            string currentTime = $"{(int) ts.TotalMinutes:00}:{ts.Seconds:00}";
+            var ts = _stopwatch.Elapsed;
+            var currentTime = $"{(int) ts.TotalMinutes:00}:{ts.Seconds:00}";
             txt_Time.Text = currentTime;
         }
 
         private void OpenStashGridHighlightWindow()
         {
-            if (stashGridHighlight == null)
+            if (_stashGridHighlight == null)
             {
-                stashGridHighlight = new StashGridHighlight();
+                _stashGridHighlight = new StashGridHighlight();
             }
-            else if (stashGridHighlight.Visibility == Visibility.Collapsed || stashGridHighlight.Visibility == Visibility.Hidden)
+            else if (_stashGridHighlight.Visibility == Visibility.Collapsed || _stashGridHighlight.Visibility == Visibility.Hidden)
             {
-                stashGridHighlight.Visibility = Visibility.Visible;
+                _stashGridHighlight.Visibility = Visibility.Visible;
             }
 
-            stashGridHighlight.Show();
+            _stashGridHighlight.Show();
         }
 
         private void LoadSettings()
@@ -123,70 +124,71 @@ namespace TraderForPoe.WPF.Controls
 
         private void SetupControls(TradeItemOld tItemArg)
         {
-            if (!String.IsNullOrEmpty(tItem.Item))
+            if (!string.IsNullOrEmpty(TItem.Item))
             {
-                btn_Item.ToolTip = tItem.Item;
+                btn_Item.ToolTip = TItem.Item;
             }
 
-            if (!String.IsNullOrEmpty(tItem.Price))
+            if (!string.IsNullOrEmpty(TItem.Price))
             {
-                btn_Price.ToolTip = tItem.Price;
+                btn_Price.ToolTip = TItem.Price;
             }
 
-            if (tItem.TradeType == TradeItemOld.TradeTypes.BUY)
+            switch (TItem.TradeType)
             {
-                txt_Item.Foreground = Brushes.GreenYellow;
-                btn_InviteCustomer.Visibility = Visibility.Collapsed;
-                btn_StartTrade.Visibility = Visibility.Collapsed;
-                btn_SearchItem.Visibility = Visibility.Collapsed;
-                btn_AskIfInterested.Visibility = Visibility.Collapsed;
-                btn_SendBusyMessage.Visibility = Visibility.Collapsed;
-                btn_stash.Click -= ClickStashIsQuad;
+                case TradeItemOld.TradeTypes.BUY:
+                    txt_Item.Foreground = Brushes.GreenYellow;
+                    btn_InviteCustomer.Visibility = Visibility.Collapsed;
+                    btn_StartTrade.Visibility = Visibility.Collapsed;
+                    btn_SearchItem.Visibility = Visibility.Collapsed;
+                    btn_AskIfInterested.Visibility = Visibility.Collapsed;
+                    btn_SendBusyMessage.Visibility = Visibility.Collapsed;
+                    btn_stash.Click -= ClickStashIsQuad;
+                    break;
+                case TradeItemOld.TradeTypes.SELL:
+                    txt_Item.Foreground = Brushes.OrangeRed;
+                    btn_VisitCustomerHideout.Visibility = Visibility.Collapsed;
+                    btn_VisitOwnHideout.Visibility = Visibility.Collapsed;
+                    btn_SendWhisperAgain.Visibility = Visibility.Collapsed;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            else if (tItem.TradeType == TradeItemOld.TradeTypes.SELL)
-            {
-                txt_Item.Foreground = Brushes.OrangeRed;
-                btn_VisitCustomerHideout.Visibility = Visibility.Collapsed;
-                btn_VisitOwnHideout.Visibility = Visibility.Collapsed;
-                btn_SendWhisperAgain.Visibility = Visibility.Collapsed;
 
-            }
-
-
-            if (tItem.ItemIsCurrency == true)
+            if (TItem.ItemIsCurrency)
             {
 
-                txt_Customer.Text = tItem.Customer;
-                txt_Item.Text = tItem.ItemCurrencyQuant;
-                img_ItemCurrency.Source = tItem.ItemCurrencyBitmap;
-                txt_League.Text = tItem.League;
+                txt_Customer.Text = TItem.Customer;
+                txt_Item.Text = TItem.ItemCurrencyQuant;
+                img_ItemCurrency.Source = TItem.ItemCurrencyBitmap;
+                txt_League.Text = TItem.League;
 
                 try
                 {
-                    txt_Price.Text = TradeItemOld.ExtractPointNumberFromString(tItem.Price);
+                    txt_Price.Text = TradeItemOld.ExtractPointNumberFromString(TItem.Price);
                 }
                 catch (Exception)
                 { }
 
 
-                if (tItem.Stash == null)
+                if (TItem.Stash == null)
                 {
                     btn_stash.Visibility = Visibility.Collapsed;
                     btn_stash.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    txt_Stash.Text = tItem.Stash;
-                    btn_stash.ToolTip = tItem.StashPosition.ToString();
+                    txt_Stash.Text = TItem.Stash;
+                    btn_stash.ToolTip = TItem.StashPosition.ToString();
                 }
 
                 double dblPrice = 0;
                 double dblItemPrice = 0;
                 try
                 {
-                    dblPrice = Double.Parse(TradeItemOld.ExtractPointNumberFromString(tItem.Price));
-                    dblItemPrice = Double.Parse(TradeItemOld.ExtractPointNumberFromString(tItem.ItemCurrencyQuant));
+                    dblPrice = double.Parse(TradeItemOld.ExtractPointNumberFromString(TItem.Price));
+                    dblItemPrice = double.Parse(TradeItemOld.ExtractPointNumberFromString(TItem.ItemCurrencyQuant));
                 }
                 catch (Exception) { }
 
@@ -195,18 +197,18 @@ namespace TraderForPoe.WPF.Controls
                 if ((dblItemPrice / dblPrice) >= 1)
                 {
                     txt_Ratio1.Text = "1";
-                    img_Ratio1.Source = tItem.PriceCurrencyBitmap;
+                    img_Ratio1.Source = TItem.PriceCurrencyBitmap;
 
-                    txt_Ratio2.Text = (dblItemPrice / dblPrice).ToString();
-                    img_Ratio2.Source = tItem.ItemCurrencyBitmap;
+                    txt_Ratio2.Text = (dblItemPrice / dblPrice).ToString(CultureInfo.InvariantCulture);
+                    img_Ratio2.Source = TItem.ItemCurrencyBitmap;
                 }
                 else
                 {
                     txt_Ratio1.Text = "1";
-                    img_Ratio1.Source = tItem.ItemCurrencyBitmap;
+                    img_Ratio1.Source = TItem.ItemCurrencyBitmap;
 
-                    txt_Ratio2.Text = (dblPrice / dblItemPrice).ToString();
-                    img_Ratio2.Source = tItem.PriceCurrencyBitmap;
+                    txt_Ratio2.Text = (dblPrice / dblItemPrice).ToString(CultureInfo.InvariantCulture);
+                    img_Ratio2.Source = TItem.PriceCurrencyBitmap;
                 }
 
                 btn_stash.Visibility = Visibility.Collapsed;
@@ -219,32 +221,32 @@ namespace TraderForPoe.WPF.Controls
 
             else
             {
-                txt_Customer.Text = tItem.Customer;
-                txt_Item.Text = tItem.Item;
+                txt_Customer.Text = TItem.Customer;
+                txt_Item.Text = TItem.Item;
                 spnl_CurrencyRatio.Visibility = Visibility.Collapsed;
                 try
                 {
-                    txt_Price.Text = TradeItemOld.ExtractPointNumberFromString(tItem.Price);
+                    txt_Price.Text = TradeItemOld.ExtractPointNumberFromString(TItem.Price);
                 }
                 catch (Exception)
                 { }
 
-                if (String.IsNullOrEmpty(tItem.Price))
+                if (string.IsNullOrEmpty(TItem.Price))
                 {
                     txt_Price.Text = "--";
                 }
 
-                txt_League.Text = tItem.League;
+                txt_League.Text = TItem.League;
 
-                if (tItem.Stash == null)
+                if (TItem.Stash == null)
                 {
                     btn_stash.Visibility = Visibility.Collapsed;
                     btn_stash.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    txt_Stash.Text = tItem.Stash;
-                    btn_stash.ToolTip = tItem.StashPosition.ToString();
+                    txt_Stash.Text = TItem.Stash;
+                    btn_stash.ToolTip = TItem.StashPosition.ToString();
                 }
             }
 
@@ -252,23 +254,23 @@ namespace TraderForPoe.WPF.Controls
 
 
 
-            if (String.IsNullOrEmpty(tItem.AdditionalText))
+            if (string.IsNullOrEmpty(TItem.AdditionalText))
             {
                 btn_AdditionalText.Visibility = Visibility.Collapsed;
                 btn_AdditionalText.Visibility = Visibility.Hidden;
             }
             else
             {
-                txt_AdditionalText.Text = tItem.AdditionalText;
+                txt_AdditionalText.Text = TItem.AdditionalText;
             }
 
-            img_Currency.Source = tItem.PriceCurrencyBitmap;
+            img_Currency.Source = TItem.PriceCurrencyBitmap;
 
         }
 
         private void StartAnimatioin()
         {
-            DoubleAnimation dAnim = new DoubleAnimation()
+            var dAnim = new DoubleAnimation()
             {
                 From = 0.0,
                 To = Settings.Default.ControlOpacity,
@@ -281,7 +283,7 @@ namespace TraderForPoe.WPF.Controls
         private void SendInputToPoe(string input)
         {
             // Get a handle to POE. The window class and window name were obtained using the Spy++ tool.
-            IntPtr poeHandle = FindWindow("POEWindowClass", "Path of Exile");
+            var poeHandle = FindWindow("POEWindowClass", "Path of Exile");
 
             // Verify that POE is a running process.
             if (poeHandle == IntPtr.Zero)
@@ -291,23 +293,23 @@ namespace TraderForPoe.WPF.Controls
                 return;
             }
 
-            //var iSim = new InputSimulator();
+            var iSim = new InputSimulator();
 
             // Need to press ALT because the SetForegroundWindow sometimes does not work
-            //iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
+            iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
 
             // Make POE the foreground application and send input
             SetForegroundWindow(poeHandle);
 
-            //iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+            iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
 
             // Send the input
-            //iSim.Keyboard.TextEntry(input);
+            iSim.Keyboard.TextEntry(input);
 
             // Send RETURN
-            //iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+            iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
 
-            //iSim = null;
+            iSim = null;
 
         }
 
@@ -334,7 +336,7 @@ namespace TraderForPoe.WPF.Controls
         private void ClickWhisperCustomer(object sender, RoutedEventArgs e)
         {
             // Get a handle to POE. The window class and window name were obtained using the Spy++ tool.
-            IntPtr poeHandle = FindWindow("POEWindowClass", "Path of Exile");
+            var poeHandle = FindWindow("POEWindowClass", "Path of Exile");
 
             // Verify that POE is a running process.
             if (poeHandle == IntPtr.Zero)
@@ -342,25 +344,25 @@ namespace TraderForPoe.WPF.Controls
                 MessageBox.Show("Path of Exile is not running.");
                 return;
             }
-            //InputSimulator iSim = new InputSimulator();
+            InputSimulator iSim = new InputSimulator();
 
             // Need to press ALT because the SetForegroundWindow sometimes does not work
-            //iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
+            iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
 
             // Make POE the foreground application and send input
             SetForegroundWindow(poeHandle);
 
-            //iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+            iSim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+            
+            iSim.Keyboard.TextEntry("@" + TItem.Customer + " ");
 
-            //iSim.Keyboard.TextEntry("@" + tItem.Customer + " ");
-
-           // iSim = null;
+            iSim = null;
         }
 
         private void ClickInviteCustomer(object sender, RoutedEventArgs e)
         {
-            SendInputToPoe("/invite " + tItem.Customer);
-            if (tItem.TradeType == TradeItemOld.TradeTypes.SELL && tItem.Stash != "")
+            SendInputToPoe("/invite " + TItem.Customer);
+            if (TItem.TradeType == TradeItemOld.TradeTypes.SELL && TItem.Stash != "")
             {
                 //stashGridHighlight.AddButton(tItem);
             }
@@ -368,13 +370,13 @@ namespace TraderForPoe.WPF.Controls
 
         private void ClickTradeInvite(object sender, RoutedEventArgs e)
         {
-            SendInputToPoe("/tradewith " + tItem.Customer);
+            SendInputToPoe("/tradewith " + TItem.Customer);
         }
 
         private void ClickSearchItem(object sender, RoutedEventArgs e)
         {
             // Get a handle to POE. The window class and window name were obtained using the Spy++ tool.
-            IntPtr poeHandle = FindWindow("POEWindowClass", "Path of Exile");
+            var poeHandle = FindWindow("POEWindowClass", "Path of Exile");
 
             // Verify that POE is a running process.
             if (poeHandle == IntPtr.Zero)
@@ -383,28 +385,28 @@ namespace TraderForPoe.WPF.Controls
                 return;
             }
 
-            //InputSimulator iSim = new InputSimulator();
+            InputSimulator iSim = new InputSimulator();
 
             // Need to press ALT because the SetForegroundWindow sometimes does not work
-            //iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
+            iSim.Keyboard.KeyPress(VirtualKeyCode.MENU);
 
             // Make POE the foreground application and send input
             SetForegroundWindow(poeHandle);
 
-            //iSim.Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_F);
+            iSim.Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_F);
 
-            //iSim.Keyboard.Sleep(500);
+            iSim.Keyboard.Sleep(500);
 
-            //iSim.Keyboard.TextEntry(tItem.Item);
+            iSim.Keyboard.TextEntry(TItem.Item);
 
-            //iSim = null;
+            iSim = null;
         }
 
         private void ClickSendWhisperAgain(object sender, RoutedEventArgs e)
         {
-            string whisper = tItem.WhisperMessage;
-            whisper = whisper.Remove(0, whisper.IndexOf(": ") + 2);
-            SendInputToPoe("@" + tItem.Customer + " " + whisper);
+            var whisper = TItem.WhisperMessage;
+            whisper = whisper.Remove(0, whisper.IndexOf(": ", StringComparison.Ordinal) + 2);
+            SendInputToPoe("@" + TItem.Customer + " " + whisper);
         }
 
         private void ClickRemoveItem(object sender, RoutedEventArgs e)
@@ -416,16 +418,16 @@ namespace TraderForPoe.WPF.Controls
         {
             ((StackPanel)Parent).Children.Remove(this);
             //stashGridHighlight.RemoveStashControl(tItem);
-            RemoveTICfromList(this);
+            RemoveTiCfromList(this);
             //TradeItem.RemoveItemFromList(tItem);
-            stashGridHighlight.ClearCanvas();
+            _stashGridHighlight.ClearCanvas();
         }
 
         private void ClickThanksForTrade(object sender, RoutedEventArgs e)
         {
-            SendInputToPoe("@" + tItem.Customer + " " + Settings.Default.ThankYouWhisper);
+            SendInputToPoe("@" + TItem.Customer + " " + Settings.Default.ThankYouWhisper);
 
-            if (Settings.Default.CloseItemAfterThankYouWhisper == true)
+            if (Settings.Default.CloseItemAfterThankYouWhisper)
             {
                 RemoveItem();
             }
@@ -436,7 +438,7 @@ namespace TraderForPoe.WPF.Controls
 
             SendInputToPoe("/kick " + Settings.Default.PlayerName);
 
-            if (tItem.TradeType == TradeItemOld.TradeTypes.SELL && Settings.Default.CloseItemAfterTrade == true)
+            if (TItem.TradeType == TradeItemOld.TradeTypes.SELL && Settings.Default.CloseItemAfterTrade)
             {
                 RemoveItem();
             }
@@ -444,23 +446,23 @@ namespace TraderForPoe.WPF.Controls
 
         private void ClickWhoisCustomer(object sender, RoutedEventArgs e)
         {
-            SendInputToPoe("/whois " + tItem.Customer);
+            SendInputToPoe("/whois " + TItem.Customer);
         }
 
         private void ClickToWikiLeague(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://pathofexile.gamepedia.com/" + tItem.League);
+            Process.Start("https://pathofexile.gamepedia.com/" + TItem.League);
         }
 
         private void ClickVisitHideout(object sender, RoutedEventArgs e)
         {
-            SendInputToPoe("/hideout " + tItem.Customer);
+            SendInputToPoe("/hideout " + TItem.Customer);
         }
 
         private void ClickVisitOwnHideout(object sender, RoutedEventArgs e)
         {
             SendInputToPoe("/hideout");
-            if (tItem.TradeType == TradeItemOld.TradeTypes.BUY && Settings.Default.CloseItemAfterTrade == true)
+            if (TItem.TradeType == TradeItemOld.TradeTypes.BUY && Settings.Default.CloseItemAfterTrade)
             {
                 RemoveItem();
             }
@@ -468,32 +470,37 @@ namespace TraderForPoe.WPF.Controls
 
         private void ClickStashIsQuad(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dialogResult = MessageBox.Show("Is this a quad stash?", "Quad stash?", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (dialogResult == MessageBoxResult.Yes)
+            var dialogResult = MessageBox.Show("Is this a quad stash?", "Quad stash?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            switch (dialogResult)
             {
-                if (!Settings.Default.QuadStash.Contains(tItem.Stash))
+                case MessageBoxResult.Yes:
                 {
-                    Settings.Default.QuadStash.Add(tItem.Stash);
-                    Settings.Default.Save();
-                }
+                    if (!Settings.Default.QuadStash.Contains(TItem.Stash))
+                    {
+                        Settings.Default.QuadStash.Add(TItem.Stash);
+                        Settings.Default.Save();
+                    }
 
-            }
-            if (dialogResult == MessageBoxResult.No)
-            {
-                if (Settings.Default.QuadStash.Contains(tItem.Stash))
+                    break;
+                }
+                case MessageBoxResult.No:
                 {
-                    Settings.Default.QuadStash.Remove(tItem.Stash);
-                    Settings.Default.Save();
-                }
+                    if (Settings.Default.QuadStash.Contains(TItem.Stash))
+                    {
+                        Settings.Default.QuadStash.Remove(TItem.Stash);
+                        Settings.Default.Save();
+                    }
 
+                    break;
+                }
             }
         }
 
         private void ClickWhisperCustomerBusy(object sender, RoutedEventArgs e)
         {
-            SendInputToPoe("@" + tItem.Customer + " " + Settings.Default.ImBusyWhisper);
+            SendInputToPoe("@" + TItem.Customer + " " + Settings.Default.ImBusyWhisper);
 
-            if (Settings.Default.CloseItemAfterImBusyWhisper == true)
+            if (Settings.Default.CloseItemAfterImBusyWhisper)
             {
                 RemoveItem();
             }
@@ -501,7 +508,7 @@ namespace TraderForPoe.WPF.Controls
 
         private void ClickShowStashOverlay(object sender, RoutedEventArgs e)
         {
-            if (tItem.TradeType == TradeItemOld.TradeTypes.SELL)
+            if (TItem.TradeType == TradeItemOld.TradeTypes.SELL)
             {
                 //stashGridHighlight.AddButton(tItem);
             }
@@ -509,9 +516,9 @@ namespace TraderForPoe.WPF.Controls
 
         private void ClickCustomWhisper1(object sender, RoutedEventArgs e)
         {
-            SendInputToPoe("@" + tItem.Customer + " " + Settings.Default.CustomWhisper1);
+            SendInputToPoe("@" + TItem.Customer + " " + Settings.Default.CustomWhisper1);
 
-            if (Settings.Default.CloseItemAfterCustomWhisper1 == true)
+            if (Settings.Default.CloseItemAfterCustomWhisper1)
             {
                 RemoveItem();
             }
@@ -519,9 +526,9 @@ namespace TraderForPoe.WPF.Controls
 
         private void ClickCustomWhisper2(object sender, RoutedEventArgs e)
         {
-            SendInputToPoe("@" + tItem.Customer + " " + Settings.Default.CustomWhisper2);
+            SendInputToPoe("@" + TItem.Customer + " " + Settings.Default.CustomWhisper2);
 
-            if (Settings.Default.CloseItemAfterCustomWhisper2 == true)
+            if (Settings.Default.CloseItemAfterCustomWhisper2)
             {
                 RemoveItem();
             }
@@ -529,14 +536,14 @@ namespace TraderForPoe.WPF.Controls
 
         private void ClickAskIfInterested(object sender, RoutedEventArgs e)
         {
-            SendInputToPoe("@" + tItem.Customer + " Hi, are you still interested in " + tItem.Item + " for " + tItem.Price + "?");
+            SendInputToPoe("@" + TItem.Customer + " Hi, are you still interested in " + TItem.Item + " for " + TItem.Price + "?");
         }
 
-        public static void RemoveTICfromList(TradeItemControl tradeItemControl)
+        public static void RemoveTiCfromList(TradeItemControl tradeItemControl)
         {
-            intNumberItems--;
+            _intNumberItems--;
 
-            if (intNumberItems == 3)
+            if (_intNumberItems == 3)
             {
                 OnEqualThreeItems();
             }
@@ -563,9 +570,9 @@ namespace TraderForPoe.WPF.Controls
 
         private void RightClickKickCustomer(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            SendInputToPoe("/kick " + tItem.Customer);
+            SendInputToPoe("/kick " + TItem.Customer);
 
-            if (Settings.Default.CloseItemAfterTrade == true)
+            if (Settings.Default.CloseItemAfterTrade)
             {
                 RemoveItem();
             }
@@ -573,9 +580,9 @@ namespace TraderForPoe.WPF.Controls
 
         private void ClickCustomWhisper3(object sender, RoutedEventArgs e)
         {
-            SendInputToPoe("@" + tItem.Customer + " " + Settings.Default.CustomWhisper3);
+            SendInputToPoe("@" + TItem.Customer + " " + Settings.Default.CustomWhisper3);
 
-            if (Settings.Default.CloseItemAfterCustomWhisper3 == true)
+            if (Settings.Default.CloseItemAfterCustomWhisper3)
             {
                 RemoveItem();
             }
@@ -583,9 +590,9 @@ namespace TraderForPoe.WPF.Controls
 
         private void ClickCustomWhisper4(object sender, RoutedEventArgs e)
         {
-            SendInputToPoe("@" + tItem.Customer + " " + Settings.Default.CustomWhisper4);
+            SendInputToPoe("@" + TItem.Customer + " " + Settings.Default.CustomWhisper4);
 
-            if (Settings.Default.CloseItemAfterCustomWhisper4 == true)
+            if (Settings.Default.CloseItemAfterCustomWhisper4)
             {
                 RemoveItem();
             }

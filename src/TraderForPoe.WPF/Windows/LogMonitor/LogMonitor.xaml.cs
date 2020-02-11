@@ -1,7 +1,7 @@
 using System.Windows;
-using TraderForPoe.WPF.ViewModel;
+using TraderForPoe.WPF.ViewModel.LogMonitor;
 
-namespace TraderForPoe.WPF.Windows
+namespace TraderForPoe.WPF.Windows.LogMonitor
 {
     /// <summary>
     /// Interaktionslogik für LogReader.xaml

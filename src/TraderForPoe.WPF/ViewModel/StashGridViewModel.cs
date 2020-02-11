@@ -20,7 +20,7 @@ namespace TraderForPoe.WPF.ViewModel
         private void TimerPoeLocation_Tick(object sender, EventArgs e)
         {
             WinApi.GetClientRect(Poe.GetHandle(), out var clientRect);
-            WinApi.GetWindowRect(Poe.GetHandle(), out WinApi.Rect windowRect);
+            WinApi.GetWindowRect(Poe.GetHandle(), out var windowRect);
 
             double borderSize = (windowRect.Right - (windowRect.Left + clientRect.Right)) / 2;
             var titleBarSize = (windowRect.Bottom - (windowRect.Top + clientRect.Bottom)) - borderSize;

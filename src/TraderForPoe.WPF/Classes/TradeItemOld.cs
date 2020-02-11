@@ -383,7 +383,7 @@ namespace TraderForPoe.WPF.Classes
 
         private Currency ParseCurrency(string s)
         {
-            if (!String.IsNullOrEmpty(s))
+            if (!string.IsNullOrEmpty(s))
             {
                 var strPrice = s.ToLower();
 
@@ -779,7 +779,7 @@ namespace TraderForPoe.WPF.Classes
 
         private static string FirstCharToUpper(string input)
         {
-            if (String.IsNullOrEmpty(input))
+            if (string.IsNullOrEmpty(input))
                 throw new ArgumentException("ARGH! Can not set first char to upper: " + input);
             return input.First().ToString().ToUpper() + input.Substring(1);
         }

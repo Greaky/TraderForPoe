@@ -6,7 +6,7 @@ using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.Properties;
 using TraderForPoe.WPF.ViewModel.Base;
 
-namespace TraderForPoe.WPF.ViewModel
+namespace TraderForPoe.WPF.ViewModel.MainWindow
 {
     public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
     {
@@ -30,6 +30,7 @@ namespace TraderForPoe.WPF.ViewModel
             SubscribeToEvents();
             SetUpStashGrid();
         }
+
         #endregion Constructors
 
         #region Properties

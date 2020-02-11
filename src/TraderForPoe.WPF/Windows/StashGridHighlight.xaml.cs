@@ -23,19 +23,19 @@ namespace TraderForPoe.WPF.Windows
         const int WS_EX_NOACTIVATE = 134217728;
         const int LSFW_LOCK = 1;
 
-        DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        readonly DispatcherTimer _dispatcherTimer = new DispatcherTimer();
 
-        IntPtr poeHandle = WinApi.FindWindow("POEWindowClass", "Path of Exile");
+        readonly IntPtr _poeHandle = WinApi.FindWindow("POEWindowClass", "Path of Exile");
 
         // Needed to determine if poe window location changed
-        private IntPtr hWinEventHook;
+        private readonly IntPtr _hWinEventHook;
         protected WinApi.WinEventDelegate WinEventDelegate;
-        uint poeProcessId;
+        readonly uint _poeProcessId;
 
         public StashGridHighlight()
         {
             // Verify that POE is a running process.
-            if (poeHandle == IntPtr.Zero)
+            if (_poeHandle == IntPtr.Zero)
             {
                 MessageBox.Show("Path of Exile is not running.");
                 return;
@@ -51,15 +51,14 @@ namespace TraderForPoe.WPF.Windows
 
             try
             {
-                if (poeHandle != IntPtr.Zero)
-                {
-                    var TargetThreadId = WinApi.GetWindowThread(poeHandle);
-                    UnsafeNativeMethods.GetWindowThreadProcessId(poeHandle, out poeProcessId);
-                    hWinEventHook = WinApi.WinEventHookOne(WinApi.SwehEvents.EVENT_OBJECT_LOCATIONCHANGE,
-                                                         WinEventDelegate,
-                                                         poeProcessId,
-                                                         TargetThreadId);
-                }
+                if (_poeHandle == IntPtr.Zero) return;
+
+                var targetThreadId = WinApi.GetWindowThread(_poeHandle);
+                UnsafeNativeMethods.GetWindowThreadProcessId(_poeHandle, out _poeProcessId);
+                _hWinEventHook = WinApi.WinEventHookOne(WinApi.SwehEvents.EVENT_OBJECT_LOCATIONCHANGE,
+                    WinEventDelegate,
+                    _poeProcessId,
+                    targetThreadId);
 
             }
             catch (Exception ex)
@@ -71,7 +70,7 @@ namespace TraderForPoe.WPF.Windows
 
         protected void WinEventCallback(IntPtr hWinEventHook, WinApi.SwehEvents eventType, IntPtr hWnd, WinApi.SwehObjectId idObject, long idChild, uint dwEventThread, uint dwmsEventTime)
         {
-            if (hWnd == poeHandle && eventType == WinApi.SwehEvents.EVENT_OBJECT_LOCATIONCHANGE && idObject == (WinApi.SwehObjectId)WinApi.SwehChildidSelf)
+            if (hWnd == _poeHandle && eventType == WinApi.SwehEvents.EVENT_OBJECT_LOCATIONCHANGE && idObject == (WinApi.SwehObjectId)WinApi.SwehChildidSelf)
             {
                 // Occurs when POE window is moved or size changed
                 UpdateLocationAndSize();
@@ -81,8 +80,8 @@ namespace TraderForPoe.WPF.Windows
         private void UpdateLocationAndSize()
         {
 
-            WinApi.GetClientRect(poeHandle, out var clientRect);
-            WinApi.GetWindowRect(poeHandle, out var windowRect);
+            WinApi.GetClientRect(_poeHandle, out var clientRect);
+            WinApi.GetWindowRect(_poeHandle, out var windowRect);
 
             double borderSize = (windowRect.Right - (windowRect.Left + clientRect.Right)) / 2;
             var titleBarSize = (windowRect.Bottom - (windowRect.Top + clientRect.Bottom)) - borderSize;
@@ -194,14 +193,13 @@ namespace TraderForPoe.WPF.Windows
         {
             UpdateLocationAndSize();
 
-            if (ContainsItem(tItemArgs) == false && !String.IsNullOrEmpty(tItemArgs.Stash))
-            {
-                var sCtrl = new StashControl(tItemArgs);
+            if (ContainsItem(tItemArgs) || string.IsNullOrEmpty(tItemArgs.Stash)) return;
 
-                sCtrl.MouseEnter += MouseEnterDrawRectangle;
+            var sCtrl = new StashControl(tItemArgs);
 
-                SpnlButtons.Children.Add(sCtrl);
-            }
+            sCtrl.MouseEnter += MouseEnterDrawRectangle;
+
+            SpnlButtons.Children.Add(sCtrl);
 
         }
 
@@ -223,9 +221,9 @@ namespace TraderForPoe.WPF.Windows
 
         private void StartDispatcherTimer()
         {
-            dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 5);
-            dispatcherTimer.Start();
+            _dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
+            _dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 5);
+            _dispatcherTimer.Start();
         }
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -322,7 +320,7 @@ namespace TraderForPoe.WPF.Windows
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Unhook event when closing
-            WinApi.WinEventUnhook(hWinEventHook);
+            WinApi.WinEventUnhook(_hWinEventHook);
         }
     }
 }

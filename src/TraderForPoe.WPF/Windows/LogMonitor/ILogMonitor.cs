@@ -1,4 +1,4 @@
-namespace TraderForPoe.WPF.Windows
+namespace TraderForPoe.WPF.Windows.LogMonitor
 {
     interface ILogMonitor
     {

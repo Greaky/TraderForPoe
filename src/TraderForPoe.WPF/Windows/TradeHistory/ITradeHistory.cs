@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TraderForPoe.WPF.Windows
+namespace TraderForPoe.WPF.Windows.TradeHistory
 {
     interface ITradeHistory
     {

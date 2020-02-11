@@ -1,15 +1,15 @@
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using TraderForPoe.WPF.Properties;
-using TraderForPoe.WPF.ViewModel;
+using TraderForPoe.WPF.ViewModel.MainWindow;
 
-namespace TraderForPoe.WPF.Windows
+namespace TraderForPoe.WPF.Windows.MainWindow
 {
     public partial class MainWindow : IMainWindow
     {
-        private Regex customerJoinedRegEx = new Regex(".* : (.*) has joined the area");
+        private Regex _customerJoinedRegEx = new Regex(".* : (.*) has joined the area");
 
-        private Regex customerLeftRegEx = new Regex(".* : (.*) has left the area");
+        private Regex _customerLeftRegEx = new Regex(".* : (.*) has left the area");
 
 
 
