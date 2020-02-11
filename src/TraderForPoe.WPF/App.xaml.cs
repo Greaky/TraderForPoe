@@ -5,6 +5,7 @@ using TraderForPoe.Core.Loader;
 using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.Properties;
 using TraderForPoe.WPF.ViewModel;
+using TraderForPoe.WPF.ViewModel.TradeHistory;
 using TraderForPoe.WPF.Windows;
 
 namespace TraderForPoe.WPF
@@ -30,8 +31,8 @@ namespace TraderForPoe.WPF
         {
             base.OnStartup(e);
 
-            var resourceLocator = _serviceProvider.GetService<IResourceLocator>();
-            var model = _serviceProvider.GetService<NotifyIconViewModel>();
+            var resourceLocator = _serviceProvider.GetService<IWpfResourceLocator>();
+            var model = _serviceProvider.GetService<INotifyIconViewModel>();
 
             _notifyIcon = (TaskbarIcon) resourceLocator.GetResource("NotifyIcon");
             _notifyIcon.DataContext = model;
@@ -57,19 +58,19 @@ namespace TraderForPoe.WPF
         private void OpenMainWindow()
         {
             var windowViewLoaderService = _serviceProvider.GetService<IWindowViewLoaderService>();
-            windowViewLoaderService.Show(typeof(MainWindowViewModel));
+            windowViewLoaderService.Show(typeof(IMainWindowViewModel));
         }
 
         private void RegisterViewModel()
         {
             var windowViewLoaderService = _serviceProvider.GetService<IWindowViewLoaderService>();
 
-            windowViewLoaderService.Register(typeof(AboutViewModel), typeof(About));
-            windowViewLoaderService.Register(typeof(LogMonitorViewModel), typeof(LogMonitor));
-            windowViewLoaderService.Register(typeof(MainWindowViewModel), typeof(MainWindow));
+            windowViewLoaderService.Register(typeof(IAboutViewModel), typeof(About));
+            windowViewLoaderService.Register(typeof(ILogMonitorViewModel), typeof(LogMonitor));
+            windowViewLoaderService.Register(typeof(IMainWindowViewModel), typeof(MainWindow));
             windowViewLoaderService.Register(typeof(StashGridViewModel), typeof(StashGrid));
-            windowViewLoaderService.Register(typeof(TradeHistoryViewModel), typeof(TradeHistory));
-            windowViewLoaderService.Register(typeof(UserSettingsViewModel), typeof(UserSettings));
+            windowViewLoaderService.Register(typeof(ITradeHistoryViewModel), typeof(TradeHistory));
+            windowViewLoaderService.Register(typeof(IUserSettingsViewModel), typeof(UserSettings));
         }
     }
 }

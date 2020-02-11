@@ -5,16 +5,12 @@ using System.Windows;
 
 namespace TraderForPoe.Core.Loader
 {
-    public class ResourceLocator : IResourceLocator
+    public class WpfResourceLocator : IWpfResourceLocator
     {
 
         private readonly Application _application;
 
-        public ResourceLocator() : this(Application.Current)
-        {
-        }
-
-        public ResourceLocator(Application application)
+        public WpfResourceLocator(Application application)
         {
             if (application is null)
             {
@@ -28,5 +24,16 @@ namespace TraderForPoe.Core.Loader
         {
             return _application.TryFindResource(key);
         }
+
+        public WindowCollection GetWindows()
+        {
+            return _application.Windows;
+        }
+
+        public void Shutdown()
+        {
+             _application.Shutdown();
+        }
+
     }
 }

@@ -8,11 +8,10 @@ namespace TraderForPoe.Core.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddWindowViewService(
+        public static IServiceCollection AddWindowViewLoaderService(
             this IServiceCollection services)
         {
             services.AddSingleton<IWindowViewLoaderService, WindowViewLoaderService>();
-            services.AddSingleton<IResourceLocator, ResourceLocator>();
 
             return services;
         }
@@ -20,7 +19,7 @@ namespace TraderForPoe.Core.Extensions
         public static IServiceCollection AddResourceLocator(
             this IServiceCollection services, Application application)
         {
-            services.AddSingleton<IResourceLocator>(x => new ResourceLocator(application));
+            services.AddSingleton<IWpfResourceLocator>(x => new WpfResourceLocator(application));
 
             return services;
         }

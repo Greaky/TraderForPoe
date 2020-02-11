@@ -9,16 +9,16 @@ namespace TraderForPoe.WPF.Windows
     /// </summary>
     public partial class UserSettings : Window
     {
-        public UserSettings()
+        public UserSettings(IUserSettingsViewModel userSettingsViewModel)
         {
             InitializeComponent();
-            DataContext = new UserSettingsViewModel();
+            DataContext = userSettingsViewModel;
         }
         
         //TODO Implement mvvm 
         private void Click_SearchFile(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            var openFileDialog = new OpenFileDialog
             {
                 Multiselect = false,
                 Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*"

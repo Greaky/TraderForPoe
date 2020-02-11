@@ -1,14 +1,11 @@
-using System;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using Microsoft.Extensions.DependencyInjection;
-using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.Properties;
 using TraderForPoe.WPF.ViewModel;
 
 namespace TraderForPoe.WPF.Windows
 {
-    public partial class MainWindow
+    public partial class MainWindow : IMainWindow
     {
         private Regex customerJoinedRegEx = new Regex(".* : (.*) has joined the area");
 

@@ -10,9 +10,22 @@ namespace TraderForPoe.Core.Loader
 
         private readonly IServiceProvider _serviceProvider;
 
-        public WindowViewLoaderService(IServiceProvider serviceProvider)
+        private readonly IWpfResourceLocator _wpfResourceLocator;
+
+        public WindowViewLoaderService(IServiceProvider serviceProvider, IWpfResourceLocator wpfResourceLocator)
         {
+            if (serviceProvider is null)
+            {
+                throw new ArgumentNullException(nameof(serviceProvider));
+            }
+
+            if (wpfResourceLocator is null)
+            {
+                throw new ArgumentNullException(nameof(wpfResourceLocator));
+            }
+
             _serviceProvider = serviceProvider;
+            _wpfResourceLocator = wpfResourceLocator;
         }
 
         public void Register(Type viewmodel, Type view)
@@ -39,9 +52,10 @@ namespace TraderForPoe.Core.Loader
         {
              try
              {
-                 foreach (Window item in Application.Current.Windows)
+                 foreach (Window item in _wpfResourceLocator.GetWindows())
                  {
                      if (item.GetType() != _viewDictionary[viewmodel]) continue;
+
                      item.WindowState = WindowState.Normal;
                      item.Activate();
                      return;

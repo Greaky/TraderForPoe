@@ -7,7 +7,7 @@ namespace TraderForPoe.Core.Reader
     public interface ILogReader
     {
         void Start();
-        void Stop();
+        void EndRead();
 
         event EventHandler<LogReaderLineEventArgs> OnLineAddition;
 

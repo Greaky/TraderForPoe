@@ -1,17 +1,21 @@
 using System.Collections.ObjectModel;
 using System.Windows;
+using TraderForPoe.Core.Loader;
 using TraderForPoe.WPF.Properties;
 using TraderForPoe.WPF.ViewModel.Base;
 
 namespace TraderForPoe.WPF.ViewModel
 {
-    public class UserSettingsViewModel : ViewModelBase
+    public class UserSettingsViewModel : ViewModelBase , IUserSettingsViewModel
     {
+        private readonly IWpfResourceLocator _wpfResourceLocator;
         #region Constructors
 
-        public UserSettingsViewModel()
+        public UserSettingsViewModel(IWpfResourceLocator wpfResourceLocator)
         {
-            CmdQuit = new RelayCommand(() => Application.Current.Shutdown());
+            _wpfResourceLocator = wpfResourceLocator;
+
+            CmdQuit = new RelayCommand(() => _wpfResourceLocator.Shutdown());
             CmdRestart = new RelayCommand(() => RestartApp());
             CmdDeleteQuadStash = new RelayCommand(() => QuadStashList.Remove(SelectedQuadStashListItem));
             CmdAddToQuadStashList = new RelayCommand(() => AddToQuadStashList());
@@ -327,7 +331,7 @@ namespace TraderForPoe.WPF.ViewModel
         {
             //TODO is this mvvm?
             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-            Application.Current.Shutdown();
+            _wpfResourceLocator.Shutdown();
         }
 
         #endregion Methods

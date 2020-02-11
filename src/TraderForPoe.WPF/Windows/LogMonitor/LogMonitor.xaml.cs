@@ -6,7 +6,7 @@ namespace TraderForPoe.WPF.Windows
     /// <summary>
     /// Interaktionslogik für LogReader.xaml
     /// </summary>
-    public partial class LogMonitor : Window
+    public partial class LogMonitor : Window , ILogMonitor
     {
         public LogMonitor(ILogMonitorViewModel logMonitorViewModel)
         {

@@ -51,7 +51,7 @@ namespace TraderForPoe.Core.Reader
             _timer.Start();
         }
 
-        public void Stop()
+        public void EndRead()
         {
             _timer.Stop();
         }
@@ -71,7 +71,7 @@ namespace TraderForPoe.Core.Reader
 
                 var data = _buffer + sr.ReadToEnd();
 
-                if (!data.EndsWith(Delimiter))
+                if (!data.EndsWith(Delimiter,StringComparison.InvariantCultureIgnoreCase))
                 {
                     if (data.IndexOf(Delimiter, StringComparison.Ordinal) == -1)
                     {
@@ -93,10 +93,7 @@ namespace TraderForPoe.Core.Reader
 
                 foreach (var line in lines)
                 {
-                    if (OnLineAddition != null)
-                    {
-                        OnLineAddition(null, new LogReaderLineEventArgs { Line = line.Trim() });
-                    }
+                    OnLineAddition?.Invoke(null, new LogReaderLineEventArgs { Line = line.Trim() });
 
                     Lines.Add(line.Trim());
                 }

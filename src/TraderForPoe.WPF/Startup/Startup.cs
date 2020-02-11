@@ -19,7 +19,7 @@ namespace TraderForPoe.WPF.Startup
                 .AddResourceLocator(Application.Current)
                 .AddLogReader(Settings.Default.PathToClientTxt)
                 .AddClipboardMonitor()
-                .AddWindowViewService();
+                .AddWindowViewLoaderService();
             return services.BuildServiceProvider();
         }
     }

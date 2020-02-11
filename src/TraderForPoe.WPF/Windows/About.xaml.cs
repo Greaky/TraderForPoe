@@ -9,10 +9,15 @@ namespace TraderForPoe.WPF.Windows
     /// </summary>
     public partial class About : Window
     {
-        public About()
+        public About(IAboutViewModel aboutViewModel)
         {
+            if (aboutViewModel is null)
+            {
+                throw new System.ArgumentNullException(nameof(aboutViewModel));
+            }
+
             InitializeComponent();
-            DataContext = new AboutViewModel();
+            DataContext = aboutViewModel;
             appName.Text += " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 

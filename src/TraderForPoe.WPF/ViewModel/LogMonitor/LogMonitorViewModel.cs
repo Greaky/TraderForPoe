@@ -26,7 +26,7 @@ namespace TraderForPoe.WPF.ViewModel
                 logReader.Start);
 
             CmdStop = new RelayCommand(
-                logReader.Stop);
+                logReader.EndRead);
 
             CmdClear = new RelayCommand(
                 () => Lines.Clear());

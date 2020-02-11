@@ -3,32 +3,35 @@ using TraderForPoe.Core.Loader;
 using TraderForPoe.WPF.Classes;
 using TraderForPoe.WPF.Properties;
 using TraderForPoe.WPF.ViewModel.Base;
+using TraderForPoe.WPF.ViewModel.TradeHistory;
 
 namespace TraderForPoe.WPF.ViewModel
 {
-    public class NotifyIconViewModel : ViewModelBase
+    public class NotifyIconViewModel : ViewModelBase, INotifyIconViewModel
     {
         #region Fields
+
 
         #endregion Fields
 
         #region Constructor
 
-        public NotifyIconViewModel(IWindowViewLoaderService loaderService)
+        public NotifyIconViewModel(IWindowViewLoaderService loaderService, IWpfResourceLocator wpfResourceLocator)
         {
-            CmdHistory = new RelayCommand(() => loaderService.ShowSingle(typeof(TradeHistoryViewModel)));
+            CmdHistory = new RelayCommand(() => loaderService.ShowSingle(typeof(ITradeHistoryViewModel)));
 
-            CmdLog = new RelayCommand(() => loaderService.Show(typeof(LogMonitorViewModel)));
+            CmdLog = new RelayCommand(() => loaderService.Show(typeof(ILogMonitorViewModel)));
 
-            CmdSettings = new RelayCommand(() => loaderService.ShowSingle(typeof(UserSettingsViewModel)));
+            CmdSettings = new RelayCommand(() => loaderService.ShowSingle(typeof(IUserSettingsViewModel)));
 
             CmdRestart = new RelayCommand(RestartApp);
 
             CmdUpdate = new RelayCommand(Updater.CheckForUpdate);
 
-            CmdAbout = new RelayCommand(() => loaderService.ShowSingle(typeof(AboutViewModel)));
+            CmdAbout = new RelayCommand(() => loaderService.ShowSingle(typeof(IAboutViewModel)));
 
-            CmdQuit = new RelayCommand(() => Application.Current.Shutdown());
+            CmdQuit = new RelayCommand(() => wpfResourceLocator.Shutdown());
+
         }
 
         #endregion Constructor
