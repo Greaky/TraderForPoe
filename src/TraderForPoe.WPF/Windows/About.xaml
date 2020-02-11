@@ -13,7 +13,7 @@
     <StackPanel>
 
         <Grid HorizontalAlignment="Stretch" Background="#FF3779C7" Height="87" >
-            <TextBlock Name="appName" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="White" FontWeight="Bold">TraderForPoe</TextBlock>
+            <TextBlock Name="AppName" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="White" FontWeight="Bold">TraderForPoe</TextBlock>
         </Grid>
 
         <Canvas>

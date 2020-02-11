@@ -26,17 +26,17 @@ namespace TraderForPoe.WPF.Extensions
             this IServiceCollection services)
         {
             services.AddTransient<IMainWindowViewModel, MainWindowViewModel>();
-            services.AddTransient<IMainWindow,MainWindow>();
-            services.AddTransient<MainWindow>();
+            //services.AddTransient<IMainWindow,MainWindow>();
+            services.AddSingleton<MainWindow>();
 
             services.AddTransient<INotifyIconViewModel,NotifyIconViewModel>();
 
             services.AddTransient<ILogMonitorViewModel, LogMonitorViewModel>();
-            services.AddTransient<ILogMonitor,LogMonitor>();
+            //services.AddTransient<ILogMonitor,LogMonitor>();
             services.AddTransient<LogMonitor>();
 
             services.AddTransient<ITradeHistoryViewModel, TradeHistoryViewModel>();
-            services.AddTransient<ITradeHistory, TradeHistory>();
+            //services.AddTransient<ITradeHistory, TradeHistory>();
             services.AddTransient<TradeHistory>();
 
             services.AddTransient<IAboutViewModel, AboutViewModel>();

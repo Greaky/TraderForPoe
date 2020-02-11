@@ -6,6 +6,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:TraderForPoe.WPF.Properties" 
     xmlns:classes="clr-namespace:TraderForPoe.WPF.Classes"
+    xmlns:local="clr-namespace:TraderForPoe.WPF.Controls"
+    xmlns:mainWindow="clr-namespace:TraderForPoe.WPF.ViewModel.MainWindow"
+    xmlns:viewModel="clr-namespace:TraderForPoe.WPF.ViewModel"
     mc:Ignorable="d"
     Title="Trade Items"
     Height="148" Width="327" 
@@ -25,6 +28,9 @@
     Opacity="{Binding ControlOpacity}"
     AllowsTransparency="True"
     >
+    <Window.DataContext>
+        <x:Type Type="mainWindow:MainWindowViewModel" />
+    </Window.DataContext>
 
     <Window.Resources>
 
@@ -118,7 +124,7 @@
 
         </Style>
 
-        <Style TargetType="Button" x:Key="inlineStyle">
+        <Style TargetType="Button" x:Key="InlineStyle">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -220,17 +226,16 @@
     </Window.Resources>
 
     <!--<Border BorderBrush="#FF5C656D" BorderThickness="1" Name="mainBrd">-->
-    <Border BorderBrush="#FF151719" BorderThickness="1" Name="mainBrd"     >
+    <Border BorderBrush="#FF151719" BorderThickness="1" Name="MainBrd"     >
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TabControl Grid.Row="0" BorderThickness="0" Name="mainTabControl" Background="#FF23272B" Padding="1" 
+            <TabControl Grid.Row="0" BorderThickness="0" Name="MainTabControl" Background="#FF23272B" Padding="1" 
                         Template="{DynamicResource TabControlControlTemplate1}" IsSynchronizedWithCurrentItem="True"
                         ItemsSource="{Binding TradeObjects}">
-                <!--ItemsSource="{Binding TradeObjects}"-->
                 <TabControl.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
@@ -241,7 +246,7 @@
                     </DataTemplate>
                 </TabControl.ItemTemplate>
                 <TabControl.ContentTemplate>
-                    <DataTemplate>
+                    <DataTemplate DataType="viewModel:TradeObjectViewModel">
 
                         <StackPanel>
                             <Grid>
@@ -286,16 +291,25 @@
                                     </Border>
                                     <WrapPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
 
-                                        <Button Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource inlineStyle}">
+                                        <Button Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource InlineStyle}">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock >👤</TextBlock>
-                                                <TextBlock >Laboooo</TextBlock>
+                                                <TextBlock >
+                                                    <Run Text="{Binding Customer, Mode=OneWay}"/>
+                                                </TextBlock>
                                             </StackPanel>
                                         </Button>
-                                        <Button HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource inlineStyle}">
+                                        <Button HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource InlineStyle}">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock>💼</TextBlock>
-                                                <TextBlock>Teststash [12/12]</TextBlock>
+                                                <TextBlock>
+                                                    <Run Text=" "/>
+                                                    <Run Text="{Binding Stash, Mode=OneWay}"/>
+                                                    <Run Text=" "/>
+                                                    <Run Text="["/>
+                                                    <Run Text="{Binding Position, Mode=OneWay}"/>
+                                                    <Run Text="]"/>
+                                                </TextBlock>
                                             </StackPanel>
                                         </Button>
                                     </WrapPanel>

@@ -90,7 +90,7 @@ namespace TraderForPoe.WPF.Controls
         {
             var ts = _stopwatch.Elapsed;
             var currentTime = string.Format("{0:00}:{1:00}", (int)ts.TotalMinutes, ts.Seconds);
-            txt_Time.Text = currentTime;
+            TxtTime.Text = currentTime;
         }
 
         private void OpenStashGridHighlightWindow()
@@ -125,63 +125,63 @@ namespace TraderForPoe.WPF.Controls
             switch (TItem.TradeType)
             {
                 case TradeTypeEnum.BUY:
-                    txt_Item.Foreground = Brushes.GreenYellow;
-                    btn_InviteCustomer.Visibility = Visibility.Collapsed;
-                    btn_StartTrade.Visibility = Visibility.Collapsed;
-                    btn_SearchItem.Visibility = Visibility.Collapsed;
-                    btn_AskIfInterested.Visibility = Visibility.Collapsed;
-                    btn_SendBusyMessage.Visibility = Visibility.Collapsed;
-                    btn_stash.Click -= ClickStashIsQuad;
+                    TxtItem.Foreground = Brushes.GreenYellow;
+                    BtnInviteCustomer.Visibility = Visibility.Collapsed;
+                    BtnStartTrade.Visibility = Visibility.Collapsed;
+                    BtnSearchItem.Visibility = Visibility.Collapsed;
+                    BtnAskIfInterested.Visibility = Visibility.Collapsed;
+                    BtnSendBusyMessage.Visibility = Visibility.Collapsed;
+                    BtnStash.Click -= ClickStashIsQuad;
                     break;
                 case TradeTypeEnum.SELL:
-                    txt_Item.Foreground = Brushes.OrangeRed;
-                    btn_VisitCustomerHideout.Visibility = Visibility.Collapsed;
-                    btn_VisitOwnHideout.Visibility = Visibility.Collapsed;
-                    btn_SendWhisperAgain.Visibility = Visibility.Collapsed;
+                    TxtItem.Foreground = Brushes.OrangeRed;
+                    BtnVisitCustomerHideout.Visibility = Visibility.Collapsed;
+                    BtnVisitOwnHideout.Visibility = Visibility.Collapsed;
+                    BtnSendWhisperAgain.Visibility = Visibility.Collapsed;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            txt_Customer.Text = TItem.Customer;
-            txt_Item.Text = TItem.Item.ItemAsString;
-            spnl_CurrencyRatio.Visibility = Visibility.Collapsed;
+            TxtCustomer.Text = TItem.Customer;
+            TxtItem.Text = TItem.Item.ItemAsString;
+            SpnlCurrencyRatio.Visibility = Visibility.Collapsed;
             try
             {
-                txt_Price.Text = TItem.Item.Price.ItemAsString;
+                TxtPrice.Text = TItem.Item.Price.ItemAsString;
             }
             catch (Exception)
             { }
 
             if (string.IsNullOrEmpty(TItem.Item.Price.ItemAsString))
             {
-                txt_Price.Text = "--";
+                TxtPrice.Text = "--";
             }
 
-            txt_League.Text = TItem.League;
+            TxtLeague.Text = TItem.League;
 
             if (TItem.Stash == null)
             {
-                btn_stash.Visibility = Visibility.Collapsed;
-                btn_stash.Visibility = Visibility.Hidden;
+                BtnStash.Visibility = Visibility.Collapsed;
+                BtnStash.Visibility = Visibility.Hidden;
             }
             else
             {
-                txt_Stash.Text = TItem.Stash;
-                btn_stash.ToolTip = TItem.Position.ToString();
+                TxtStash.Text = TItem.Stash;
+                BtnStash.ToolTip = TItem.Position.ToString();
             }
 
             if (string.IsNullOrEmpty(TItem.AdditionalText))
             {
-                btn_AdditionalText.Visibility = Visibility.Collapsed;
-                btn_AdditionalText.Visibility = Visibility.Hidden;
+                BtnAdditionalText.Visibility = Visibility.Collapsed;
+                BtnAdditionalText.Visibility = Visibility.Hidden;
             }
             else
             {
-                txt_AdditionalText.Text = TItem.AdditionalText;
+                TxtAdditionalText.Text = TItem.AdditionalText;
             }
 
-            img_Currency.Source = TItem.Item.Price.Image;
+            ImgCurrency.Source = TItem.Item.Price.Image;
         }
 
         private void StartAnimatioin()
@@ -233,16 +233,16 @@ namespace TraderForPoe.WPF.Controls
 
         private void CollapseExpandItem()
         {
-            if (grd_SecondRow.Visibility == Visibility.Visible)
+            if (GrdSecondRow.Visibility == Visibility.Visible)
             {
-                grd_SecondRow.Visibility = Visibility.Hidden;
-                grd_SecondRow.Visibility = Visibility.Collapsed;
-                btn_CollExp.Text = "⏷";
+                GrdSecondRow.Visibility = Visibility.Hidden;
+                GrdSecondRow.Visibility = Visibility.Collapsed;
+                BtnCollExp.Text = "⏷";
             }
             else
             {
-                grd_SecondRow.Visibility = Visibility.Visible;
-                btn_CollExp.Text = "⏶";
+                GrdSecondRow.Visibility = Visibility.Visible;
+                BtnCollExp.Text = "⏶";
             }
         }
 
@@ -473,12 +473,12 @@ namespace TraderForPoe.WPF.Controls
 
         public void CustomerJoined()
         {
-            txt_Customer.Foreground = Brushes.GreenYellow;
+            TxtCustomer.Foreground = Brushes.GreenYellow;
         }
 
         public void CustomerLeft()
         {
-            txt_Customer.Foreground = Brushes.White;
+            TxtCustomer.Foreground = Brushes.White;
         }
 
         private void RightClickKickCustomer(object sender, System.Windows.Input.MouseButtonEventArgs e)

@@ -10,7 +10,6 @@ namespace TraderForPoe.WPF.Classes
 
     public class TradeObject
     {
-        //TODO eventuell entfernen. wird nicht benötigt.
         public static ObservableCollection<TradeObject> TradeObjectList { get; set; } = new ObservableCollection<TradeObject>();
 
         /// <summary>

@@ -34,18 +34,17 @@ namespace TraderForPoe.WPF.Windows.MainWindow
 
         private void NotActivatableWindow_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (mainTabControl != null)
+            if (MainTabControl == null) return;
+
+            if (e.Delta < 0)
             {
-                if (e.Delta < 0)
-                {
-                    if (mainTabControl.SelectedIndex + 1 < mainTabControl.Items.Count)
-                        mainTabControl.SelectedItem = mainTabControl.Items[mainTabControl.SelectedIndex + 1];
-                }
-                else
-                {
-                    if (mainTabControl.SelectedIndex - 1 > -1)
-                        mainTabControl.SelectedItem = mainTabControl.Items[mainTabControl.SelectedIndex - 1];
-                }
+                if (MainTabControl.SelectedIndex + 1 < MainTabControl.Items.Count)
+                    MainTabControl.SelectedItem = MainTabControl.Items[MainTabControl.SelectedIndex + 1];
+            }
+            else
+            {
+                if (MainTabControl.SelectedIndex - 1 > -1)
+                    MainTabControl.SelectedItem = MainTabControl.Items[MainTabControl.SelectedIndex - 1];
             }
         }
     }

@@ -91,7 +91,7 @@ namespace TraderForPoe.WPF.Controls
         {
             var ts = _stopwatch.Elapsed;
             var currentTime = $"{(int) ts.TotalMinutes:00}:{ts.Seconds:00}";
-            txt_Time.Text = currentTime;
+            TxtTime.Text = currentTime;
         }
 
         private void OpenStashGridHighlightWindow()
@@ -126,30 +126,30 @@ namespace TraderForPoe.WPF.Controls
         {
             if (!string.IsNullOrEmpty(TItem.Item))
             {
-                btn_Item.ToolTip = TItem.Item;
+                BtnItem.ToolTip = TItem.Item;
             }
 
             if (!string.IsNullOrEmpty(TItem.Price))
             {
-                btn_Price.ToolTip = TItem.Price;
+                BtnPrice.ToolTip = TItem.Price;
             }
 
             switch (TItem.TradeType)
             {
                 case TradeItemOld.TradeTypes.BUY:
-                    txt_Item.Foreground = Brushes.GreenYellow;
-                    btn_InviteCustomer.Visibility = Visibility.Collapsed;
-                    btn_StartTrade.Visibility = Visibility.Collapsed;
-                    btn_SearchItem.Visibility = Visibility.Collapsed;
-                    btn_AskIfInterested.Visibility = Visibility.Collapsed;
-                    btn_SendBusyMessage.Visibility = Visibility.Collapsed;
-                    btn_stash.Click -= ClickStashIsQuad;
+                    TxtItem.Foreground = Brushes.GreenYellow;
+                    BtnInviteCustomer.Visibility = Visibility.Collapsed;
+                    BtnStartTrade.Visibility = Visibility.Collapsed;
+                    BtnSearchItem.Visibility = Visibility.Collapsed;
+                    BtnAskIfInterested.Visibility = Visibility.Collapsed;
+                    BtnSendBusyMessage.Visibility = Visibility.Collapsed;
+                    BtnStash.Click -= ClickStashIsQuad;
                     break;
                 case TradeItemOld.TradeTypes.SELL:
-                    txt_Item.Foreground = Brushes.OrangeRed;
-                    btn_VisitCustomerHideout.Visibility = Visibility.Collapsed;
-                    btn_VisitOwnHideout.Visibility = Visibility.Collapsed;
-                    btn_SendWhisperAgain.Visibility = Visibility.Collapsed;
+                    TxtItem.Foreground = Brushes.OrangeRed;
+                    BtnVisitCustomerHideout.Visibility = Visibility.Collapsed;
+                    BtnVisitOwnHideout.Visibility = Visibility.Collapsed;
+                    BtnSendWhisperAgain.Visibility = Visibility.Collapsed;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -159,14 +159,14 @@ namespace TraderForPoe.WPF.Controls
             if (TItem.ItemIsCurrency)
             {
 
-                txt_Customer.Text = TItem.Customer;
-                txt_Item.Text = TItem.ItemCurrencyQuant;
-                img_ItemCurrency.Source = TItem.ItemCurrencyBitmap;
-                txt_League.Text = TItem.League;
+                TxtCustomer.Text = TItem.Customer;
+                TxtItem.Text = TItem.ItemCurrencyQuant;
+                ImgItemCurrency.Source = TItem.ItemCurrencyBitmap;
+                TxtLeague.Text = TItem.League;
 
                 try
                 {
-                    txt_Price.Text = TradeItemOld.ExtractPointNumberFromString(TItem.Price);
+                    TxtPrice.Text = TradeItemOld.ExtractPointNumberFromString(TItem.Price);
                 }
                 catch (Exception)
                 { }
@@ -174,13 +174,13 @@ namespace TraderForPoe.WPF.Controls
 
                 if (TItem.Stash == null)
                 {
-                    btn_stash.Visibility = Visibility.Collapsed;
-                    btn_stash.Visibility = Visibility.Hidden;
+                    BtnStash.Visibility = Visibility.Collapsed;
+                    BtnStash.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    txt_Stash.Text = TItem.Stash;
-                    btn_stash.ToolTip = TItem.StashPosition.ToString();
+                    TxtStash.Text = TItem.Stash;
+                    BtnStash.ToolTip = TItem.StashPosition.ToString();
                 }
 
                 double dblPrice = 0;
@@ -196,23 +196,23 @@ namespace TraderForPoe.WPF.Controls
 
                 if ((dblItemPrice / dblPrice) >= 1)
                 {
-                    txt_Ratio1.Text = "1";
-                    img_Ratio1.Source = TItem.PriceCurrencyBitmap;
+                    TxtRatio1.Text = "1";
+                    ImgRatio1.Source = TItem.PriceCurrencyBitmap;
 
-                    txt_Ratio2.Text = (dblItemPrice / dblPrice).ToString(CultureInfo.InvariantCulture);
-                    img_Ratio2.Source = TItem.ItemCurrencyBitmap;
+                    TxtRatio2.Text = (dblItemPrice / dblPrice).ToString(CultureInfo.InvariantCulture);
+                    ImgRatio2.Source = TItem.ItemCurrencyBitmap;
                 }
                 else
                 {
-                    txt_Ratio1.Text = "1";
-                    img_Ratio1.Source = TItem.ItemCurrencyBitmap;
+                    TxtRatio1.Text = "1";
+                    ImgRatio1.Source = TItem.ItemCurrencyBitmap;
 
-                    txt_Ratio2.Text = (dblPrice / dblItemPrice).ToString(CultureInfo.InvariantCulture);
-                    img_Ratio2.Source = TItem.PriceCurrencyBitmap;
+                    TxtRatio2.Text = (dblPrice / dblItemPrice).ToString(CultureInfo.InvariantCulture);
+                    ImgRatio2.Source = TItem.PriceCurrencyBitmap;
                 }
 
-                btn_stash.Visibility = Visibility.Collapsed;
-                btn_stash.Visibility = Visibility.Hidden;
+                BtnStash.Visibility = Visibility.Collapsed;
+                BtnStash.Visibility = Visibility.Hidden;
             }
 
 
@@ -221,32 +221,32 @@ namespace TraderForPoe.WPF.Controls
 
             else
             {
-                txt_Customer.Text = TItem.Customer;
-                txt_Item.Text = TItem.Item;
-                spnl_CurrencyRatio.Visibility = Visibility.Collapsed;
+                TxtCustomer.Text = TItem.Customer;
+                TxtItem.Text = TItem.Item;
+                SpnlCurrencyRatio.Visibility = Visibility.Collapsed;
                 try
                 {
-                    txt_Price.Text = TradeItemOld.ExtractPointNumberFromString(TItem.Price);
+                    TxtPrice.Text = TradeItemOld.ExtractPointNumberFromString(TItem.Price);
                 }
                 catch (Exception)
                 { }
 
                 if (string.IsNullOrEmpty(TItem.Price))
                 {
-                    txt_Price.Text = "--";
+                    TxtPrice.Text = "--";
                 }
 
-                txt_League.Text = TItem.League;
+                TxtLeague.Text = TItem.League;
 
                 if (TItem.Stash == null)
                 {
-                    btn_stash.Visibility = Visibility.Collapsed;
-                    btn_stash.Visibility = Visibility.Hidden;
+                    BtnStash.Visibility = Visibility.Collapsed;
+                    BtnStash.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    txt_Stash.Text = TItem.Stash;
-                    btn_stash.ToolTip = TItem.StashPosition.ToString();
+                    TxtStash.Text = TItem.Stash;
+                    BtnStash.ToolTip = TItem.StashPosition.ToString();
                 }
             }
 
@@ -256,15 +256,15 @@ namespace TraderForPoe.WPF.Controls
 
             if (string.IsNullOrEmpty(TItem.AdditionalText))
             {
-                btn_AdditionalText.Visibility = Visibility.Collapsed;
-                btn_AdditionalText.Visibility = Visibility.Hidden;
+                BtnAdditionalText.Visibility = Visibility.Collapsed;
+                BtnAdditionalText.Visibility = Visibility.Hidden;
             }
             else
             {
-                txt_AdditionalText.Text = TItem.AdditionalText;
+                TxtAdditionalText.Text = TItem.AdditionalText;
             }
 
-            img_Currency.Source = TItem.PriceCurrencyBitmap;
+            ImgCurrency.Source = TItem.PriceCurrencyBitmap;
 
         }
 
@@ -320,16 +320,16 @@ namespace TraderForPoe.WPF.Controls
 
         private void CollapseExpandItem()
         {
-            if (grd_SecondRow.Visibility == Visibility.Visible)
+            if (GrdSecondRow.Visibility == Visibility.Visible)
             {
-                grd_SecondRow.Visibility = Visibility.Hidden;
-                grd_SecondRow.Visibility = Visibility.Collapsed;
-                btn_CollExp.Text = "⏷";
+                GrdSecondRow.Visibility = Visibility.Hidden;
+                GrdSecondRow.Visibility = Visibility.Collapsed;
+                BtnCollExp.Text = "⏷";
             }
             else
             {
-                grd_SecondRow.Visibility = Visibility.Visible;
-                btn_CollExp.Text = "⏶";
+                GrdSecondRow.Visibility = Visibility.Visible;
+                BtnCollExp.Text = "⏶";
             }
         }
 
@@ -561,11 +561,11 @@ namespace TraderForPoe.WPF.Controls
 
         public void CustomerJoined()
         {
-            txt_Customer.Foreground = Brushes.GreenYellow;
+            TxtCustomer.Foreground = Brushes.GreenYellow;
         }
         public void CustomerLeft()
         {
-            txt_Customer.Foreground = Brushes.White;
+            TxtCustomer.Foreground = Brushes.White;
         }
 
         private void RightClickKickCustomer(object sender, System.Windows.Input.MouseButtonEventArgs e)

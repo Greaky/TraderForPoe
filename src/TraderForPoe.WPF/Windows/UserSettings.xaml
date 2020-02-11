@@ -50,7 +50,7 @@
                         <GroupBox Header="Path to Client.txt" Grid.Row="0">
                             <DockPanel>
                                 <Button DockPanel.Dock="Right" Click="Click_SearchFile">Open</Button>
-                                <TextBox Name="txt_PathToClientTxt" Text="{Binding Path}" />
+                                <TextBox Name="TxtPathToClientTxt" Text="{Binding Path}" />
                             </DockPanel>
                         </GroupBox>
                         <GroupBox Header="Character Name" Grid.Row="1">

@@ -3,8 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tradeHistory="clr-namespace:TraderForPoe.WPF.ViewModel.TradeHistory"
+        xmlns:classes="clr-namespace:TraderForPoe.WPF.Classes"
         mc:Ignorable="d"
         Title="TradeHistory" Height="250" Width="622.5">
+    <Window.DataContext>
+        <x:Type Type="tradeHistory:TradeHistoryViewModel" />
+    </Window.DataContext>
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="MinWidth" Value="70"></Setter>
@@ -17,15 +22,15 @@
                 <Button Content="Add TestObject" Command="{Binding CmdTestObject}" Width="100" Height="25"></Button>
                 <Button Content="Clear" Command="{Binding CmdClear}"></Button>
             </WrapPanel>
-            <ListView ItemsSource="{Binding TradeObjectsList}">
-                <ListView.View>
-                    <GridView x:Name="grdNames">
+            <ListView ItemsSource="{Binding TradeObjectsList}" >
+                <ListView.View >
+                    <GridView x:Name="GrdNames" >
                         <GridViewColumn Header="Type" Width="50" DisplayMemberBinding="{Binding TradeType}"/>
                         <GridViewColumn Header="Customer" Width="120"  DisplayMemberBinding="{Binding Customer}"/>
                         <GridViewColumn Header="Item" Width="250">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate DataType="classes:TradeObject">
+                                    <StackPanel Orientation="Horizontal" >
                                         <TextBlock VerticalAlignment="Center" Text="{Binding Item.Amount, StringFormat='{}{0}\ x '}"/>
                                         <TextBlock VerticalAlignment="Center" Text="{Binding Item.ItemAsString}" />
                                     </StackPanel>
@@ -34,7 +39,7 @@
                         </GridViewColumn>
                         <GridViewColumn Header="Price" Width="150">
                             <GridViewColumn.CellTemplate>
-                                <DataTemplate>
+                                <DataTemplate DataType="classes:TradeObject">
                                     <StackPanel Orientation="Horizontal" >
                                         <TextBlock VerticalAlignment="Center" Text="{Binding Item.Amount, StringFormat='{}{0}\ x '}"/>
                                         <TextBlock VerticalAlignment="Center" Text="{Binding Item.Price.ItemAsString}" />

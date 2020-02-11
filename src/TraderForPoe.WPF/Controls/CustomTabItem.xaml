@@ -46,7 +46,7 @@
         </Style>
 
 
-        <Style TargetType="Button" x:Key="inlineStyle">
+        <Style TargetType="Button" x:Key="InlineStyle">
 
 
             <Setter Property="Template">
@@ -183,17 +183,17 @@
             </TextBlock.ToolTip>
             <Run Text="Cybil's Paw Thresher Claw"/>
         </TextBlock>
-        <Button Grid.Column="1" Grid.Row="1" Margin="5,0,0,0" HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource inlineStyle}">
+        <Button Grid.Column="1" Grid.Row="1" Margin="5,0,0,0" HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource InlineStyle}">
             <TextBlock>Laboooo</TextBlock>
         </Button>
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-            <Button Margin="5,0,0,0" HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource inlineStyle}">
+            <Button Margin="5,0,0,0" HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource InlineStyle}">
                 <TextBlock>Teststash</TextBlock>
             </Button>
-            <Button Margin="5,0,0,0" HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource inlineStyle}">
+            <Button Margin="5,0,0,0" HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource InlineStyle}">
                 <TextBlock>X:12 Y:12</TextBlock>
             </Button>
-            <Button Margin="5,0,0,0" HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource inlineStyle}">
+            <Button Margin="5,0,0,0" HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource InlineStyle}">
                 <TextBlock>Delve</TextBlock>
             </Button>
         </StackPanel>

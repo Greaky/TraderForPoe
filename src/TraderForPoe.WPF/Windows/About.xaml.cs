@@ -19,7 +19,7 @@ namespace TraderForPoe.WPF.Windows
 
             InitializeComponent();
             DataContext = aboutViewModel;
-            appName.Text += " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            AppName.Text += " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         private void OnRequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)

@@ -21,7 +21,7 @@
                 <Button DockPanel.Dock="Right" Content="Clear" Command="{Binding CmdClear}"></Button>
                 <TextBox Margin="5,5,10,5" Text="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
             </DockPanel>
-            <ListBox Name="lbLines" FontFamily="Consolas" ItemsSource="{Binding Lines}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox Name="LbLines" FontFamily="Consolas" ItemsSource="{Binding Lines}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}" TextWrapping="Wrap"/>

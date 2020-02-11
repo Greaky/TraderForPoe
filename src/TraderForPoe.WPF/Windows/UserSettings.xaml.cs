@@ -27,9 +27,9 @@ namespace TraderForPoe.WPF.Windows
 
             if (openFileDialog.ShowDialog() != true) return;
 
-            txt_PathToClientTxt.Text = openFileDialog.FileName;
-            txt_PathToClientTxt.Focus();
-            txt_PathToClientTxt.CaretIndex = txt_PathToClientTxt.Text.Length;
+            TxtPathToClientTxt.Text = openFileDialog.FileName;
+            TxtPathToClientTxt.Focus();
+            TxtPathToClientTxt.CaretIndex = TxtPathToClientTxt.Text.Length;
         }
 
     }

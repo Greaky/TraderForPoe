@@ -12,7 +12,9 @@ namespace TraderForPoe.WPF.ViewModel.NotifyIcon
 {
     public class NotifyIconViewModel : ViewModelBase, INotifyIconViewModel
     {
+
         #region Fields
+        private readonly IWpfResourceLocator _wpfResourceLocator;
 
 
         #endregion Fields
@@ -21,6 +23,7 @@ namespace TraderForPoe.WPF.ViewModel.NotifyIcon
 
         public NotifyIconViewModel(IWindowViewLoaderService loaderService, IWpfResourceLocator wpfResourceLocator)
         {
+            _wpfResourceLocator = wpfResourceLocator;
             CmdHistory = new RelayCommand(() => loaderService.ShowSingle(typeof(ITradeHistoryViewModel)));
 
             CmdLog = new RelayCommand(() => loaderService.Show(typeof(ILogMonitorViewModel)));
@@ -33,7 +36,7 @@ namespace TraderForPoe.WPF.ViewModel.NotifyIcon
 
             CmdAbout = new RelayCommand(() => loaderService.ShowSingle(typeof(IAboutViewModel)));
 
-            CmdQuit = new RelayCommand(() => wpfResourceLocator.Shutdown());
+            CmdQuit = new RelayCommand(wpfResourceLocator.Shutdown);
 
         }
 
@@ -69,7 +72,7 @@ namespace TraderForPoe.WPF.ViewModel.NotifyIcon
         private void RestartApp()
         {
             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-            Application.Current.Shutdown();
+            _wpfResourceLocator.Shutdown();
         }
 
         #endregion Methods

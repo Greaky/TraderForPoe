@@ -12,7 +12,7 @@ namespace TraderForPoe.WPF.Controls
         {
             InitializeComponent();
             GetTItem = tItemArgs;
-            txt_StashName.Text = GetTItem.Stash;
+            TxtStashName.Text = GetTItem.Stash;
         }
 
         public TradeObject GetTItem { get; set; }

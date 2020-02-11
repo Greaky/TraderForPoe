@@ -10,6 +10,10 @@ namespace TraderForPoe.WPF.ViewModel.TradeHistory
 {
     public class TradeHistoryViewModel : ViewModelBase,  ITradeHistoryViewModel
     {
+
+        public RelayCommand CmdTestObject { get; }
+        public RelayCommand CmdClear { get; }
+
         public ObservableCollection<TradeObject> TradeObjectsList { get; set; } = TradeObject.TradeObjectList;
 
         public TradeHistoryViewModel()
@@ -23,8 +27,6 @@ namespace TraderForPoe.WPF.ViewModel.TradeHistory
             var tradeObject = new TradeObject("@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed for 1 jewellers in Bestiary (stash tab \"~b / o 0 alt\"; position: left 23, top 8)");
         }
 
-        public RelayCommand CmdTestObject { get; }
-        public RelayCommand CmdClear { get; }
     }
 
     public class UriToBitmapConverter : IValueConverter
@@ -32,10 +34,7 @@ namespace TraderForPoe.WPF.ViewModel.TradeHistory
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                return value;
-
-            return new BitmapImage(new Uri(value as string ?? throw new InvalidOperationException())); ;
+            return value == null ? null : new BitmapImage(new Uri(value as string ?? throw new InvalidOperationException()));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

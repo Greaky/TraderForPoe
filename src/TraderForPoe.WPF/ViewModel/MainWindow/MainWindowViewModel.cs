@@ -3,6 +3,7 @@ using TraderForPoe.Core.Loader;
 using TraderForPoe.Core.Reader;
 using TraderForPoe.Input.Clipboard;
 using TraderForPoe.WPF.Classes;
+using TraderForPoe.WPF.Controls;
 using TraderForPoe.WPF.Properties;
 using TraderForPoe.WPF.ViewModel.Base;
 
@@ -29,6 +30,12 @@ namespace TraderForPoe.WPF.ViewModel.MainWindow
             _viewLoaderService = viewLoaderService;
             SubscribeToEvents();
             SetUpStashGrid();
+
+            var tradeObject = new TradeObject("@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed for 1 jewellers in Bestiary (stash tab \"~b / o 0 alt\"; position: left 23, top 8)");
+            var tradeObjectViewModel = new TradeObjectViewModel(tradeObject);
+            TradeObjects.Add(tradeObjectViewModel);
+
+
         }
 
         #endregion Constructors
