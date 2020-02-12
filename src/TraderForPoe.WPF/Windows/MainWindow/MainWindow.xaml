@@ -314,18 +314,20 @@
                                         </Button>
                                     </WrapPanel>
                                     <!--<StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-                                         <Button Margin="5,0,0,0" HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource inlineStyle}">
+                                         <Button Margin="5,0,0,0" HorizontalAlignment="Left" Cursor="Hand" Style="{DynamicResource InlineStyle}">
                                          <TextBlock>Delve</TextBlock>
                                          </Button>
-                                         </StackPanel>-->
+                                    </StackPanel>-->
 
                                     <Border Padding="3,2,3,2" BorderThickness="1" BorderBrush="OrangeRed" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1" HorizontalAlignment="Right" VerticalAlignment="Center">
                                         <WrapPanel Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1" HorizontalAlignment="Right" VerticalAlignment="Center">
                                             <TextBlock TextWrapping="Wrap" Foreground="OrangeRed" FontWeight="Bold" FontSize="15" VerticalAlignment="Stretch" Margin="0,0,3,0">
-                                                <Run Text="▲ 256"/>
+                                                <Run Text="▲"/>
+                                                <Run Text=" "/>
+                                                <Run Text="{Binding AmountPrice, Mode=OneWay}"/>
                                                 <Run Text="x"/>
                                             </TextBlock>
-                                            <Image Source="pack://application:,,,/Resources/Currency/curr_ex.png" MaxHeight="20" RenderOptions.BitmapScalingMode="HighQuality" />
+                                            <Image Source="{Binding Image, Mode=OneWay}" MaxHeight="20" RenderOptions.BitmapScalingMode="HighQuality" />
                                         </WrapPanel>
                                     </Border>
 
