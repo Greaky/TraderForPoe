@@ -33,6 +33,9 @@ namespace TraderForPoe.WPF.ViewModel.MainWindow
 
             var tradeObject = new TradeObject("@To Labooooooo: Hi, I would like to buy your Cybil's Paw Thresher Claw listed for 8 jewellers in Bestiary (stash tab \"~b / o 0 alt\"; position: left 23, top 8)");
             var tradeObjectViewModel = new TradeObjectViewModel(tradeObject);
+            //CustomTestCtrl uc = new CustomTestCtrl(tradeObject);
+            //stk_MainPnl.Children.Add(uc);
+
             TradeObjects.Add(tradeObjectViewModel);
 
 

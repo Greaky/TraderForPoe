@@ -4,8 +4,11 @@
         Title="Settings" Height="315" Width="650"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
-        >
-
+        xmlns:userSetting="clr-namespace:TraderForPoe.WPF.ViewModel.UserSettings"
+>
+    <Window.DataContext>
+        <x:Type Type="userSetting:UserSettingsViewModel" />
+    </Window.DataContext>
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="MinWidth" Value="70"/>

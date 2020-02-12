@@ -235,7 +235,7 @@
 
             <TabControl Grid.Row="0" BorderThickness="0" Name="MainTabControl" Background="#FF23272B" Padding="1" 
                         Template="{DynamicResource TabControlControlTemplate1}" IsSynchronizedWithCurrentItem="True"
-                        ItemsSource="{Binding TradeObjects}">
+                        >
                 <TabControl.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
@@ -247,7 +247,6 @@
                 </TabControl.ItemTemplate>
                 <TabControl.ContentTemplate>
                     <DataTemplate DataType="viewModel:TradeObjectViewModel">
-
                         <StackPanel>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -388,9 +387,12 @@
                         </StackPanel>
 
                     </DataTemplate>
+                    
+
                 </TabControl.ContentTemplate>
 
                 <!--<TabItem Header="Test"></TabItem>-->
+                
             </TabControl>
 
         </Grid>
